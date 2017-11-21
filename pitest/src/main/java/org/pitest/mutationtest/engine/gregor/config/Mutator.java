@@ -34,6 +34,7 @@ import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.mutators.ArgumentPropagationMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.ConditionalsBoundaryMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.ConstructorCallMutator;
+import org.pitest.mutationtest.engine.gregor.mutators.Greenwald_Augmentation.*;
 import org.pitest.mutationtest.engine.gregor.mutators.IncrementsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.InlineConstantMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.InvertNegsMutator;
@@ -55,71 +56,159 @@ public final class Mutator {
 
   static {
 
-    /**
+    //START Greenwald_Augmentation Mutators
+
+    /*
+     * Greenwald_Augmentation Mutator that adds negations of integer and floating
+     * point numbers
+     */
+    add("ABS_Mutator", ABSMutator.ABS_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces AND with OR and OR with AND
+     */
+    add("OBBN_Mutator", OBBNMutator.OBBN_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that removes the first operator of +, -, *, /, and %
+     * on int, long, float, and double
+     */
+    add("AOD_FIRST_Mutator", AODFirstMutator.AOD_FIRST_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that removes the first operator of +, -, *, /, and %
+     * on int, long, float, and double
+     */
+    add("AOD_SECOND_Mutator", AODSecondMutator.AOD_SECOND_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Relational Operators with "=="
+     */
+    add("ROR_EQUAL_Mutator", ROREqualMutator.ROR_EQUAL_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Relational Operators with "!="
+     */
+    add("ROR_NOT_EQUAL_Mutator", RORNotEqualMutator.ROR_NOT_EQUAL_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Relational Operators with "<="
+     */
+    add("ROR_LESS_THAN_OR_EQUAL_Mutator", RORLessThanOrEqualMutator.ROR_LESS_THAN_OR_EQUAL_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Relational Operators with ">="
+     */
+    add("ROR_GREATER_THAN_OR_EQUAL_Mutator", RORGreaterThanOrEqualMutator.ROR_GREATER_THAN_OR_EQUAL_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Relational Operators with ">"
+     */
+    add("ROR_GREATER_THAN_Mutator", RORGreaterThanMutator.ROR_GREATER_THAN_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Relational Operators with "<"
+     */
+    add("ROR_LESS_THAN_Mutator", RORLessThanMutator.ROR_LESS_THAN_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Arithmetic Operations with "+"
+     */
+    add("AOR_ADD_Mutator", AORAddMutator.AOR_ADD_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Arithmetic Operations with "-"
+     */
+    add("AOR_SUB_Mutator", AORSubMutator.AOR_SUB_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Arithmetic Operations with "*"
+     */
+    add("AOR_MUL_Mutator", AORMulMutator.AOR_MUL_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Arithmetic Operations with "/"
+     */
+    add("AOR_DIV_Mutator", AORDivMutator.AOR_DIV_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces all Arithmetic Operations with "%"
+     */
+    add("AOR_MOD_Mutator", AORModMutator.AOR_MOD_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces variables (a) with either
+     * 1, 0, -a, a+1, or a-1,
+     */
+    add("CRCR_RANDOM_Mutator", new CRCRRandomMutator());
+
+    //START Default Mutators
+
+    /*
      * Default mutator that inverts the negation of integer and floating point
      * numbers.
      */
     add("INVERT_NEGS", InvertNegsMutator.INVERT_NEGS_MUTATOR);
 
-    /**
+    /*
      * Default mutator that mutates the return values of methods.
      */
     add("RETURN_VALS", ReturnValsMutator.RETURN_VALS_MUTATOR);
 
-    /**
+    /*
      * Optional mutator that mutates integer and floating point inline
      * constants.
      */
     add("INLINE_CONSTS", new InlineConstantMutator());
 
-    /**
+    /*
      * Default mutator that mutates binary arithmetic operations.
      */
     add("MATH", MathMutator.MATH_MUTATOR);
 
-    /**
+    /*
      * Default mutator that removes method calls to void methods.
      *
      */
     add("VOID_METHOD_CALLS", VoidMethodCallMutator.VOID_METHOD_CALL_MUTATOR);
 
-    /**
+    /*
      * Default mutator that negates conditionals.
      */
     add("NEGATE_CONDITIONALS",
         NegateConditionalsMutator.NEGATE_CONDITIONALS_MUTATOR);
 
-    /**
+    /*
      * Default mutator that replaces the relational operators with their
      * boundary counterpart.
      */
     add("CONDITIONALS_BOUNDARY",
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR);
 
-    /**
+    /*
      * Default mutator that mutates increments, decrements and assignment
      * increments and decrements of local variables.
      */
     add("INCREMENTS", IncrementsMutator.INCREMENTS_MUTATOR);
 
-    /**
+    /*
      * Optional mutator that removes local variable increments.
      */
 
     add("REMOVE_INCREMENTS", RemoveIncrementsMutator.REMOVE_INCREMENTS_MUTATOR);
 
-    /**
+    /*
      * Optional mutator that removes method calls to non void methods.
      */
     add("NON_VOID_METHOD_CALLS",
         NonVoidMethodCallMutator.NON_VOID_METHOD_CALL_MUTATOR);
 
-    /**
+    /*
      * Optional mutator that replaces constructor calls with null values.
      */
     add("CONSTRUCTOR_CALLS", ConstructorCallMutator.CONSTRUCTOR_CALL_MUTATOR);
 
-    /**
+    /*
      * Removes conditional statements so that guarded statements always execute
      * The EQUAL version ignores LT,LE,GT,GE, which is the default behavior,
      * ORDER version mutates only those.
@@ -135,26 +224,26 @@ public final class Mutator {
         Choice.ORDER, false));
     addGroup("REMOVE_CONDITIONALS", RemoveConditionalMutator.makeMutators());
 
-    /**
+    /*
      * Experimental mutator that removed assignments to member variables.
      */
     add("EXPERIMENTAL_MEMBER_VARIABLE",
         new org.pitest.mutationtest.engine.gregor.mutators.experimental.MemberVariableMutator());
 
-    /**
+    /*
      * Experimental mutator that swaps labels in switch statements
      */
     add("EXPERIMENTAL_SWITCH",
         new org.pitest.mutationtest.engine.gregor.mutators.experimental.SwitchMutator());
 
-    /**
+    /*
      * Experimental mutator that replaces method call with one of its parameters
      * of matching type
      */
     add("EXPERIMENTAL_ARGUMENT_PROPAGATION",
         ArgumentPropagationMutator.ARGUMENT_PROPAGATION_MUTATOR);
 
-    /**
+    /*
      * Experimental mutator that replaces method call with this
      */
     add("EXPERIMENTAL_NAKED_RECEIVER", NakedReceiverMutator.NAKED_RECEIVER);

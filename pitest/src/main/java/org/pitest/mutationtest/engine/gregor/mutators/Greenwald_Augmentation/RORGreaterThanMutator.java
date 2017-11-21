@@ -1,6 +1,7 @@
-/**
+/*
+ * Kevin Greenwald
  *
- * ROR Greater Than Mutator:
+ * ROR Greater Than Mutator -
  *    Mutator that replaces every relational operator with ">"
  */
 
@@ -18,11 +19,11 @@ import java.util.Map;
 
 public enum RORGreaterThanMutator implements MethodMutatorFactory {
 
-    ROR_GREATER_THAN_OR_EQUAL_MUTATOR;
+    ROR_GREATER_THAN_MUTATOR;
 
     @Override
     public MethodVisitor create(final MutationContext context, final MethodInfo methodInfo, final MethodVisitor methodVisitor) {
-        return new RORGreaterThanOrEqualMethodVisitor(this, context, methodVisitor);
+        return new RORGreaterThanMethodVisitor(this, context, methodVisitor);
     }
 
     @Override
@@ -36,28 +37,27 @@ public enum RORGreaterThanMutator implements MethodMutatorFactory {
     }
 }
 
-class RORGreaterThanOrEqualMethodVisitor extends AbstractJumpMutator {
+class RORGreaterThanMethodVisitor extends AbstractJumpMutator {
 
-    private static final String                     DESCRIPTION = "ROR - Replaced Relational Operator with \">=\"";
     private static final Map<Integer, Substitution> MUTATIONS   = new HashMap<Integer, Substitution>();
 
     static {
-        MUTATIONS.put(Opcodes.IFEQ, new Substitution(Opcodes.IFGE, DESCRIPTION)); // Compare to 0: replace "==" with ">="
-        MUTATIONS.put(Opcodes.IFNE, new Substitution(Opcodes.IFGE, DESCRIPTION));   // Compare to 0: replace "!=" with ">="
-        MUTATIONS.put(Opcodes.IFLE, new Substitution(Opcodes.IFGE, DESCRIPTION));   // Compare to 0: replace "<=" with ">="
-        //MUTATIONS.put(Opcodes.IFGE, new Substitution(Opcodes.IFGE, DESCRIPTION));   // Compare to 0: replace ">=" with ">="
-        MUTATIONS.put(Opcodes.IFGT, new Substitution(Opcodes.IFGE, DESCRIPTION));   // Compare to 0: replace ">" with ">="
-        MUTATIONS.put(Opcodes.IFLT, new Substitution(Opcodes.IFGE, DESCRIPTION));   // Compare to 0: replace "<" with ">="
+        MUTATIONS.put(Opcodes.IFEQ, new Substitution(Opcodes.IFLE, "ROR - Replaced \"IFEQ\" with \"IFLE\" (\"!=\" -> \">\")"));
+        MUTATIONS.put(Opcodes.IFNE, new Substitution(Opcodes.IFLE, "ROR - Replaced \"IFNE\" with \"IFLE\" (\"==\" -> \">\")"));
+        //MUTATIONS.put(Opcodes.IFLE, new Substitution(Opcodes.IFLE, "ROR - Replaced \"IFLE\" with \"IFLE\" (\">\" -> \">\")"));
+        MUTATIONS.put(Opcodes.IFGE, new Substitution(Opcodes.IFLE, "ROR - Replaced \"IFGE\" with \"IFLE\" (\"<\" -> \">\")"));
+        MUTATIONS.put(Opcodes.IFGT, new Substitution(Opcodes.IFLE, "ROR - Replaced \"IFGT\" with \"IFLE\" (\"<=\" -> \">\")"));
+        MUTATIONS.put(Opcodes.IFLT, new Substitution(Opcodes.IFLE, "ROR - Replaced \"IFLT\" with \"IFLE\" (\">=\" -> \">\")"));
 
-        MUTATIONS.put(Opcodes.IF_ICMPEQ, new Substitution(Opcodes.IF_ICMPGE, DESCRIPTION)); //Compare 2: replace "==" with ">="
-        MUTATIONS.put(Opcodes.IF_ICMPNE, new Substitution(Opcodes.IF_ICMPGE, DESCRIPTION));   //Compare 2: replace "!=" with ">="
-        MUTATIONS.put(Opcodes.IF_ICMPLE, new Substitution(Opcodes.IF_ICMPGE, DESCRIPTION));   //Compare 2: replace "<=" with ">="
-        //MUTATIONS.put(Opcodes.IF_ICMPGE, new Substitution(Opcodes.IF_ICMPGE, DESCRIPTION));   //Compare 2: replace ">=" with ">="
-        MUTATIONS.put(Opcodes.IF_ICMPGT, new Substitution(Opcodes.IF_ICMPGE, DESCRIPTION));   //Compare 2: replace ">" with ">="
-        MUTATIONS.put(Opcodes.IF_ICMPLT, new Substitution(Opcodes.IF_ICMPGE, DESCRIPTION));   //Compare 2: replace "<" with ">="
+        MUTATIONS.put(Opcodes.IF_ICMPEQ, new Substitution(Opcodes.IF_ICMPLE, "ROR - Replaced \"IF_ICMPEQ\" with \"IF_ICMPLE\" (\"==\" -> \">\")"));
+        MUTATIONS.put(Opcodes.IF_ICMPNE, new Substitution(Opcodes.IF_ICMPLE, "ROR - Replaced \"IF_ICMPNE\" with \"IF_ICMPLE\" (\"==\" -> \">\")"));
+        //MUTATIONS.put(Opcodes.IF_ICMPLE, new Substitution(Opcodes.IF_ICMPLE, "ROR - Replaced \"IF_ICMPLE\" with \"IF_ICMPLE\" (\">\" -> \">\")"));
+        MUTATIONS.put(Opcodes.IF_ICMPGE, new Substitution(Opcodes.IF_ICMPLE, "ROR - Replaced \"IF_ICMPGE\" with \"IF_ICMPLE\" (\"<\" -> \">\")"));
+        MUTATIONS.put(Opcodes.IF_ICMPGT, new Substitution(Opcodes.IF_ICMPLE, "ROR - Replaced \"IF_ICMPGT\" with \"IF_ICMPLE\" (\"<=\" -> \">\")"));
+        MUTATIONS.put(Opcodes.IF_ICMPLT, new Substitution(Opcodes.IF_ICMPLE, "ROR - Replaced \"IF_ICMPLT\" with \"IF_ICMPLE\" (\">=\" -> \">\")"));
     }
 
-    RORGreaterThanOrEqualMethodVisitor(final MethodMutatorFactory factory, final MutationContext context, final MethodVisitor delegateMethodVisitor) {
+    RORGreaterThanMethodVisitor(final MethodMutatorFactory factory, final MutationContext context, final MethodVisitor delegateMethodVisitor) {
         super(factory, context, delegateMethodVisitor);
     }
 
