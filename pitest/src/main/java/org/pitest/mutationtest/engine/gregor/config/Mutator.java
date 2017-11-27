@@ -142,6 +142,16 @@ public final class Mutator {
      */
     add("CRCR_RANDOM_Mutator", new CRCRRandomMutator());
 
+    /*
+     * Greenwald_Augmentation Mutator that removes unary operators and adds ++ operators
+     */
+    add("UOI_PLUS_Mutator", UOIPlusMutator.UOI_PLUS_MUTATOR);
+
+    /*
+     * Greenwald_Augmentation Mutator that does NOT remove unary operators but DOES add -- operators
+     */
+    add("UOI_MINUS_Mutator", UOIMinusMutator.UOI_MINUS_MUTATOR);
+
     //START Default Mutators
 
     /*
