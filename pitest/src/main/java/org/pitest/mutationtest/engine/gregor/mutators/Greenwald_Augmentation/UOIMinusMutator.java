@@ -53,7 +53,8 @@ class UOIMinusMutatorMethodVisitor extends MethodVisitor {
 
             if (this.context.shouldMutate(newId)) {
                 this.mv.visitIntInsn(Opcodes.ILOAD, var);
-                this.mv.visitIntInsn(Opcodes.BIPUSH, Opcodes.ICONST_M1);
+                //this.mv.visitIntInsn(Opcodes.BIPUSH, -1);
+                this.mv.visitInsn(Opcodes.ICONST_M1);
                 this.mv.visitInsn(Opcodes.IADD);
                 this.mv.visitVarInsn(Opcodes.ISTORE, var);
                 super.visitVarInsn(opcode, var);
