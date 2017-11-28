@@ -183,7 +183,7 @@ public class CRCRRandomMutator implements MethodMutatorFactory {
 
         private <T extends Number> boolean shouldMutate(final T constant, final T replacement) {
             final MutationIdentifier mutationId = this.context.registerMutation(
-                    CRCRRandomMutator.this, "Substituted " + constant + " with " + replacement);
+                    CRCRRandomMutator.this, "CRCR - Substituted " + constant + " with " + replacement);
 
             return this.context.shouldMutate(mutationId);
         }

@@ -44,12 +44,12 @@ class OBBNMethodVisitor extends AbstractInsnMutator {
 
     static {
         //Ints
-        MUTATIONS.put(Opcodes.IOR, new InsnSubstitution(Opcodes.IAND,"Replaced Integer OR with AND"));
-        MUTATIONS.put(Opcodes.IAND, new InsnSubstitution(Opcodes.IOR,"Replaced Integer AND with OR"));
+        MUTATIONS.put(Opcodes.IOR, new InsnSubstitution(Opcodes.IAND,"OBBN - Replaced Integer OR with AND"));
+        MUTATIONS.put(Opcodes.IAND, new InsnSubstitution(Opcodes.IOR,"OBBN - Replaced Integer AND with OR"));
 
         //Longs
-        MUTATIONS.put(Opcodes.LOR, new InsnSubstitution(Opcodes.LAND,"Replaced Long OR with AND"));
-        MUTATIONS.put(Opcodes.LAND, new InsnSubstitution(Opcodes.LOR,"Replaced Long AND with OR"));
+        MUTATIONS.put(Opcodes.LOR, new InsnSubstitution(Opcodes.LAND,"OBBN - Replaced Long OR with AND"));
+        MUTATIONS.put(Opcodes.LAND, new InsnSubstitution(Opcodes.LOR,"OBBN - Replaced Long AND with OR"));
     }
 
     @Override
