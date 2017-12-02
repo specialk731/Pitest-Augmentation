@@ -1,0 +1,664 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>SimpleFlowStepStrategyFactory.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2012 LiveRamp</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.liveramp.cascading_ext.flow_step_strategy;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import cascading.flow.FlowStepStrategy;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.hadoop.mapred.JobConf;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author eddie</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class SimpleFlowStepStrategyFactory implements FlowStepStrategyFactory&#60;JobConf&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final Class&#60;? extends FlowStepStrategy&#60;JobConf&#62;&#62; klass;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_28'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public SimpleFlowStepStrategyFactory(Class&#60;? extends FlowStepStrategy&#60;JobConf&#62;&#62; klass) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_29'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.klass = klass;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_30'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public FlowStepStrategy&#60;JobConf&#62; getFlowStepStrategy() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_35'/>
+35
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_35'>1</a>
+<span>
+1. getFlowStepStrategy : mutated return of Object value for com/liveramp/cascading_ext/flow_step_strategy/SimpleFlowStepStrategyFactory::getFlowStepStrategy to ( if (x != null) null else throw new RuntimeException ) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      return klass.newInstance();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_36'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    } catch (Exception e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_37'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      throw new RuntimeException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6aa66b33_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6aa66b33_35'>35</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6aa66b33_35'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFlowStepStrategy<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/liveramp/cascading_ext/flow_step_strategy/SimpleFlowStepStrategyFactory::getFlowStepStrategy to ( if (x != null) null else throw new RuntimeException ) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.liveramp.cascading_ext.tap.TestNullTap.testMultiFlow(com.liveramp.cascading_ext.tap.TestNullTap) (76 ms)</li><li>com.liveramp.cascading_ext.joiner.TestLimitJoin.checkLimits(com.liveramp.cascading_ext.joiner.TestLimitJoin) (349 ms)</li><li>com.liveramp.cascading_ext.assembly.TestCreateBloomFilter.testSingle(com.liveramp.cascading_ext.assembly.TestCreateBloomFilter) (1475 ms)</li><li>com.liveramp.cascading_ext.combiner.TestCombiner.testComplexCombiner(com.liveramp.cascading_ext.combiner.TestCombiner) (321 ms)</li><li>com.liveramp.cascading_ext.assembly.TestIncrement.run(com.liveramp.cascading_ext.assembly.TestIncrement) (200 ms)</li><li>com.liveramp.cascading_ext.combiner.TestCombiner.testSimpleCombinerWithMemoryLimit(com.liveramp.cascading_ext.combiner.TestCombiner) (217 ms)</li><li>com.liveramp.cascading_ext.combiner.TestCountExactAggregator.testMain(com.liveramp.cascading_ext.combiner.TestCountExactAggregator) (268 ms)</li><li>com.liveramp.cascading_ext.operation.TestFilterStats.run(com.liveramp.cascading_ext.operation.TestFilterStats) (148 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testExact(com.liveramp.cascading_ext.assembly.TestBloomFilter) (14431 ms)</li><li>com.liveramp.cascading_ext.tap.TestNullTap.testFlow(com.liveramp.cascading_ext.tap.TestNullTap) (163 ms)</li><li>com.liveramp.cascading_ext.operation.TestBufferStats.run(com.liveramp.cascading_ext.operation.TestBufferStats) (234 ms)</li><li>com.liveramp.cascading_ext.combiner.TestMultiCombiner.testMultiCombiner(com.liveramp.cascading_ext.combiner.TestMultiCombiner) (966 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter) (5521 ms)</li><li>com.liveramp.cascading_ext.operation.TestBatchFunction.testFunc(com.liveramp.cascading_ext.operation.TestBatchFunction) (192 ms)</li><li>com.liveramp.cascading_ext.assembly.TestRenameInPlace.testIt(com.liveramp.cascading_ext.assembly.TestRenameInPlace) (244 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testRightJoinLargeRHS(com.liveramp.cascading_ext.assembly.TestBloomJoin) (390 ms)</li><li>com.liveramp.cascading_ext.combiner.TestMultiCombiner.testMultiCombinerSingleTail(com.liveramp.cascading_ext.combiner.TestMultiCombiner) (262 ms)</li><li>com.liveramp.cascading_ext.combiner.TestCombiner.testSimpleCombiner(com.liveramp.cascading_ext.combiner.TestCombiner) (303 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testSingle(com.liveramp.cascading_ext.assembly.TestBloomJoin) (10508 ms)</li><li>com.liveramp.cascading_ext.assembly.TestMultiGroupBy.testSimple2(com.liveramp.cascading_ext.assembly.TestMultiGroupBy) (338 ms)</li><li>com.liveramp.cascading_ext.operation.TestFunctionStats.run(com.liveramp.cascading_ext.operation.TestFunctionStats) (179 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testSwapped(com.liveramp.cascading_ext.assembly.TestBloomFilter) (9537 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testIt(com.liveramp.cascading_ext.assembly.TestBloomJoin) (42076 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testLeftJoinLargeLHS(com.liveramp.cascading_ext.assembly.TestBloomJoin) (352 ms)</li><li>com.liveramp.cascading_ext.operation.TestAggregatorStats.run(com.liveramp.cascading_ext.operation.TestAggregatorStats) (251 ms)</li><li>com.liveramp.cascading_ext.assembly.TestIncrementForFieldValues.run(com.liveramp.cascading_ext.assembly.TestIncrementForFieldValues) (198 ms)</li><li>com.liveramp.cascading_ext.assembly.TestMultiGroupBy.testSimple(com.liveramp.cascading_ext.assembly.TestMultiGroupBy) (346 ms)</li><li>com.liveramp.cascading_ext.assembly.TestEachStats.run(com.liveramp.cascading_ext.assembly.TestEachStats) (206 ms)</li><li>com.liveramp.cascading_ext.counters.TestCounters.testBlackHoleWarning(com.liveramp.cascading_ext.counters.TestCounters) (463 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testNumHashes2(com.liveramp.cascading_ext.assembly.TestBloomFilter) (9838 ms)</li><li>com.liveramp.cascading_ext.assembly.TestEveryStats.run(com.liveramp.cascading_ext.assembly.TestEveryStats) (260 ms)</li><li>com.liveramp.cascading_ext.assembly.TestMultiGroupBy.testSimple3(com.liveramp.cascading_ext.assembly.TestMultiGroupBy) (378 ms)</li><li>com.liveramp.cascading_ext.assembly.TestIncrementForFieldValues.runMultiValue(com.liveramp.cascading_ext.assembly.TestIncrementForFieldValues) (178 ms)</li><li>com.liveramp.cascading_ext.combiner.TestSumExactAggregator.testMain(com.liveramp.cascading_ext.combiner.TestSumExactAggregator) (260 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testNumHashes(com.liveramp.cascading_ext.assembly.TestBloomFilter) (10131 ms)</li><li>com.liveramp.cascading_ext.combiner.TestMultiExactAggregator.testMain(com.liveramp.cascading_ext.combiner.TestMultiExactAggregator) (273 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

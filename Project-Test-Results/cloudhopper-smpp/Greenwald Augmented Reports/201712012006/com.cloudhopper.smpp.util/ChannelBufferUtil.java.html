@@ -1,0 +1,3172 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>ChannelBufferUtil.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.cloudhopper.smpp.util;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * #%L</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ch-smpp</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * %%</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (C) 2009 - 2015 Cloudhopper by Twitter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * %%</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * #L%</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.cloudhopper.smpp.SmppConstants;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.cloudhopper.smpp.type.Address;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.cloudhopper.smpp.type.NotEnoughDataInBufferException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.cloudhopper.smpp.type.RecoverablePduException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.cloudhopper.smpp.type.TerminatingNullByteNotFoundException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.cloudhopper.smpp.type.UnrecoverablePduException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.cloudhopper.smpp.tlv.Tlv;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.UnsupportedEncodingException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jboss.netty.buffer.ChannelBuffer;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.slf4j.Logger;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.slf4j.LoggerFactory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author joelauer (twitter: @jjlauer or &#60;a href=&#34;http://twitter.com/jjlauer&#34; target=window&#62;http://twitter.com/jjlauer&#60;/a&#62;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_39'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>public class ChannelBufferUtil {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_40'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private static final Logger logger = LoggerFactory.getLogger(ChannelBufferUtil.class);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Read and create a new Address from a buffer.  Checks if there is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * a minimum number of bytes readable from the buffer.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param buffer</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UnrecoverablePduEncodingException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws RecoverablePduEncodingException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static public Address readAddress(ChannelBuffer buffer) throws UnrecoverablePduException, RecoverablePduException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // an address is at least 3 bytes long (ton, npi, and null byte)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_52'/>
+52
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_52'>10</a>
+<span>
+1. readAddress : CRCR - Substituted 3 with 2 &rarr; TIMED_OUT<br/>
+2. readAddress : CRCR - Substituted 3 with -3 &rarr; KILLED<br/>
+3. readAddress : CRCR - Substituted 3 with 1 &rarr; KILLED<br/>
+4. readAddress : CRCR - Substituted 3 with 4 &rarr; KILLED<br/>
+5. readAddress : CRCR - Substituted 3 with 0 &rarr; KILLED<br/>
+6. readAddress : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+7. readAddress : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+8. readAddress : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+9. readAddress : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+10. readAddress : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (buffer.readableBytes() &#60; 3) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_53'/>
+53
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_53'>5</a>
+<span>
+1. readAddress : CRCR - Substituted 3 with 2 &rarr; NO_COVERAGE<br/>
+2. readAddress : CRCR - Substituted 3 with -3 &rarr; NO_COVERAGE<br/>
+3. readAddress : CRCR - Substituted 3 with 1 &rarr; NO_COVERAGE<br/>
+4. readAddress : CRCR - Substituted 3 with 4 &rarr; NO_COVERAGE<br/>
+5. readAddress : CRCR - Substituted 3 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new NotEnoughDataInBufferException(&#34;Parsing address&#34;, buffer.readableBytes(), 3);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Address address = new Address();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_56'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        address.read(buffer);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return address;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Writes an address to a buffer.  If the address is null, this method will</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * safely write out the SmppConstants.EMPTY_ADDRESS instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param buffer</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param value</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UnrecoverablePduEncodingException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws RecoverablePduEncodingException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static public void writeAddress(ChannelBuffer buffer, Address value) throws UnrecoverablePduException, RecoverablePduException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (value == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_70'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            SmppConstants.EMPTY_ADDRESS.write(buffer);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            value.write(buffer);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Reads a TLV from a buffer. This method is greedy and will read bytes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * even if it won&#39;t be able to successfully complete.  It&#39;s assumed this</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * method will only be called if its known ahead of time that all bytes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * will be available ahead of time.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param buffer The buffer to read from</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return A new TLV instance</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NotEnoughDataInBufferException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static public Tlv readTlv(ChannelBuffer buffer) throws NotEnoughDataInBufferException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // a TLV is at least 4 bytes (tag+length)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_88'/>
+88
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_88'>10</a>
+<span>
+1. readTlv : CRCR - Substituted 4 with 1 &rarr; TIMED_OUT<br/>
+2. readTlv : CRCR - Substituted 4 with 0 &rarr; TIMED_OUT<br/>
+3. readTlv : CRCR - Substituted 4 with 3 &rarr; KILLED<br/>
+4. readTlv : CRCR - Substituted 4 with -4 &rarr; KILLED<br/>
+5. readTlv : CRCR - Substituted 4 with 5 &rarr; KILLED<br/>
+6. readTlv : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+7. readTlv : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+8. readTlv : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+9. readTlv : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+10. readTlv : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (buffer.readableBytes() &#60; 4) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_89'/>
+89
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_89'>5</a>
+<span>
+1. readTlv : CRCR - Substituted 4 with 3 &rarr; NO_COVERAGE<br/>
+2. readTlv : CRCR - Substituted 4 with -4 &rarr; NO_COVERAGE<br/>
+3. readTlv : CRCR - Substituted 4 with 1 &rarr; NO_COVERAGE<br/>
+4. readTlv : CRCR - Substituted 4 with 5 &rarr; NO_COVERAGE<br/>
+5. readTlv : CRCR - Substituted 4 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new NotEnoughDataInBufferException(&#34;Parsing TLV tag and length&#34;, buffer.readableBytes(), 4);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_92'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        short tag = buffer.readShort();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_93'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int length = buffer.readUnsignedShort();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // check if we have enough data for the TLV</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_96'>8</a>
+<span>
+1. readTlv : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. readTlv : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+3. readTlv : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+4. readTlv : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+5. readTlv : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+6. readTlv : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+7. readTlv : UOI - Decremented int variable &rarr; KILLED<br/>
+8. readTlv : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (buffer.readableBytes() &#60; length) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_97'/>
+97
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_97'>3</a>
+<span>
+1. readTlv : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. readTlv : UOI - Decremented int variable &rarr; SURVIVED<br/>
+3. readTlv : UOI - Incremented int variable &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            throw new NotEnoughDataInBufferException(&#34;Parsing TLV value&#34;, buffer.readableBytes(), length);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_100'/>
+100
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_100'>3</a>
+<span>
+1. readTlv : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. readTlv : UOI - Decremented int variable &rarr; KILLED<br/>
+3. readTlv : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        byte[] value = new byte[length];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_101'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        buffer.readBytes(value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_103'>3</a>
+<span>
+1. readTlv : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. readTlv : UOI - Decremented int variable &rarr; KILLED<br/>
+3. readTlv : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new Tlv(tag, value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static public void writeTlv(ChannelBuffer buffer, Tlv tlv) throws NotEnoughDataInBufferException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // a null is a noop</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_108'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (tlv == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_109'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_111'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        buffer.writeShort(tlv.getTag());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_112'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        buffer.writeShort(tlv.getLength());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_113'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (tlv.getValue() != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_114'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            buffer.writeBytes(tlv.getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_116'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Writes a C-String (null terminated) to a buffer.  If the String is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * this method will only write out the NULL byte (0x00) to the buffer.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param buffer</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param value</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UnsupportedEncodingException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static public void writeNullTerminatedString(ChannelBuffer buffer, String value) throws UnrecoverablePduException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_126'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (value != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_128'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                byte[] bytes = value.getBytes(&#34;ISO-8859-1&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_129'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                buffer.writeBytes(bytes);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_130'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            } catch (UnsupportedEncodingException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_131'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                throw new UnrecoverablePduException(e.getMessage(), e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_132'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // always write null byte</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_135'/>
+135
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_135'>5</a>
+<span>
+1. writeNullTerminatedString : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+2. writeNullTerminatedString : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+3. writeNullTerminatedString : CRCR - Substituted 0 with 0 &rarr; KILLED<br/>
+4. writeNullTerminatedString : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. writeNullTerminatedString : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        buffer.writeByte((byte)0x00);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_136'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Reads a C-String (null terminated) from a buffer.  This method will</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * attempt to find the null byte and read all data up to and including</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the null byte.  The returned String does not include the null byte.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Will throw an exception if no null byte is found and it runs out of data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * in the buffer to read.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param buffer</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws TerminatingNullByteNotFoundException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static public String readNullTerminatedString(ChannelBuffer buffer) throws TerminatingNullByteNotFoundException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // maximum possible length are the readable bytes in buffer</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_150'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int maxLength = buffer.readableBytes();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // if there are no readable bytes, return null</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_153'/>
+153
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_153'>8</a>
+<span>
+1. readNullTerminatedString : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+2. readNullTerminatedString : ABS - Negated integer variable  &rarr; KILLED<br/>
+3. readNullTerminatedString : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+4. readNullTerminatedString : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+5. readNullTerminatedString : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+6. readNullTerminatedString : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+7. readNullTerminatedString : UOI - Decremented int variable &rarr; KILLED<br/>
+8. readNullTerminatedString : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (maxLength == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_154'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // the reader index is defaulted to the readerIndex</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_158'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int offset = buffer.readerIndex();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_159'/>
+159
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_159'>5</a>
+<span>
+1. readNullTerminatedString : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+2. readNullTerminatedString : CRCR - Substituted 0 with 0 &rarr; KILLED<br/>
+3. readNullTerminatedString : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+4. readNullTerminatedString : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. readNullTerminatedString : CRCR - Substituted 0 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        int zeroPos = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // search for NULL byte until we hit end or find it</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_162'/>
+162
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_162'>28</a>
+<span>
+1. readNullTerminatedString : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. readNullTerminatedString : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. readNullTerminatedString : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT<br/>
+4. readNullTerminatedString : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+5. readNullTerminatedString : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+6. readNullTerminatedString : ABS - Negated integer variable  &rarr; KILLED<br/>
+7. readNullTerminatedString : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. readNullTerminatedString : AOD - Removed second operator from int add &rarr; KILLED<br/>
+9. readNullTerminatedString : AOD - Removed second operator from int add &rarr; KILLED<br/>
+10. readNullTerminatedString : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; KILLED<br/>
+11. readNullTerminatedString : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; KILLED<br/>
+12. readNullTerminatedString : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; KILLED<br/>
+13. readNullTerminatedString : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED<br/>
+14. readNullTerminatedString : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+15. readNullTerminatedString : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+16. readNullTerminatedString : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+17. readNullTerminatedString : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+18. readNullTerminatedString : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+19. readNullTerminatedString : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+20. readNullTerminatedString : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+21. readNullTerminatedString : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+22. readNullTerminatedString : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+23. readNullTerminatedString : UOI - Decremented int variable &rarr; KILLED<br/>
+24. readNullTerminatedString : UOI - Decremented int variable &rarr; KILLED<br/>
+25. readNullTerminatedString : UOI - Incremented int variable &rarr; KILLED<br/>
+26. readNullTerminatedString : UOI - Incremented int variable &rarr; KILLED<br/>
+27. readNullTerminatedString : UOI - Incremented int variable &rarr; KILLED<br/>
+28. readNullTerminatedString : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        while ((zeroPos &#60; maxLength) &#38;&#38; (buffer.getByte(zeroPos+offset) != 0x00)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_163'/>
+163
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_163'>1</a>
+<span>
+1. readNullTerminatedString : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>            zeroPos++;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_166'/>
+166
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_166'>11</a>
+<span>
+1. readNullTerminatedString : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. readNullTerminatedString : ABS - Negated integer variable  &rarr; KILLED<br/>
+3. readNullTerminatedString : ROR - Replaced &#34;IF_ICMPLT&#34; with &#34;IF_ICMPNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+4. readNullTerminatedString : ROR - Replaced &#34;IF_ICMPLT&#34; with &#34;IF_ICMPLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+5. readNullTerminatedString : ROR - Replaced &#34;IF_ICMPLT&#34; with &#34;IF_ICMPGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+6. readNullTerminatedString : ROR - Replaced &#34;IF_ICMPLT&#34; with &#34;IF_ICMPGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+7. readNullTerminatedString : ROR - Replaced &#34;IF_ICMPLT&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+8. readNullTerminatedString : UOI - Decremented int variable &rarr; KILLED<br/>
+9. readNullTerminatedString : UOI - Decremented int variable &rarr; KILLED<br/>
+10. readNullTerminatedString : UOI - Incremented int variable &rarr; KILLED<br/>
+11. readNullTerminatedString : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (zeroPos &#62;= maxLength) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // a NULL byte was not found</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_168'/>
+168
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_168'>3</a>
+<span>
+1. readNullTerminatedString : UOI - Decremented int variable &rarr; SURVIVED<br/>
+2. readNullTerminatedString : UOI - Incremented int variable &rarr; SURVIVED<br/>
+3. readNullTerminatedString : ABS - Negated integer variable  &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            throw new TerminatingNullByteNotFoundException(&#34;Terminating null byte not found after searching [&#34; + maxLength + &#34;] bytes&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // at this point, we found a terminating zero</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_172'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String result = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_173'/>
+173
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_173'>8</a>
+<span>
+1. readNullTerminatedString : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. readNullTerminatedString : ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+3. readNullTerminatedString : ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+4. readNullTerminatedString : ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. readNullTerminatedString : ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+6. readNullTerminatedString : ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+7. readNullTerminatedString : UOI - Decremented int variable &rarr; KILLED<br/>
+8. readNullTerminatedString : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (zeroPos &#62; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // read a new byte array</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_175'>3</a>
+<span>
+1. readNullTerminatedString : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. readNullTerminatedString : UOI - Decremented int variable &rarr; KILLED<br/>
+3. readNullTerminatedString : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            byte[] bytes = new byte[zeroPos];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_176'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            buffer.readBytes(bytes);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_178'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                result = new String(bytes, &#34;ISO-8859-1&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_179'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            } catch (UnsupportedEncodingException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_180'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                logger.error(&#34;Impossible error&#34;, e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_181'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_182'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_183'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            result = &#34;&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // at this point, we have just one more byte to skip over (the null byte)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_187'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        byte b = buffer.readByte();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_188'/>
+188
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_188'>8</a>
+<span>
+1. readNullTerminatedString : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+2. readNullTerminatedString : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+3. readNullTerminatedString : ABS - Negated integer variable  &rarr; KILLED<br/>
+4. readNullTerminatedString : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+5. readNullTerminatedString : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+6. readNullTerminatedString : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+7. readNullTerminatedString : UOI - Decremented int variable &rarr; KILLED<br/>
+8. readNullTerminatedString : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (b != 0x00) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_189'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            logger.error(&#34;Impossible error: last byte read SHOULD have been a null byte, but was [&#34; + b + &#34;]&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_192'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f23efc4_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_52'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 2 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidPassword(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> CRCR - Substituted 3 with -3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidPassword(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> CRCR - Substituted 3 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> CRCR - Substituted 3 with 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverNotEnoughWorkerThreadsCausesBindTimerToCloseChannel(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> CRCR - Substituted 3 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_53'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with -3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 4 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readAddress<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_88'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionOK(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> CRCR - Substituted 4 with 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidPassword(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> CRCR - Substituted 4 with -4 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 1 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> CRCR - Substituted 4 with 5 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 0 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_89'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with -4 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 5 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_97'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_100'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readTlv<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>writeNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.writeNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>writeNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.ssl.SslSessionTest.serverOverSSLButClientIsNotSSL(com.cloudhopper.smpp.ssl.SslSessionTest)</span></span> CRCR - Substituted 0 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>writeNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.writeNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>writeNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.writeNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>writeNullTerminatedString<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_153'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_159'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidSystemId(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> CRCR - Substituted 0 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidSystemId(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> CRCR - Substituted 0 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_162'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> AOD - Removed second operator from int add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> AOD - Removed second operator from int add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidSystemId(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_163'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_166'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidPassword(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> ROR - Replaced &#34;IF_ICMPLT&#34; with &#34;IF_ICMPNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPLT&#34; with &#34;IF_ICMPLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPLT&#34; with &#34;IF_ICMPGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPLT&#34; with &#34;IF_ICMPGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IF_ICMPLT&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppSessionTest.com.cloudhopper.smpp.impl.DefaultSmppSessionTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidPassword(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.ssl.SslSessionTest.enquireLinkOverSSL(com.cloudhopper.smpp.ssl.SslSessionTest)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f23efc4_188'>188</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f23efc4_188'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidSystemId(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindVersion33(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidPassword(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidPassword(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidPassword(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>readNullTerminatedString<br/><b>Killed by : </b>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidPassword(com.cloudhopper.smpp.impl.DefaultSmppServerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.cloudhopper.smpp.ssl.SslSessionTest.enquireLinkOverSSL(com.cloudhopper.smpp.ssl.SslSessionTest) (274 ms)</li><li>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidPassword(com.cloudhopper.smpp.impl.DefaultSmppServerTest) (119 ms)</li><li>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindRejectedWithInvalidSystemId(com.cloudhopper.smpp.impl.DefaultSmppServerTest) (197 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeBindTransceiverRespWithOptionalParams(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeBindReceiver(com.cloudhopper.smpp.transcoder.PduEncoderTest) (0 ms)</li><li>com.cloudhopper.smpp.ssl.SslSessionTest.bindOverSSL(com.cloudhopper.smpp.ssl.SslSessionTest) (645 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSmResp(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.util.ChannelBufferUtilTest.writeAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest) (10 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeBindReceiver(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.util.DeliveryReceiptTest.parseRealWorldReceipt0(com.cloudhopper.smpp.util.DeliveryReceiptTest) (99 ms)</li><li>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionOK(com.cloudhopper.smpp.impl.DefaultSmppServerTest) (355 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDataSmRespWithNoMessageId(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeAlertNotification(com.cloudhopper.smpp.transcoder.PduEncoderTest) (2 ms)</li><li>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionTimesOutWithNoBindRequest(com.cloudhopper.smpp.impl.DefaultSmppServerTest) (176 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeCancelSm(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliveryReceipt0(com.cloudhopper.smpp.transcoder.PduDecoderTest) (4 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeSubmitSmRespWithNoMessageId(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeBindTransceiverResp(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readTlv(com.cloudhopper.smpp.util.ChannelBufferUtilTest) (16 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSmWith1BytePayload(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readAddress(com.cloudhopper.smpp.util.ChannelBufferUtilTest) (0 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeBindTransceiverWithAddressRange(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeBindTransceiverResp(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.ssl.SslSessionTest.clientOverSSLButServerIsNotSSL(com.cloudhopper.smpp.ssl.SslSessionTest) (109 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSmAsDeliveryReceipt(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeCancelSm(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeWAUMalformedPacket(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeDeliverSmResp(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeQuerySm(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.ssl.SslSessionTest.serverOverSSLButClientIsNotSSL(com.cloudhopper.smpp.ssl.SslSessionTest) (53 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSmRespWithNoMessageId(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeBindTransmitter(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeSubmitSm(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSmWith2BytePayload(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeReplaceSm(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeQuerySmResp(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDataSmResp(com.cloudhopper.smpp.transcoder.PduDecoderTest) (14 ms)</li><li>com.cloudhopper.smpp.impl.DefaultSmppSessionTest.com.cloudhopper.smpp.impl.DefaultSmppSessionTest (1651 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDataSmRespWithEmptyMessageId(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSm(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindVersion33(com.cloudhopper.smpp.impl.DefaultSmppServerTest) (360 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeBindTransmitterRespWithOptionalParams(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSMWithNotPerSpecSequenceNumberButNeedsToBeValid(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.util.ChannelBufferUtilTest.writeNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeBindTransceiverWithNullAddressRange(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeSubmitSmResp(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSmWithDeliveryReceiptThatFailedFromEndToEnd(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeReplaceSM(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeDeliverSmAsDeliveryReceipt(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeSubmitSmRespWithEmptyMessageId(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeSubmitSmWithShortMessageAsMax255Bytes(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSmWithOptionalMessagePayload(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeAlertNotification(com.cloudhopper.smpp.transcoder.PduDecoderTest) (9 ms)</li><li>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindVersion35NormalizesTo34(com.cloudhopper.smpp.impl.DefaultSmppServerTest) (364 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeBindTransceiverRespFailedButWithSystemId(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeBindReceiverRespWithOptionalParams(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindVersion31NormalizedTo33(com.cloudhopper.smpp.impl.DefaultSmppServerTest) (353 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeDeliverSm(com.cloudhopper.smpp.transcoder.PduEncoderTest) (2 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeBindTransceiverRespWithOptionalParams(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeBindReceiverRespWithOptionalParams(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeBindTransceiver(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverNotEnoughWorkerThreadsCausesBindTimerToCloseChannel(com.cloudhopper.smpp.impl.DefaultSmppServerTest) (10270 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeBindTransmitter(com.cloudhopper.smpp.transcoder.PduDecoderTest) (14 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeDataSM(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeQueryRespSm(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeLargeSequenceNumber(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.impl.DefaultSmppServerTest.serverSessionBindVersion34(com.cloudhopper.smpp.impl.DefaultSmppServerTest) (374 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeSubmitSmRespWithNullMessageId(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeBindTransceiverRespFailedButWithSystemId(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeQuerySm(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeBindTransmitterRespWithOptionalParams(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSmRespWithEmptyMessageId(com.cloudhopper.smpp.transcoder.PduDecoderTest) (3 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDataSM(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeSubmitSmRespWithNoNullByteForMessageId(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeSubmitSmWith255ByteShortMessage(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeSubmitSmResp(com.cloudhopper.smpp.transcoder.PduDecoderTest) (2 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeDataSmResp(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li><li>com.cloudhopper.smpp.util.ChannelBufferUtilTest.readNullTerminatedString(com.cloudhopper.smpp.util.ChannelBufferUtilTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduDecoderTest.decodeDeliverSmWithNoPayload(com.cloudhopper.smpp.transcoder.PduDecoderTest) (1 ms)</li><li>com.cloudhopper.smpp.transcoder.PduEncoderTest.encodeSubmitSm(com.cloudhopper.smpp.transcoder.PduEncoderTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

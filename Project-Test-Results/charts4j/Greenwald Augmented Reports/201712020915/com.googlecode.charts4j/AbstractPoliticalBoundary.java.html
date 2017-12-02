@@ -1,0 +1,1293 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>AbstractPoliticalBoundary.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The MIT License</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (c) 2011 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Permission is hereby granted, free of charge, to any person obtaining a copy</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * of this software and associated documentation files (the &#34;Software&#34;), to deal</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * in the Software without restriction, including without limitation the rights</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * copies of the Software, and to permit persons to whom the Software is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * furnished to do so, subject to the following conditions:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The above copyright notice and this permission notice shall be included in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * all copies or substantial portions of the Software.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * THE SOFTWARE IS PROVIDED &#34;AS IS&#34;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * THE SOFTWARE.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.googlecode.charts4j;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.googlecode.charts4j.collect.Preconditions.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Common code to political boundary classes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Julien Chastang (julien.c.chastang at gmail dot com)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>abstract class AbstractPoliticalBoundary implements PoliticalBoundary {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Max color along gradient. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final int         MAX_COLOR      = 100;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Min color along gradient. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final int         MIN_COLOR      = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Political boundary code. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final String code;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Political boundary color. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int    color;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * AbstractPoliticalBoundary constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param code</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            political boundary code. Cannot be null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param color</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            color code. Must be &#62;= 0 and &#60;= 100.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    AbstractPoliticalBoundary(final String code, final int color) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_61'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_62'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        checkNotNull(code);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_63'/>
+63
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_63'>31</a>
+<span>
+1. <init> : CRCR - Substituted 100 with 99 &rarr; SURVIVED<br/>
+2. <init> : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+3. <init> : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+4. <init> : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+5. <init> : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+6. <init> : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+7. <init> : CRCR - Substituted 100 with 101 &rarr; SURVIVED<br/>
+8. <init> : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+9. <init> : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+10. <init> : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+11. <init> : ROR - Replaced &#34;IFLT&#34; with &#34;IFLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+12. <init> : ROR - Replaced &#34;IF_ICMPGT&#34; with &#34;IF_ICMPGE&#34; (&#34;&#60;=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+13. <init> : ROR - Replaced &#34;IFLT&#34; with &#34;IFEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+14. <init> : ROR - Replaced &#34;IF_ICMPGT&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;=&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+15. <init> : ABS - Negated integer variable  &rarr; KILLED<br/>
+16. <init> : ABS - Negated integer variable  &rarr; KILLED<br/>
+17. <init> : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+18. <init> : CRCR - Substituted 100 with -100 &rarr; KILLED<br/>
+19. <init> : CRCR - Substituted 100 with 1 &rarr; KILLED<br/>
+20. <init> : CRCR - Substituted 100 with 0 &rarr; KILLED<br/>
+21. <init> : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+22. <init> : ROR - Replaced &#34;IFLT&#34; with &#34;IFNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+23. <init> : ROR - Replaced &#34;IF_ICMPGT&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+24. <init> : ROR - Replaced &#34;IF_ICMPGT&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+25. <init> : ROR - Replaced &#34;IF_ICMPGT&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+26. <init> : ROR - Replaced &#34;IFLT&#34; with &#34;IFGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+27. <init> : ROR - Replaced &#34;IFLT&#34; with &#34;IFGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+28. <init> : UOI - Decremented int variable &rarr; KILLED<br/>
+29. <init> : UOI - Decremented int variable &rarr; KILLED<br/>
+30. <init> : UOI - Incremented int variable &rarr; KILLED<br/>
+31. <init> : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        checkArgument(color &#62;= MIN_COLOR &#38;&#38; color &#60;= MAX_COLOR);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_64'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.code = code;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_65'/>
+65
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_65'>3</a>
+<span>
+1. <init> : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. <init> : UOI - Decremented int variable &rarr; KILLED<br/>
+3. <init> : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.color = color;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String getCode() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return code;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int getColor() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_79'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return color;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 100 with 99 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> CRCR - Substituted 100 with -100 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> CRCR - Substituted 100 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 100 with 101 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> CRCR - Substituted 100 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> ROR - Replaced &#34;IF_ICMPGT&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> ROR - Replaced &#34;IF_ICMPGT&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> ROR - Replaced &#34;IF_ICMPGT&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGT&#34; with &#34;IF_ICMPGE&#34; (&#34;&#60;=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGT&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;=&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2e0d5fa3_65'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.googlecode.charts4j.MapChartTest.com.googlecode.charts4j.MapChartTest (30 ms)</li><li>com.googlecode.charts4j.example.MapChartExample.com.googlecode.charts4j.example.MapChartExample (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

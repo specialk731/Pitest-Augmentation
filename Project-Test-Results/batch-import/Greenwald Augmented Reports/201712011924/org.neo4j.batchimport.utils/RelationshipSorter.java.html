@@ -1,0 +1,1186 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>RelationshipSorter.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.neo4j.batchimport.utils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.mapdb.Pump;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.neo4j.helpers.collection.IteratorWrapper;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.BufferedWriter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.FileWriter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Iterator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Michael Hunger @since 04.11.13</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_14'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>public class RelationshipSorter {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final int BUFFER = 1024 * 1024;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static void main(String... args) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_19'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        System.err.println(&#34;Usage mvn exec:java -Dexec.mainClass=org.neo4j.batchimport.utils.RelationshipSorter -Dexec.args=&#39;rels.csv rels_sorted.csv&#39;&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_20'/>
+20
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_20'>5</a>
+<span>
+1. main : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. main : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. main : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+4. main : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+5. main : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        final String file = args[0];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_21'/>
+21
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_21'>5</a>
+<span>
+1. main : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. main : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+3. main : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+4. main : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+5. main : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        String file2 = args[1];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_22'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        long time = System.currentTimeMillis();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_23'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        FileIterator reader0 = new FileIterator(file);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_24'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Iterator&#60;FileIterator.Line&#62; reader = wrapStatistics(reader0);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_25'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        FileIterator.Line header = reader.next();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_26'/>
+26
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_26'>5</a>
+<span>
+1. main : CRCR - Substituted 1000000 with 999999 &rarr; SURVIVED<br/>
+2. main : CRCR - Substituted 1000000 with 1 &rarr; SURVIVED<br/>
+3. main : CRCR - Substituted 1000000 with 1000001 &rarr; SURVIVED<br/>
+4. main : CRCR - Substituted 1000000 with -1000000 &rarr; KILLED<br/>
+5. main : CRCR - Substituted 1000000 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        Iterator&#60;FileIterator.Line&#62; result = Pump.sort(reader, 1_000_000, new FileIterator.RelStartEndComparator(), new FileIterator.LineSerializer());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_27'/>
+27
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_27'>5</a>
+<span>
+1. main : CRCR - Substituted 1048576 with 1048575 &rarr; SURVIVED<br/>
+2. main : CRCR - Substituted 1048576 with 1 &rarr; SURVIVED<br/>
+3. main : CRCR - Substituted 1048576 with 1048577 &rarr; SURVIVED<br/>
+4. main : CRCR - Substituted 1048576 with -1048576 &rarr; KILLED<br/>
+5. main : CRCR - Substituted 1048576 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        BufferedWriter writer = new BufferedWriter(new FileWriter(file2), BUFFER);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_28'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        writer.write(header.line);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_29'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        writer.write(&#34;\n&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_30'/>
+30
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_30'>5</a>
+<span>
+1. main : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+2. main : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. main : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+4. main : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+5. main : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        long count = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_31'/>
+31
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_31'>5</a>
+<span>
+1. main : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+2. main : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+3. main : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+4. main : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. main : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        while (result.hasNext()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_32'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            writer.write(result.next().line);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_33'/>
+33
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_33'>5</a>
+<span>
+1. main : CRCR - Substituted 10 with 9 &rarr; KILLED<br/>
+2. main : CRCR - Substituted 10 with -10 &rarr; KILLED<br/>
+3. main : CRCR - Substituted 10 with 1 &rarr; KILLED<br/>
+4. main : CRCR - Substituted 10 with 11 &rarr; KILLED<br/>
+5. main : CRCR - Substituted 10 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            writer.write(&#39;\n&#39;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_34'/>
+34
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_34'>11</a>
+<span>
+1. main : AOD - Removed second operator from long add &rarr; SURVIVED<br/>
+2. main : AOD - Removed second operator from long add &rarr; SURVIVED<br/>
+3. main : AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+4. main : AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+5. main : AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+6. main : AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+7. main : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+8. main : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+9. main : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+10. main : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+11. main : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            count++;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_36'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        writer.close();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_37'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        reader0.close();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_38'/>
+38
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_38'>17</a>
+<span>
+1. main : AOD - Removed second operator from long sub &rarr; SURVIVED<br/>
+2. main : AOD - Removed second operator from long div &rarr; SURVIVED<br/>
+3. main : AOD - Removed second operator from long sub &rarr; SURVIVED<br/>
+4. main : AOD - Removed second operator from long div &rarr; SURVIVED<br/>
+5. main : AOR - Replaced Long &#34;-&#34; with &#34;+&#34; &rarr; SURVIVED<br/>
+6. main : AOR - Replaced Long &#34;/&#34; with &#34;+&#34; &rarr; SURVIVED<br/>
+7. main : AOR - Replaced Long &#34;-&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+8. main : AOR - Replaced Long &#34;-&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+9. main : AOR - Replaced Long &#34;/&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+10. main : AOR - Replaced Long &#34;-&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+11. main : AOR - Replaced Long &#34;/&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+12. main : AOR - Replaced Long &#34;/&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+13. main : CRCR - Substituted 1000 with 999 &rarr; SURVIVED<br/>
+14. main : CRCR - Substituted 1000 with -1000 &rarr; SURVIVED<br/>
+15. main : CRCR - Substituted 1000 with 1 &rarr; SURVIVED<br/>
+16. main : CRCR - Substituted 1000 with 1001 &rarr; SURVIVED<br/>
+17. main : CRCR - Substituted 1000 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        System.out.println(&#34;sorting &#34; + count + &#34; lines took &#34;  + (System.currentTimeMillis()-time)/1000+&#34; seconds&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_39'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static Iterator&#60;FileIterator.Line&#62; wrapStatistics(final FileIterator reader0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_42'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return new IteratorWrapper&#60;FileIterator.Line,FileIterator.Line&#62;(reader0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_43'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                long time = System.currentTimeMillis();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                protected FileIterator.Line underlyingObjectToObject(FileIterator.Line line) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_46'/>
+46
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_46'>21</a>
+<span>
+1. underlyingObjectToObject : AOD - Removed second operator from long mod &rarr; SURVIVED<br/>
+2. underlyingObjectToObject : AOD - Removed second operator from long mod &rarr; SURVIVED<br/>
+3. underlyingObjectToObject : AOR - Replaced Long &#34;%&#34; with &#34;+&#34; &rarr; SURVIVED<br/>
+4. underlyingObjectToObject : AOR - Replaced Long &#34;%&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+5. underlyingObjectToObject : AOR - Replaced Long &#34;%&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+6. underlyingObjectToObject : AOR - Replaced Long &#34;%&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+7. underlyingObjectToObject : CRCR - Substituted 10000 with 9999 &rarr; SURVIVED<br/>
+8. underlyingObjectToObject : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+9. underlyingObjectToObject : CRCR - Substituted 10000 with -10000 &rarr; SURVIVED<br/>
+10. underlyingObjectToObject : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+11. underlyingObjectToObject : CRCR - Substituted 10000 with 1 &rarr; SURVIVED<br/>
+12. underlyingObjectToObject : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+13. underlyingObjectToObject : CRCR - Substituted 10000 with 10001 &rarr; SURVIVED<br/>
+14. underlyingObjectToObject : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+15. underlyingObjectToObject : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+16. underlyingObjectToObject : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+17. underlyingObjectToObject : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+18. underlyingObjectToObject : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+19. underlyingObjectToObject : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+20. underlyingObjectToObject : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+21. underlyingObjectToObject : CRCR - Substituted 10000 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    if (line.lineNo % 10000 == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_47'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        System.out.print(&#34;.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_48'/>
+48
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_48'>21</a>
+<span>
+1. underlyingObjectToObject : AOD - Removed second operator from long mod &rarr; SURVIVED<br/>
+2. underlyingObjectToObject : AOD - Removed second operator from long mod &rarr; SURVIVED<br/>
+3. underlyingObjectToObject : AOR - Replaced Long &#34;%&#34; with &#34;+&#34; &rarr; SURVIVED<br/>
+4. underlyingObjectToObject : AOR - Replaced Long &#34;%&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+5. underlyingObjectToObject : AOR - Replaced Long &#34;%&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+6. underlyingObjectToObject : AOR - Replaced Long &#34;%&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+7. underlyingObjectToObject : CRCR - Substituted 1000000 with 999999 &rarr; SURVIVED<br/>
+8. underlyingObjectToObject : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+9. underlyingObjectToObject : CRCR - Substituted 1000000 with -1000000 &rarr; SURVIVED<br/>
+10. underlyingObjectToObject : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+11. underlyingObjectToObject : CRCR - Substituted 1000000 with 1 &rarr; SURVIVED<br/>
+12. underlyingObjectToObject : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+13. underlyingObjectToObject : CRCR - Substituted 1000000 with 1000001 &rarr; SURVIVED<br/>
+14. underlyingObjectToObject : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+15. underlyingObjectToObject : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+16. underlyingObjectToObject : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+17. underlyingObjectToObject : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+18. underlyingObjectToObject : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+19. underlyingObjectToObject : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+20. underlyingObjectToObject : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+21. underlyingObjectToObject : CRCR - Substituted 1000000 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                        if (line.lineNo % 1000000 == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_49'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                            long now = System.currentTimeMillis();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_50'/>
+50
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_50'>6</a>
+<span>
+1. underlyingObjectToObject : AOD - Removed second operator from long sub &rarr; SURVIVED<br/>
+2. underlyingObjectToObject : AOD - Removed second operator from long sub &rarr; SURVIVED<br/>
+3. underlyingObjectToObject : AOR - Replaced Long &#34;-&#34; with &#34;+&#34; &rarr; SURVIVED<br/>
+4. underlyingObjectToObject : AOR - Replaced Long &#34;-&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+5. underlyingObjectToObject : AOR - Replaced Long &#34;-&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+6. underlyingObjectToObject : AOR - Replaced Long &#34;-&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                            System.out.println(&#34; &#34;+line.lineNo+ &#34; &#34; +(now - time)+&#34; ms&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_51'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                            time = now;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    return line;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6cac8580_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_20'>20</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_20'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_21'>21</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_21'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_26'>26</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_26'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000000 with 999999 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 1000000 with -1000000 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000000 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000000 with 1000001 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 1000000 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_27'>27</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_27'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1048576 with 1048575 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 1048576 with -1048576 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1048576 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1048576 with 1048577 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 1048576 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_30'>30</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_30'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_31'>31</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_31'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_33'>33</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_33'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 10 with 9 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 10 with -10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 10 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 10 with 11 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 10 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_34'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_38'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long sub &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long div &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long sub &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long div &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;-&#34; with &#34;+&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;/&#34; with &#34;+&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;-&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;-&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;/&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;-&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;/&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;/&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000 with 999 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000 with -1000 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>main<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000 with 1001 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>main<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 1000 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_46'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mod &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mod &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;%&#34; with &#34;+&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;%&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;%&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;%&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 10000 with 9999 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 10000 with -10000 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 10000 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 10000 with 10001 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 10000 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_48'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mod &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mod &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;%&#34; with &#34;+&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;%&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;%&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;%&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000000 with 999999 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000000 with -1000000 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000000 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1000000 with 1000001 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 1000000 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6cac8580_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6cac8580_50'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long sub &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long sub &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;-&#34; with &#34;+&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;-&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;-&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>underlyingObjectToObject<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;-&#34; with &#34;*&#34; &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest) (15 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

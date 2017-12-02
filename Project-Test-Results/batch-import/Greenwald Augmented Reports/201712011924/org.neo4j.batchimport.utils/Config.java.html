@@ -1,0 +1,3316 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>Config.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.neo4j.batchimport.utils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.neo4j.batchimport.Importer;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.neo4j.batchimport.IndexInfo;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.neo4j.helpers.collection.MapUtil;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.File;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.FileWriter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Stack;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class Config {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final String BATCH_IMPORT_RELS_FILES = &#34;batch_import.rels_files&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final String BATCH_IMPORT_GRAPH_DB = &#34;batch_import.graph_db&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final String BATCH_IMPORT_KEEP_DB = &#34;batch_import.keep_db&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final String CONFIG_FILE_NAME = &#34;batch.properties&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final String BATCH_IMPORT_NODES_FILES = &#34;batch_import.nodes_files&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final String BATCH_IMPORT_MAPDB_CACHE_DISABLE = &#34;batch_import.mapdb_cache.disable&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final String BATCH_IMPORT_CSV_QUOTES = &#34;batch_import.csv.quotes&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final String BATCH_IMPORT_CSV_DELIM = &#34;batch_import.csv.delim&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final String ARRAY_SEPARATOR_CONFIG = &#34;batch_array_separator&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_25'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static String ARRAYS_SEPARATOR = &#34;,&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Map&#60;String, String&#62; configData;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_29'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public Config(Map&#60;String, String&#62; configData) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_30'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.configData = configData;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_31'/>
+31
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_31'>5</a>
+<span>
+1. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+2. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+3. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+4. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (this.configData.containsKey(ARRAY_SEPARATOR_CONFIG)){</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_32'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            Config.ARRAYS_SEPARATOR = configData.get(ARRAY_SEPARATOR_CONFIG);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_34'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Config convertArgumentsToConfig(String[] args) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_37'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        final Stack&#60;String&#62; argumentList = toStack(args);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_39'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        String configFileName = findConfigFileName(argumentList);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_41'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        final Map&#60;String, String&#62; config = config(configFileName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_43'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        convertParamsToConfig(argumentList, config);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_45'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        validateConfig(config);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_46'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return new Config(config);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static Stack&#60;String&#62; toStack(String[] args) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_50'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        final Stack&#60;String&#62; argumentList = new Stack&#60;String&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_51'/>
+51
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_51'>20</a>
+<span>
+1. toStack : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. toStack : AOD - Removed second operator from int sub &rarr; NO_COVERAGE<br/>
+3. toStack : AOD - Removed second operator from int sub &rarr; NO_COVERAGE<br/>
+4. toStack : AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; NO_COVERAGE<br/>
+5. toStack : AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+6. toStack : AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+7. toStack : AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+8. toStack : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+9. toStack : CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+10. toStack : CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE<br/>
+11. toStack : CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+12. toStack : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+13. toStack : ROR - Replaced &#34;IFLT&#34; with &#34;IFNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+14. toStack : ROR - Replaced &#34;IFLT&#34; with &#34;IFLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+15. toStack : ROR - Replaced &#34;IFLT&#34; with &#34;IFGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+16. toStack : ROR - Replaced &#34;IFLT&#34; with &#34;IFGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+17. toStack : ROR - Replaced &#34;IFLT&#34; with &#34;IFEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+18. toStack : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+19. toStack : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+20. toStack : UOI - Removed unary operator &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        for (int i = args.length - 1; i &#62;= 0; i--) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_52'/>
+52
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_52'>3</a>
+<span>
+1. toStack : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. toStack : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+3. toStack : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            argumentList.push(args[i]);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_54'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return argumentList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static String findConfigFileName(Stack&#60;String&#62; argumentList) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_58'/>
+58
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_58'>5</a>
+<span>
+1. findConfigFileName : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. findConfigFileName : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. findConfigFileName : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. findConfigFileName : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. findConfigFileName : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        String firstParam = argumentList.isEmpty() ? &#34;&#34; : argumentList.peek();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_59'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        String configFileName = CONFIG_FILE_NAME;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_60'/>
+60
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_60'>5</a>
+<span>
+1. findConfigFileName : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. findConfigFileName : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. findConfigFileName : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. findConfigFileName : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. findConfigFileName : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (firstParam.endsWith(&#34;.properties&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_61'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            configFileName = firstParam;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_62'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            popOrNull(argumentList);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_64'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return configFileName;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // todo more checks ?</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static void validateConfig(Map&#60;String, String&#62; config) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_69'/>
+69
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_69'>5</a>
+<span>
+1. validateConfig : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+2. validateConfig : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+3. validateConfig : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+4. validateConfig : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+5. validateConfig : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (!config.containsKey(BATCH_IMPORT_GRAPH_DB)) throw new IllegalArgumentException(&#34;Missing parameter for graphdb directory&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_70'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static Collection&#60;IndexInfo&#62; convertParamsToConfig(Stack&#60;String&#62; args, Map&#60;String, String&#62; config) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_73'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        addConfigParamIfArgument(args, config, BATCH_IMPORT_GRAPH_DB);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_74'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        addConfigParamIfArgument(args, config, BATCH_IMPORT_NODES_FILES);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_75'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        addConfigParamIfArgument(args, config, BATCH_IMPORT_RELS_FILES);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_76'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        Collection&#60;IndexInfo&#62; indexes = createIndexInfos(args);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_77'/>
+77
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_77'>5</a>
+<span>
+1. convertParamsToConfig : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. convertParamsToConfig : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. convertParamsToConfig : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. convertParamsToConfig : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. convertParamsToConfig : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        for (IndexInfo index : indexes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_78'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            index.addToConfig(config);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_79'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_80'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return indexes;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static void addConfigParamIfArgument(Stack&#60;String&#62; args, Map&#60;String, String&#62; config, String param) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_84'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        final String arg = popOrNull(args);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_85'/>
+85
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_85'>5</a>
+<span>
+1. addConfigParamIfArgument : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. addConfigParamIfArgument : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. addConfigParamIfArgument : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. addConfigParamIfArgument : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. addConfigParamIfArgument : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (arg==null || arg.trim().isEmpty()) return;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_86'/>
+86
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_86'>5</a>
+<span>
+1. addConfigParamIfArgument : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+2. addConfigParamIfArgument : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+3. addConfigParamIfArgument : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+4. addConfigParamIfArgument : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+5. addConfigParamIfArgument : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (!config.containsKey(param)) config.put(param, arg);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_87'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static String popOrNull(Stack&#60;String&#62; args) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_90'/>
+90
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_90'>5</a>
+<span>
+1. popOrNull : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. popOrNull : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. popOrNull : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. popOrNull : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. popOrNull : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (args.isEmpty()) return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_91'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return args.pop();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static Collection&#60;IndexInfo&#62; createIndexInfos(Stack&#60;String&#62; args) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_95'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        Collection&#60;IndexInfo&#62; indexes=new ArrayList&#60;IndexInfo&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_96'/>
+96
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_96'>5</a>
+<span>
+1. createIndexInfos : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+2. createIndexInfos : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+3. createIndexInfos : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+4. createIndexInfos : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+5. createIndexInfos : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        while (!args.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_97'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            indexes.add(new IndexInfo(popOrNull(args), popOrNull(args), popOrNull(args), popOrNull(args)));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_99'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return indexes;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Map&#60;String, String&#62; config(String fileName) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_103'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Map&#60;String, String&#62; config = new HashMap&#60;String, String&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_105'/>
+105
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_105'>5</a>
+<span>
+1. config : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+2. config : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+3. config : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+4. config : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. config : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (new File(fileName).exists()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_106'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                System.out.println(&#34;Using Existing Configuration File&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_108'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                System.out.println(&#34;Writing Configuration File to batch.properties&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_109'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                FileWriter fw = new FileWriter(fileName);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_110'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                fw.append(&#34;use_memory_mapped_buffers=true\n&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        + &#34;neostore.nodestore.db.mapped_memory=100M\n&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        + &#34;neostore.relationshipstore.db.mapped_memory=500M\n&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        + &#34;neostore.propertystore.db.mapped_memory=1G\n&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        + &#34;neostore.propertystore.db.strings.mapped_memory=200M\n&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        + &#34;neostore.propertystore.db.arrays.mapped_memory=0M\n&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        + &#34;neostore.propertystore.db.index.keys.mapped_memory=15M\n&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        + &#34;neostore.propertystore.db.index.mapped_memory=15M&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_118'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                fw.close();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_121'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            config = MapUtil.load(new File(fileName));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_123'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (Exception e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_124'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            System.out.println(e.getMessage());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_125'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_126'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return config;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Collection&#60;IndexInfo&#62; extractIndexInfos(Map&#60;String, String&#62; config) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_130'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Collection&#60;IndexInfo&#62;  result=new ArrayList&#60;IndexInfo&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_131'>5</a>
+<span>
+1. extractIndexInfos : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+2. extractIndexInfos : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+3. extractIndexInfos : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+4. extractIndexInfos : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. extractIndexInfos : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (Map.Entry&#60;String, String&#62; entry : config.entrySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_132'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final IndexInfo info = IndexInfo.fromConfigEntry(entry);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_133'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (info!=null) result.add(info);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_134'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_135'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static boolean configOptionEnabled(Config config, String option) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_139'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return &#34;true&#34;.equalsIgnoreCase(config.get(option));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static boolean configOptionDisabled(Config config, String option) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_142'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return &#34;false&#34;.equalsIgnoreCase(config.get(option));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Collection&#60;File&#62; toFiles(String commaSeparatedFileList) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_146'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        Collection&#60;File&#62; files=new ArrayList&#60;File&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_147'/>
+147
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_147'>5</a>
+<span>
+1. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (commaSeparatedFileList==null || commaSeparatedFileList.isEmpty()) return files;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_148'/>
+148
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_148'>20</a>
+<span>
+1. toFiles : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. toFiles : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. toFiles : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+4. toFiles : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+5. toFiles : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+6. toFiles : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+7. toFiles : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+8. toFiles : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+9. toFiles : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+10. toFiles : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+11. toFiles : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+12. toFiles : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+13. toFiles : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+14. toFiles : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+15. toFiles : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+16. toFiles : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+17. toFiles : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+18. toFiles : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+19. toFiles : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+20. toFiles : UOI - Removed unary operator &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        for (String part : commaSeparatedFileList.split(&#34;,&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_149'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            final File file = new File(part);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_150'/>
+150
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_150'>15</a>
+<span>
+1. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+3. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+4. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+5. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+6. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+7. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+8. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+9. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+10. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+11. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+12. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+13. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+14. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+15. toFiles : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            if (file.exists() &#38;&#38; file.canRead() &#38;&#38; file.isFile()) files.add(file);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_151'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            else System.err.println(&#34;File &#34;+file+&#34; does not exist, can not be read or is not a file.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_153'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return files;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static String NODE_INDEX(String indexName) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_157'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return &#34;batch_import.node_index.&#34; + indexName;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static String RELATIONSHIP_INDEX(String indexName) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_160'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return &#34;batch_import.relationship_index.&#34; + indexName;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean isCachedIndexDisabled() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_164'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return configOptionEnabled(this, BATCH_IMPORT_MAPDB_CACHE_DISABLE);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Collection&#60;IndexInfo&#62; getIndexInfos() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_168'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return extractIndexInfos(configData);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Collection&#60;File&#62; getRelsFiles() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_172'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return toFiles(get(BATCH_IMPORT_RELS_FILES));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Collection&#60;File&#62; getNodesFiles() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_176'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return toFiles(get(BATCH_IMPORT_NODES_FILES));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public char getDelimChar(Importer importer) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_180'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final String delim = get(BATCH_IMPORT_CSV_DELIM);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_181'/>
+181
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_181'>10</a>
+<span>
+1. getDelimChar : CRCR - Substituted 9 with 8 &rarr; KILLED<br/>
+2. getDelimChar : CRCR - Substituted 9 with -9 &rarr; KILLED<br/>
+3. getDelimChar : CRCR - Substituted 9 with 1 &rarr; KILLED<br/>
+4. getDelimChar : CRCR - Substituted 9 with 10 &rarr; KILLED<br/>
+5. getDelimChar : CRCR - Substituted 9 with 0 &rarr; KILLED<br/>
+6. getDelimChar : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+7. getDelimChar : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+8. getDelimChar : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+9. getDelimChar : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+10. getDelimChar : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (delim==null || delim.isEmpty()) return &#39;\t&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_182'/>
+182
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_182'>5</a>
+<span>
+1. getDelimChar : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+2. getDelimChar : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+3. getDelimChar : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. getDelimChar : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. getDelimChar : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return delim.trim().charAt(0);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean quotesEnabled() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_186'>15</a>
+<span>
+1. quotesEnabled : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+2. quotesEnabled : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+3. quotesEnabled : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+4. quotesEnabled : CRCR - Substituted 0 with 0 &rarr; KILLED<br/>
+5. quotesEnabled : CRCR - Substituted 1 with 1 &rarr; KILLED<br/>
+6. quotesEnabled : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+7. quotesEnabled : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+8. quotesEnabled : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+9. quotesEnabled : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+10. quotesEnabled : CRCR - Substituted 0 with 0 &rarr; KILLED<br/>
+11. quotesEnabled : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+12. quotesEnabled : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+13. quotesEnabled : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+14. quotesEnabled : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+15. quotesEnabled : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return !configOptionDisabled(this, BATCH_IMPORT_CSV_QUOTES);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String getGraphDbDirectory() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_190'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return get(BATCH_IMPORT_GRAPH_DB);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    String get(String option) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_194'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return configData.get(option);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean keepDatabase() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_198'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return configOptionEnabled(this, BATCH_IMPORT_KEEP_DB);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Map&#60;String, String&#62; getConfigData() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_202'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return configData;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1fcc30_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_31'>31</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_31'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_51'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int sub &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int sub &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_52'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toStack<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_58'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findConfigFileName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findConfigFileName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findConfigFileName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findConfigFileName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>findConfigFileName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_60'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findConfigFileName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findConfigFileName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findConfigFileName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findConfigFileName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>findConfigFileName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_69'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>validateConfig<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>validateConfig<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>validateConfig<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>validateConfig<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>validateConfig<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_77'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertParamsToConfig<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertParamsToConfig<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>convertParamsToConfig<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>convertParamsToConfig<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>convertParamsToConfig<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_85'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addConfigParamIfArgument<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addConfigParamIfArgument<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addConfigParamIfArgument<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addConfigParamIfArgument<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addConfigParamIfArgument<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_86'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addConfigParamIfArgument<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addConfigParamIfArgument<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addConfigParamIfArgument<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addConfigParamIfArgument<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addConfigParamIfArgument<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_90'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>popOrNull<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>popOrNull<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>popOrNull<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>popOrNull<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>popOrNull<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_96'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createIndexInfos<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createIndexInfos<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createIndexInfos<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createIndexInfos<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createIndexInfos<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_105'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>config<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>config<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>config<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>config<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>config<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>extractIndexInfos<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithIndex(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>extractIndexInfos<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>extractIndexInfos<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportSimpleNode(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>extractIndexInfos<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithIndex(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>extractIndexInfos<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithIndex(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_147'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_148'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_150'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toFiles<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_181'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportSimpleNodeWithId(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 9 with 8 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportSimpleNodeWithId(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 9 with -9 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportSimpleNodeWithId(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 9 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportSimpleNodeWithId(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 9 with 10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportSimpleNode(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 9 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_182'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getDelimChar<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1fcc30_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1fcc30_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 0 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> CRCR - Substituted 0 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>quotesEnabled<br/><b>Killed by : </b>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.neo4j.batchimport.ImporterTest.testImportSimpleRelationshipWithNewlineOnce(org.neo4j.batchimport.ImporterTest) (4 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypesCustomSeparator(org.neo4j.batchimport.ImporterTest) (4 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportNodeWithIndividualTypes(org.neo4j.batchimport.ImporterTest) (4 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportRelationshipsWithNonIndexedNodes(org.neo4j.batchimport.ImporterTest) (6 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportSimpleRelationship(org.neo4j.batchimport.ImporterTest) (3 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportNodeWithMultipleProps(org.neo4j.batchimport.ImporterTest) (6 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportNodeWithArrayTypes(org.neo4j.batchimport.ImporterTest) (7 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportNodeWithNoLabel(org.neo4j.batchimport.ImporterTest) (5 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportSimpleNode(org.neo4j.batchimport.ImporterTest) (3 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportSimpleNodeWithNewlineAtEnd(org.neo4j.batchimport.ImporterTest) (6 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportRelationshipWithIndividualTypes(org.neo4j.batchimport.ImporterTest) (5 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportHashes(org.neo4j.batchimport.ImporterTest) (225 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportSimpleNodeWithId(org.neo4j.batchimport.ImporterTest) (3 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportSimpleRelationshipWithTypeType(org.neo4j.batchimport.ImporterTest) (4 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportNodeWithTwoLabels(org.neo4j.batchimport.ImporterTest) (8 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportSimpleNodeWithUmlauts(org.neo4j.batchimport.ImporterTest) (4 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportNodeWithIndex(org.neo4j.batchimport.ImporterTest) (5 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportRelWithIndexLookup(org.neo4j.batchimport.ImporterTest) (15 ms)</li><li>org.neo4j.batchimport.ImporterTest.testImportNodeWithLabel(org.neo4j.batchimport.ImporterTest) (6 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

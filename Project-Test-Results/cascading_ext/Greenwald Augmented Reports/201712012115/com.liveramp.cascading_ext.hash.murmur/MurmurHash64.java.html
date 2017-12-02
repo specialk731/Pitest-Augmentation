@@ -1,0 +1,2308 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>MurmurHash64.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2012 LiveRamp</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.liveramp.cascading_ext.hash.murmur;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.liveramp.cascading_ext.hash.HashFunction;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Implementation from http://d3s.mff.cuni.cz/~holub/sw/javamurmurhash/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class MurmurHash64 extends HashFunction {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  protected MurmurHash64(long maxValue, int numHashes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_27'/>
+27
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_27'>3</a>
+<span>
+1. <init> : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. <init> : UOI - Decremented int variable &rarr; KILLED<br/>
+3. <init> : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    super(maxValue, numHashes);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_28'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public long hash(byte[] data, int length, int seed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_32'/>
+32
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_32'>5</a>
+<span>
+1. hash : CRCR - Substituted -4132994306676758123 with 0 &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted -4132994306676758123 with 1 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    final long m = 0xc6a4a7935bd1e995L;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_33'/>
+33
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_33'>5</a>
+<span>
+1. hash : CRCR - Substituted 47 with 46 &rarr; SURVIVED<br/>
+2. hash : CRCR - Substituted 47 with 1 &rarr; MEMORY_ERROR<br/>
+3. hash : CRCR - Substituted 47 with 48 &rarr; MEMORY_ERROR<br/>
+4. hash : CRCR - Substituted 47 with 0 &rarr; MEMORY_ERROR<br/>
+5. hash : CRCR - Substituted 47 with -47 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    final int r = 47;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_35'/>
+35
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_35'>17</a>
+<span>
+1. hash : AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; MEMORY_ERROR<br/>
+3. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+4. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+5. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+8. hash : AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted -4132994306676758123 with 1 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted -4132994306676758123 with 0 &rarr; TIMED_OUT<br/>
+13. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+14. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+15. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+16. hash : ABS - Negated integer variable  &rarr; KILLED<br/>
+17. hash : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    long h = seed ^ (length * m);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_37'/>
+37
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_37'>9</a>
+<span>
+1. hash : UOI - Decremented int variable &rarr; MEMORY_ERROR<br/>
+2. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 7 with 6 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 7 with -7 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 7 with 8 &rarr; TIMED_OUT<br/>
+6. hash : CRCR - Substituted 7 with 0 &rarr; TIMED_OUT<br/>
+7. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted 7 with 1 &rarr; KILLED<br/>
+9. hash : OBBN - Replaced Integer AND with OR &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    final int remainder = length &#38; 7;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_38'/>
+38
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_38'>12</a>
+<span>
+1. hash : AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; MEMORY_ERROR<br/>
+2. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+4. hash : AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+5. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+6. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+7. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+8. hash : AOD - Removed second operator from int sub &rarr; KILLED<br/>
+9. hash : AOD - Removed second operator from int sub &rarr; KILLED<br/>
+10. hash : AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; KILLED<br/>
+11. hash : AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; KILLED<br/>
+12. hash : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    final int end = length - remainder;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_39'/>
+39
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_39'>17</a>
+<span>
+1. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 0 with -1 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+6. hash : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+7. hash : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+8. hash : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+9. hash : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+10. hash : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+11. hash : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT<br/>
+12. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+13. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+14. hash : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+15. hash : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+16. hash : UOI - Decremented int variable &rarr; KILLED<br/>
+17. hash : UOI - Decremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    for (int i = 0; i &#60; end; i += 8) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_40'/>
+40
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_40'>14</a>
+<span>
+1. hash : AOD - Removed second operator from int add &rarr; MEMORY_ERROR<br/>
+2. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; MEMORY_ERROR<br/>
+3. hash : CRCR - Substituted 7 with 6 &rarr; MEMORY_ERROR<br/>
+4. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+5. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted 7 with 1 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 7 with 8 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 7 with 0 &rarr; TIMED_OUT<br/>
+11. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+12. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+13. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED<br/>
+14. hash : CRCR - Substituted 7 with -7 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      long k = data[i + 7];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_41'/>
+41
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_41'>5</a>
+<span>
+1. hash : CRCR - Substituted 8 with 7 &rarr; TIMED_OUT<br/>
+2. hash : CRCR - Substituted 8 with -8 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 8 with 1 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 8 with 9 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 8 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k &#60;&#60; 8;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_42'/>
+42
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_42'>21</a>
+<span>
+1. hash : AOD - Removed second operator from int add &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted 6 with 5 &rarr; MEMORY_ERROR<br/>
+3. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+4. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 6 with 1 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 6 with 7 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 6 with 0 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+16. hash : OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT<br/>
+17. hash : OBBN - Replaced Long OR with AND &rarr; TIMED_OUT<br/>
+18. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+19. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+20. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED<br/>
+21. hash : CRCR - Substituted 6 with -6 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k | (data[i + 6] &#38; 0xff);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_43'/>
+43
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_43'>5</a>
+<span>
+1. hash : CRCR - Substituted 8 with 7 &rarr; TIMED_OUT<br/>
+2. hash : CRCR - Substituted 8 with -8 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 8 with 1 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 8 with 9 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 8 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k &#60;&#60; 8;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_44'/>
+44
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_44'>21</a>
+<span>
+1. hash : ABS - Negated integer variable  &rarr; MEMORY_ERROR<br/>
+2. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR<br/>
+3. hash : UOI - Incremented int variable &rarr; MEMORY_ERROR<br/>
+4. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+5. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+8. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 5 with 4 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 5 with 1 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 5 with 6 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+16. hash : CRCR - Substituted 5 with 0 &rarr; TIMED_OUT<br/>
+17. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+18. hash : OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT<br/>
+19. hash : OBBN - Replaced Long OR with AND &rarr; TIMED_OUT<br/>
+20. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+21. hash : CRCR - Substituted 5 with -5 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k | (data[i + 5] &#38; 0xff);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_45'/>
+45
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_45'>5</a>
+<span>
+1. hash : CRCR - Substituted 8 with -8 &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted 8 with 1 &rarr; MEMORY_ERROR<br/>
+3. hash : CRCR - Substituted 8 with 9 &rarr; MEMORY_ERROR<br/>
+4. hash : CRCR - Substituted 8 with 7 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 8 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k &#60;&#60; 8;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_46'/>
+46
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_46'>21</a>
+<span>
+1. hash : ABS - Negated integer variable  &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted 255 with 0 &rarr; MEMORY_ERROR<br/>
+3. hash : OBBN - Replaced Integer AND with OR &rarr; MEMORY_ERROR<br/>
+4. hash : OBBN - Replaced Long OR with AND &rarr; MEMORY_ERROR<br/>
+5. hash : UOI - Incremented int variable &rarr; MEMORY_ERROR<br/>
+6. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+7. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+8. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+9. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+10. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+11. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 4 with 3 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 4 with -4 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+16. hash : CRCR - Substituted 4 with 1 &rarr; TIMED_OUT<br/>
+17. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+18. hash : CRCR - Substituted 4 with 5 &rarr; TIMED_OUT<br/>
+19. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+20. hash : CRCR - Substituted 4 with 0 &rarr; TIMED_OUT<br/>
+21. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k | (data[i + 4] &#38; 0xff);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_47'/>
+47
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_47'>5</a>
+<span>
+1. hash : CRCR - Substituted 8 with -8 &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted 8 with 7 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 8 with 1 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 8 with 9 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 8 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k &#60;&#60; 8;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_48'/>
+48
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_48'>21</a>
+<span>
+1. hash : OBBN - Replaced Integer AND with OR &rarr; SURVIVED<br/>
+2. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+4. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+8. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 3 with 2 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 3 with -3 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 3 with 1 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 3 with 4 &rarr; TIMED_OUT<br/>
+16. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+17. hash : CRCR - Substituted 3 with 0 &rarr; TIMED_OUT<br/>
+18. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+19. hash : OBBN - Replaced Long OR with AND &rarr; TIMED_OUT<br/>
+20. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+21. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      k = k | (data[i + 3] &#38; 0xff);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_49'/>
+49
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_49'>5</a>
+<span>
+1. hash : CRCR - Substituted 8 with 7 &rarr; TIMED_OUT<br/>
+2. hash : CRCR - Substituted 8 with -8 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 8 with 1 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 8 with 9 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 8 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k &#60;&#60; 8;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_50'/>
+50
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_50'>21</a>
+<span>
+1. hash : CRCR - Substituted 255 with 256 &rarr; SURVIVED<br/>
+2. hash : OBBN - Replaced Integer AND with OR &rarr; SURVIVED<br/>
+3. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; MEMORY_ERROR<br/>
+4. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+5. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+6. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+8. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 2 with 1 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 2 with -2 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 2 with 1 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 2 with 3 &rarr; TIMED_OUT<br/>
+16. hash : CRCR - Substituted 2 with 0 &rarr; TIMED_OUT<br/>
+17. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+18. hash : OBBN - Replaced Long OR with AND &rarr; TIMED_OUT<br/>
+19. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+20. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED<br/>
+21. hash : UOI - Decremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      k = k | (data[i + 2] &#38; 0xff);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_51'/>
+51
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_51'>5</a>
+<span>
+1. hash : CRCR - Substituted 8 with 7 &rarr; TIMED_OUT<br/>
+2. hash : CRCR - Substituted 8 with -8 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 8 with 1 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 8 with 9 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 8 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k &#60;&#60; 8;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_52'/>
+52
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_52'>21</a>
+<span>
+1. hash : CRCR - Substituted 255 with -255 &rarr; MEMORY_ERROR<br/>
+2. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+4. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 1 with 1 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 1 with 2 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+16. hash : OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT<br/>
+17. hash : OBBN - Replaced Long OR with AND &rarr; TIMED_OUT<br/>
+18. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+19. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED<br/>
+20. hash : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+21. hash : UOI - Decremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k | (data[i + 1] &#38; 0xff);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_53'/>
+53
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_53'>5</a>
+<span>
+1. hash : CRCR - Substituted 8 with 0 &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted 8 with 7 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 8 with -8 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 8 with 1 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 8 with 9 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k &#60;&#60; 8;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_54'/>
+54
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_54'>10</a>
+<span>
+1. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+6. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+7. hash : OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT<br/>
+8. hash : OBBN - Replaced Long OR with AND &rarr; TIMED_OUT<br/>
+9. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+10. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k = k | (data[i] &#38; 0xff);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_56'/>
+56
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_56'>11</a>
+<span>
+1. hash : AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; MEMORY_ERROR<br/>
+2. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+3. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+4. hash : AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+7. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted -4132994306676758123 with 1 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted -4132994306676758123 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k *= m;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_57'/>
+57
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_57'>5</a>
+<span>
+1. hash : CRCR - Substituted 47 with 46 &rarr; TIMED_OUT<br/>
+2. hash : CRCR - Substituted 47 with -47 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 47 with 1 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 47 with 48 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 47 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k ^= k &#62;&#62;&#62; r;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_58'/>
+58
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_58'>11</a>
+<span>
+1. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+2. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+3. hash : AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT<br/>
+4. hash : AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+7. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted -4132994306676758123 with 1 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted -4132994306676758123 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      k *= m;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_60'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      h ^= k;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_61'/>
+61
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_61'>11</a>
+<span>
+1. hash : AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; MEMORY_ERROR<br/>
+3. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+4. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted -4132994306676758123 with 1 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted -4132994306676758123 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      h *= m;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_64'/>
+64
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_64'>3</a>
+<span>
+1. hash : UOI - Decremented int variable &rarr; SURVIVED<br/>
+2. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    switch (remainder) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case 7:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_66'/>
+66
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_66'>25</a>
+<span>
+1. hash : AOD - Removed second operator from int add &rarr; MEMORY_ERROR<br/>
+2. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR<br/>
+3. hash : CRCR - Substituted 48 with 1 &rarr; MEMORY_ERROR<br/>
+4. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted 6 with 5 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 48 with 47 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 6 with -6 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 48 with -48 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 6 with 1 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+16. hash : CRCR - Substituted 6 with 7 &rarr; TIMED_OUT<br/>
+17. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+18. hash : CRCR - Substituted 48 with 49 &rarr; TIMED_OUT<br/>
+19. hash : CRCR - Substituted 6 with 0 &rarr; TIMED_OUT<br/>
+20. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+21. hash : CRCR - Substituted 48 with 0 &rarr; TIMED_OUT<br/>
+22. hash : OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT<br/>
+23. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+24. hash : ABS - Negated integer variable  &rarr; KILLED<br/>
+25. hash : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        h ^= (long) (data[end + 6] &#38; 0xff) &#60;&#60; 48;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case 6:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_68'/>
+68
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_68'>25</a>
+<span>
+1. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted 40 with 1 &rarr; MEMORY_ERROR<br/>
+3. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+4. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted 5 with 4 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 40 with 39 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 5 with -5 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 40 with -40 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 5 with 1 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+16. hash : CRCR - Substituted 5 with 6 &rarr; TIMED_OUT<br/>
+17. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+18. hash : CRCR - Substituted 40 with 41 &rarr; TIMED_OUT<br/>
+19. hash : CRCR - Substituted 5 with 0 &rarr; TIMED_OUT<br/>
+20. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+21. hash : CRCR - Substituted 40 with 0 &rarr; TIMED_OUT<br/>
+22. hash : OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT<br/>
+23. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+24. hash : ABS - Negated integer variable  &rarr; KILLED<br/>
+25. hash : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        h ^= (long) (data[end + 5] &#38; 0xff) &#60;&#60; 40;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case 5:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_70'/>
+70
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_70'>25</a>
+<span>
+1. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR<br/>
+2. hash : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+4. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted 4 with 3 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 32 with 31 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 32 with -32 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 4 with 1 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 32 with 1 &rarr; TIMED_OUT<br/>
+16. hash : CRCR - Substituted 4 with 5 &rarr; TIMED_OUT<br/>
+17. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+18. hash : CRCR - Substituted 32 with 33 &rarr; TIMED_OUT<br/>
+19. hash : CRCR - Substituted 4 with 0 &rarr; TIMED_OUT<br/>
+20. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+21. hash : CRCR - Substituted 32 with 0 &rarr; TIMED_OUT<br/>
+22. hash : OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT<br/>
+23. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+24. hash : CRCR - Substituted 4 with -4 &rarr; KILLED<br/>
+25. hash : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        h ^= (long) (data[end + 4] &#38; 0xff) &#60;&#60; 32;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case 4:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_72'/>
+72
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_72'>25</a>
+<span>
+1. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR<br/>
+2. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+3. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+4. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+7. hash : CRCR - Substituted 3 with 2 &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 24 with 23 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 24 with -24 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 3 with 1 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 24 with 1 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 3 with 4 &rarr; TIMED_OUT<br/>
+16. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+17. hash : CRCR - Substituted 24 with 25 &rarr; TIMED_OUT<br/>
+18. hash : CRCR - Substituted 3 with 0 &rarr; TIMED_OUT<br/>
+19. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+20. hash : CRCR - Substituted 24 with 0 &rarr; TIMED_OUT<br/>
+21. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+22. hash : ABS - Negated integer variable  &rarr; KILLED<br/>
+23. hash : CRCR - Substituted 3 with -3 &rarr; KILLED<br/>
+24. hash : OBBN - Replaced Integer AND with OR &rarr; KILLED<br/>
+25. hash : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        h ^= (long) (data[end + 3] &#38; 0xff) &#60;&#60; 24;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case 3:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_74'/>
+74
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_74'>25</a>
+<span>
+1. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR<br/>
+2. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+3. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+4. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+7. hash : CRCR - Substituted 2 with 1 &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 16 with 15 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 16 with -16 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 2 with 1 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 16 with 1 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 2 with 3 &rarr; TIMED_OUT<br/>
+16. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+17. hash : CRCR - Substituted 16 with 17 &rarr; TIMED_OUT<br/>
+18. hash : CRCR - Substituted 2 with 0 &rarr; TIMED_OUT<br/>
+19. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+20. hash : OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT<br/>
+21. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+22. hash : ABS - Negated integer variable  &rarr; KILLED<br/>
+23. hash : CRCR - Substituted 2 with -2 &rarr; KILLED<br/>
+24. hash : CRCR - Substituted 16 with 0 &rarr; KILLED<br/>
+25. hash : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        h ^= (long) (data[end + 2] &#38; 0xff) &#60;&#60; 16;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case 2:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_76'/>
+76
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_76'>25</a>
+<span>
+1. hash : CRCR - Substituted 8 with 0 &rarr; MEMORY_ERROR<br/>
+2. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+3. hash : AOD - Removed second operator from int add &rarr; TIMED_OUT<br/>
+4. hash : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+7. hash : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted 8 with 7 &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted 255 with -255 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted 8 with -8 &rarr; TIMED_OUT<br/>
+12. hash : CRCR - Substituted 1 with 1 &rarr; TIMED_OUT<br/>
+13. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+14. hash : CRCR - Substituted 8 with 1 &rarr; TIMED_OUT<br/>
+15. hash : CRCR - Substituted 1 with 2 &rarr; TIMED_OUT<br/>
+16. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+17. hash : CRCR - Substituted 8 with 9 &rarr; TIMED_OUT<br/>
+18. hash : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+19. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+20. hash : OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT<br/>
+21. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+22. hash : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+23. hash : ABS - Negated integer variable  &rarr; KILLED<br/>
+24. hash : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; KILLED<br/>
+25. hash : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        h ^= (long) (data[end + 1] &#38; 0xff) &#60;&#60; 8;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case 1:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_78'/>
+78
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_78'>9</a>
+<span>
+1. hash : CRCR - Substituted 255 with 254 &rarr; TIMED_OUT<br/>
+2. hash : CRCR - Substituted 255 with 1 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 255 with 256 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 255 with 0 &rarr; TIMED_OUT<br/>
+5. hash : OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT<br/>
+6. hash : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+7. hash : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. hash : CRCR - Substituted 255 with -255 &rarr; KILLED<br/>
+9. hash : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        h ^= (long) (data[end] &#38; 0xff);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_79'/>
+79
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_79'>11</a>
+<span>
+1. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted -4132994306676758123 with 1 &rarr; MEMORY_ERROR<br/>
+3. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; MEMORY_ERROR<br/>
+4. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+5. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+6. hash : AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT<br/>
+7. hash : AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+8. hash : AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+9. hash : AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+10. hash : CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT<br/>
+11. hash : CRCR - Substituted -4132994306676758123 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        h *= m;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_82'/>
+82
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_82'>5</a>
+<span>
+1. hash : CRCR - Substituted 47 with -47 &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted 47 with 46 &rarr; TIMED_OUT<br/>
+3. hash : CRCR - Substituted 47 with 1 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 47 with 48 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 47 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    h ^= h &#62;&#62;&#62; r;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_83'/>
+83
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_83'>11</a>
+<span>
+1. hash : AOD - Removed second operator from long mul &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted -4132994306676758123 with 1 &rarr; MEMORY_ERROR<br/>
+3. hash : AOD - Removed second operator from long mul &rarr; TIMED_OUT<br/>
+4. hash : AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT<br/>
+5. hash : AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+6. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; TIMED_OUT<br/>
+7. hash : CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT<br/>
+8. hash : CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT<br/>
+9. hash : CRCR - Substituted -4132994306676758123 with 0 &rarr; TIMED_OUT<br/>
+10. hash : AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; KILLED<br/>
+11. hash : AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    h *= m;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_84'/>
+84
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_84'>5</a>
+<span>
+1. hash : CRCR - Substituted 47 with -47 &rarr; MEMORY_ERROR<br/>
+2. hash : CRCR - Substituted 47 with 48 &rarr; MEMORY_ERROR<br/>
+3. hash : CRCR - Substituted 47 with 46 &rarr; TIMED_OUT<br/>
+4. hash : CRCR - Substituted 47 with 1 &rarr; TIMED_OUT<br/>
+5. hash : CRCR - Substituted 47 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    h ^= h &#62;&#62;&#62; r;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_86'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    return h;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public String getHashID() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_91'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    return &#34;murmur64&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@629e3e4f_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_27'>27</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_27'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestCreateBloomFilter.testSingle(com.liveramp.cascading_ext.assembly.TestCreateBloomFilter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_32'>32</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_32'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 0 &rarr; MEMORY_ERROR</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_33'>33</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_33'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 46 &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with -47 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 1 &rarr; MEMORY_ERROR</p> <p class='MEMORY_ERROR'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 48 &rarr; MEMORY_ERROR</p> <p class='MEMORY_ERROR'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 0 &rarr; MEMORY_ERROR</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_35'>35</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_35'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_37'>37</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_37'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 7 with 6 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 7 with -7 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> CRCR - Substituted 7 with 1 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 7 with 8 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 7 with 0 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> OBBN - Replaced Integer AND with OR &rarr; KILLED</p> <p class='MEMORY_ERROR'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_38'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> AOD - Removed second operator from int sub &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> AOD - Removed second operator from int sub &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; MEMORY_ERROR</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_39'>39</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_39'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_40'>40</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_40'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; MEMORY_ERROR</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='MEMORY_ERROR'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 7 with 6 &rarr; MEMORY_ERROR</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> CRCR - Substituted 7 with -7 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 7 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 7 with 8 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 7 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_41'>41</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_41'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_42'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='MEMORY_ERROR'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 6 with 5 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> CRCR - Substituted 6 with -6 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 6 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 6 with 7 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 6 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Long OR with AND &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_43'>43</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_43'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_44'>44</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_44'/> 
+
+<p class='MEMORY_ERROR'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 5 with 4 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> CRCR - Substituted 5 with -5 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 5 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 5 with 6 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 5 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Long OR with AND &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; MEMORY_ERROR</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_45'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; MEMORY_ERROR</p> <p class='MEMORY_ERROR'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; MEMORY_ERROR</p> <p class='MEMORY_ERROR'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_46'/> 
+
+<p class='MEMORY_ERROR'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 3 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with -4 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 5 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 0 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; MEMORY_ERROR</p> <p class='MEMORY_ERROR'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; MEMORY_ERROR</p> <p class='MEMORY_ERROR'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Long OR with AND &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; MEMORY_ERROR</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_47'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_48'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 2 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with -3 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 4 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Long OR with AND &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_49'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_50'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; MEMORY_ERROR</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with -2 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 3 &rarr; TIMED_OUT</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Long OR with AND &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_51'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_52'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='MEMORY_ERROR'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Long OR with AND &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_53'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; MEMORY_ERROR</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_54'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Long OR with AND &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_56'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_57'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 46 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with -47 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 48 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_58'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_61'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_64'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='MEMORY_ERROR'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 6 with 5 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 48 with 47 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 6 with -6 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 48 with -48 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 6 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 48 with 1 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 6 with 7 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 48 with 49 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 6 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 48 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 5 with 4 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 40 with 39 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 5 with -5 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 40 with -40 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 5 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 40 with 1 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 5 with 6 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 40 with 41 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 5 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 40 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_70'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 3 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32 with 31 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> CRCR - Substituted 4 with -4 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32 with -32 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 5 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32 with 33 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestCreateBloomFilter.testSingle(com.liveramp.cascading_ext.assembly.TestCreateBloomFilter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 2 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 24 with 23 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> CRCR - Substituted 3 with -3 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 24 with -24 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 24 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 4 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 24 with 25 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 24 with 0 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestCreateBloomFilter.testSingle(com.liveramp.cascading_ext.assembly.TestCreateBloomFilter)</span></span> OBBN - Replaced Integer AND with OR &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_74'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 15 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> CRCR - Substituted 2 with -2 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with -16 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 3 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 17 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestCreateBloomFilter.testSingle(com.liveramp.cascading_ext.assembly.TestCreateBloomFilter)</span></span> CRCR - Substituted 16 with 0 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestCreateBloomFilter.testSingle(com.liveramp.cascading_ext.assembly.TestCreateBloomFilter)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestCreateBloomFilter.testSingle(com.liveramp.cascading_ext.assembly.TestCreateBloomFilter)</span></span> CRCR - Substituted 255 with -255 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_79'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 1 &rarr; MEMORY_ERROR</p> <p class='MEMORY_ERROR'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; MEMORY_ERROR</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> CRCR - Substituted -4132994306676758123 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_82'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 46 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with -47 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 48 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_83'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long mul &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;+&#34; &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter)</span></span> AOR - Replaced Long &#34;*&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;*&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>com.liveramp.cascading_ext.assembly.TestCreateBloomFilter.testSingle(com.liveramp.cascading_ext.assembly.TestCreateBloomFilter)</span></span> AOR - Replaced Long &#34;*&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758124 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 4132994306676758123 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 1 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with -4132994306676758122 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -4132994306676758123 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@629e3e4f_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@629e3e4f_84'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 46 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with -47 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 1 &rarr; TIMED_OUT</p> <p class='MEMORY_ERROR'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 48 &rarr; MEMORY_ERROR</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 47 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter) (2 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testSingle(com.liveramp.cascading_ext.assembly.TestBloomJoin) (10100 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testNumHashes2(com.liveramp.cascading_ext.assembly.TestBloomFilter) (11574 ms)</li><li>com.liveramp.cascading_ext.bloom.TestBloomFilter.testFalsePositiveRate(com.liveramp.cascading_ext.bloom.TestBloomFilter) (36 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testSwapped(com.liveramp.cascading_ext.assembly.TestBloomFilter) (10861 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testExact(com.liveramp.cascading_ext.assembly.TestBloomFilter) (14638 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testIt(com.liveramp.cascading_ext.assembly.TestBloomJoin) (38009 ms)</li><li>com.liveramp.cascading_ext.assembly.TestCreateBloomFilter.testSingle(com.liveramp.cascading_ext.assembly.TestCreateBloomFilter) (1188 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testNumHashes(com.liveramp.cascading_ext.assembly.TestBloomFilter) (10616 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter) (5270 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

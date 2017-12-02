@@ -1,0 +1,1700 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>FileIterator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.neo4j.batchimport.utils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.mapdb.Serializer;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Comparator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Iterator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class FileIterator implements Iterator&#60;FileIterator.Line&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final char DELIM = &#39;\t&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final BufferedReader reader;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final String file;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Line line;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    long lineNo;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_16'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public FileIterator(String file) throws FileNotFoundException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_17'/>
+17
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_17'>5</a>
+<span>
+1. <init> : CRCR - Substituted 1048576 with 1048577 &rarr; SURVIVED<br/>
+2. <init> : CRCR - Substituted 1048576 with 1048575 &rarr; TIMED_OUT<br/>
+3. <init> : CRCR - Substituted 1048576 with -1048576 &rarr; KILLED<br/>
+4. <init> : CRCR - Substituted 1048576 with 1 &rarr; KILLED<br/>
+5. <init> : CRCR - Substituted 1048576 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        reader = new BufferedReader(new FileReader(file), RelationshipSorter.BUFFER);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_18'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.file = file;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_19'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        line = readLine();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_20'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void close() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_23'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        reader.close();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_24'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Line readLine() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_28'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            String line = reader.readLine();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_29'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (line==null) return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_30'/>
+30
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_30'>11</a>
+<span>
+1. readLine : CRCR - Substituted 1 with 1 &rarr; TIMED_OUT<br/>
+2. readLine : AOD - Removed second operator from long add &rarr; KILLED<br/>
+3. readLine : AOD - Removed second operator from long add &rarr; KILLED<br/>
+4. readLine : AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; KILLED<br/>
+5. readLine : AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; KILLED<br/>
+6. readLine : AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; KILLED<br/>
+7. readLine : AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; KILLED<br/>
+8. readLine : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+9. readLine : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+10. readLine : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+11. readLine : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>            return Line.from(lineNo++, line);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_31'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_32'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            throw new RuntimeException(&#34;Error reading file &#34;+ file,e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean hasNext() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_38'/>
+38
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_38'>10</a>
+<span>
+1. hasNext : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. hasNext : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+3. hasNext : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+4. hasNext : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+5. hasNext : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+6. hasNext : CRCR - Substituted 1 with 1 &rarr; KILLED<br/>
+7. hasNext : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+8. hasNext : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+9. hasNext : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+10. hasNext : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return line != null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Line next() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_42'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Line result=line;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_43'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        line = readLine();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_44'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void remove() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_48'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_50'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static class LineSerializer implements Serializer&#60;Line&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void serialize(DataOutput dataOutput, Line line) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_53'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            dataOutput.writeLong(line.lineNo);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>//            dataOutput.writeLong(line.min);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>//            dataOutput.writeLong(line.max);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_56'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            dataOutput.writeUTF(line.line);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_57'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public Line deserialize(DataInput dataInput, int i) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>//            return Line.from(dataInput.readLong(),dataInput.readLong(),dataInput.readLong(),dataInput.readUTF());</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_62'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            return Line.from(dataInput.readLong(),dataInput.readUTF());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_65'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static class Line {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        String line;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        long lineNo, min, max;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public static Line from(long lineNo, long min, long max, String line) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            Line result = new Line();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_70'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            result.lineNo = lineNo;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_71'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            result.min = min;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            result.max = max;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            result.line = line;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public static Line from(long lineNo, String line) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_77'/>
+77
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_77'>10</a>
+<span>
+1. from : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. from : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. from : ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+4. from : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+5. from : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+6. from : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+7. from : ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+8. from : ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+9. from : ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+10. from : ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (lineNo &#62; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_78'>5</a>
+<span>
+1. from : CRCR - Substituted 9 with 8 &rarr; KILLED<br/>
+2. from : CRCR - Substituted 9 with -9 &rarr; KILLED<br/>
+3. from : CRCR - Substituted 9 with 1 &rarr; KILLED<br/>
+4. from : CRCR - Substituted 9 with 10 &rarr; KILLED<br/>
+5. from : CRCR - Substituted 9 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                int idx = line.indexOf(DELIM);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_79'/>
+79
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_79'>9</a>
+<span>
+1. from : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. from : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+3. from : ABS - Negated integer variable  &rarr; KILLED<br/>
+4. from : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+5. from : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+6. from : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+7. from : UOI - Decremented int variable &rarr; KILLED<br/>
+8. from : UOI - Incremented int variable &rarr; KILLED<br/>
+9. from : UOI - Removed unary operator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                long start = Long.parseLong(line.substring(0, idx++));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_80'/>
+80
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_80'>11</a>
+<span>
+1. from : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. from : ABS - Negated integer variable  &rarr; KILLED<br/>
+3. from : CRCR - Substituted 9 with 8 &rarr; KILLED<br/>
+4. from : CRCR - Substituted 9 with -9 &rarr; KILLED<br/>
+5. from : CRCR - Substituted 9 with 1 &rarr; KILLED<br/>
+6. from : CRCR - Substituted 9 with 10 &rarr; KILLED<br/>
+7. from : CRCR - Substituted 9 with 0 &rarr; KILLED<br/>
+8. from : UOI - Decremented int variable &rarr; KILLED<br/>
+9. from : UOI - Decremented int variable &rarr; KILLED<br/>
+10. from : UOI - Incremented int variable &rarr; KILLED<br/>
+11. from : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                long end = Long.parseLong(line.substring(idx, line.indexOf(DELIM, idx)));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_81'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return from(lineNo,Math.min(start,end), Math.max(start, end),line);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_83'/>
+83
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_83'>10</a>
+<span>
+1. from : CRCR - Substituted -1 with 1 &rarr; SURVIVED<br/>
+2. from : CRCR - Substituted -1 with 1 &rarr; SURVIVED<br/>
+3. from : CRCR - Substituted -1 with 0 &rarr; SURVIVED<br/>
+4. from : CRCR - Substituted -1 with 0 &rarr; SURVIVED<br/>
+5. from : CRCR - Substituted -1 with 0 &rarr; SURVIVED<br/>
+6. from : CRCR - Substituted -1 with -2 &rarr; TIMED_OUT<br/>
+7. from : CRCR - Substituted -1 with -2 &rarr; TIMED_OUT<br/>
+8. from : CRCR - Substituted -1 with 1 &rarr; KILLED<br/>
+9. from : CRCR - Substituted -1 with 1 &rarr; KILLED<br/>
+10. from : CRCR - Substituted -1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return from(lineNo,-1, -1,line);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_88'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static class RelStartEndComparator implements Comparator&#60;Line&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public int compare(Line line1, Line line2) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_91'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            int result = Long.compare(line1.min, line2.min);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_92'>8</a>
+<span>
+1. compare : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. compare : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+3. compare : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+4. compare : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. compare : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+6. compare : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+7. compare : UOI - Decremented int variable &rarr; KILLED<br/>
+8. compare : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (result == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_93'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                result = Long.compare(line1.max, line2.max);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_94'/>
+94
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_94'>8</a>
+<span>
+1. compare : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. compare : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+3. compare : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+4. compare : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. compare : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+6. compare : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+7. compare : UOI - Decremented int variable &rarr; KILLED<br/>
+8. compare : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (result == 0) return Long.compare(line1.lineNo, line2.lineNo);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_96'>3</a>
+<span>
+1. compare : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. compare : UOI - Decremented int variable &rarr; KILLED<br/>
+3. compare : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_17'>17</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_17'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1048576 with 1048575 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1048576 with -1048576 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1048576 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1048576 with 1048577 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1048576 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_30'>30</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_30'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> AOD - Removed second operator from long add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> AOD - Removed second operator from long add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>readLine<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_38'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 9 with 8 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 9 with -9 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 9 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 9 with 10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 9 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Removed unary operator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_80'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 9 with 8 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 9 with -9 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 9 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 9 with 10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> CRCR - Substituted 9 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_83'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with -2 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with -2 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testPerformance(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testPerformance(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted -1 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.neo4j.batchimport.utils.FileIteratorTest.testPerformance(org.neo4j.batchimport.utils.FileIteratorTest)</span></span> CRCR - Substituted -1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>from<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_94'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4e6ab6e4_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.neo4j.batchimport.utils.FileIteratorTest.testPerformance(org.neo4j.batchimport.utils.FileIteratorTest) (3577 ms)</li><li>org.neo4j.batchimport.utils.FileIteratorTest.testReadLines(org.neo4j.batchimport.utils.FileIteratorTest) (11 ms)</li><li>org.neo4j.batchimport.utils.RelationshipSorterTest.testSortRelationshipFile(org.neo4j.batchimport.utils.RelationshipSorterTest) (15 ms)</li><li>org.neo4j.batchimport.utils.RelStartEndComparatorTest.testCompareMinStartEnd(org.neo4j.batchimport.utils.RelStartEndComparatorTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

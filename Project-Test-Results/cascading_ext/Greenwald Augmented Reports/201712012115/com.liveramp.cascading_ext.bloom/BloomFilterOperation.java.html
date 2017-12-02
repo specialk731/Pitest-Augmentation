@@ -1,0 +1,1845 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>BloomFilterOperation.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2012 LiveRamp</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.liveramp.cascading_ext.bloom;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.hadoop.conf.Configuration;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.hadoop.filecache.DistributedCache;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.hadoop.fs.FileSystem;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.hadoop.fs.Path;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.hadoop.mapred.JobConf;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.slf4j.Logger;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.slf4j.LoggerFactory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import cascading.flow.FlowProcess;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import cascading.operation.BaseOperation;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import cascading.operation.OperationCall;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import cascading.tuple.Fields;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.liveramp.cascading_ext.FileSystemHelper;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.liveramp.cascading_ext.fs.TrashHelper;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public abstract class BloomFilterOperation extends BaseOperation {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_40'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static Logger LOG = LoggerFactory.getLogger(BloomFilterOperation.class);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_42'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private BloomFilter filter = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_43'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private String filterJobId = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // the job id guarantees this stuff works on both cluster and during tests</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // in production, we want to keep the static filter loaded for as long as possible</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  //  (since jvm reuse might be enabled)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // however, in tests, the static objects don&#39;t get cleared between jobs</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private String jobId;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private boolean cleanUpFilter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public BloomFilterOperation(String jobId, boolean cleanUpFilter, Fields newFields) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    super(newFields);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.jobId = jobId;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_56'/>
+56
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_56'>3</a>
+<span>
+1. <init> : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. <init> : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+3. <init> : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    this.cleanUpFilter = cleanUpFilter;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public BloomFilterOperation(String jobId, Fields newFields) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_60'/>
+60
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_60'>5</a>
+<span>
+1. <init> : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. <init> : CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+3. <init> : CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE<br/>
+4. <init> : CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+5. <init> : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    this(jobId, true, newFields);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_61'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  protected boolean filterMayContain(byte[] potential) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_64'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    return filter.membershipTest(potential);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void prepare(FlowProcess flowProcess, OperationCall operationCall) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_69'/>
+69
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_69'>5</a>
+<span>
+1. prepare : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+2. prepare : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+3. prepare : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT<br/>
+4. prepare : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+5. prepare : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    if (filter == null || !filterJobId.equals(jobId)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_71'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        LOG.info(&#34;Loading bloom filter&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String bloomFilter = getBloomFilterFile((JobConf) flowProcess.getConfigCopy());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        filter = BloomFilter.read(FileSystem.getLocal(new Configuration()),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            new Path(bloomFilter));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_76'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        filterJobId = jobId;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_78'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        LOG.info(&#34;Done loading bloom filter&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_79'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      } catch (Exception e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_80'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        throw new RuntimeException(&#34;Error loading bloom filter&#34;, e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_81'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_83'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void cleanup(FlowProcess process, OperationCall call) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_87'/>
+87
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_87'>5</a>
+<span>
+1. cleanup : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+2. cleanup : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+3. cleanup : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+4. cleanup : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT<br/>
+5. cleanup : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    if (cleanUpFilter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      try {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_89'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        String bloomFilter = getBloomFilterFile((JobConf) process.getConfigCopy());</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_90'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        TrashHelper.deleteUsingTrashIfEnabled(FileSystemHelper.getFS(), new Path(bloomFilter));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_91'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      } catch (IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_92'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        LOG.info(&#34;Error deleting bloom filter!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_93'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_95'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private String getBloomFilterFile(JobConf config) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_99'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Path[] files = DistributedCache.getLocalCacheFiles(config);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_100'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      List&#60;Path&#62; bloomFilterFiles = new ArrayList&#60;Path&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_101'/>
+101
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_101'>20</a>
+<span>
+1. getBloomFilterFile : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. getBloomFilterFile : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. getBloomFilterFile : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+4. getBloomFilterFile : CRCR - Substituted 0 with -1 &rarr; TIMED_OUT<br/>
+5. getBloomFilterFile : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+6. getBloomFilterFile : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+7. getBloomFilterFile : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+8. getBloomFilterFile : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+9. getBloomFilterFile : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+10. getBloomFilterFile : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+11. getBloomFilterFile : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+12. getBloomFilterFile : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+13. getBloomFilterFile : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT<br/>
+14. getBloomFilterFile : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+15. getBloomFilterFile : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+16. getBloomFilterFile : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+17. getBloomFilterFile : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+18. getBloomFilterFile : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+19. getBloomFilterFile : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+20. getBloomFilterFile : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      for (Path p : files) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_102'/>
+102
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_102'>5</a>
+<span>
+1. getBloomFilterFile : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+2. getBloomFilterFile : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+3. getBloomFilterFile : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+4. getBloomFilterFile : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT<br/>
+5. getBloomFilterFile : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (p.toString().endsWith(&#34;.bloomfilter&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_103'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          bloomFilterFiles.add(p);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_106'/>
+106
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_106'>10</a>
+<span>
+1. getBloomFilterFile : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+2. getBloomFilterFile : CRCR - Substituted 1 with -1 &rarr; TIMED_OUT<br/>
+3. getBloomFilterFile : CRCR - Substituted 1 with 1 &rarr; TIMED_OUT<br/>
+4. getBloomFilterFile : CRCR - Substituted 1 with 2 &rarr; TIMED_OUT<br/>
+5. getBloomFilterFile : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+6. getBloomFilterFile : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+7. getBloomFilterFile : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+8. getBloomFilterFile : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+9. getBloomFilterFile : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT<br/>
+10. getBloomFilterFile : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      if (bloomFilterFiles.size() != 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_107'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        throw new RuntimeException(&#34;Expected one bloom filter path in the Distributed cache: there were &#34; + bloomFilterFiles.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_109'/>
+109
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_109'>5</a>
+<span>
+1. getBloomFilterFile : CRCR - Substituted 0 with -1 &rarr; TIMED_OUT<br/>
+2. getBloomFilterFile : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+3. getBloomFilterFile : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+4. getBloomFilterFile : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+5. getBloomFilterFile : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      return bloomFilterFiles.get(0).toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_110'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    } catch (IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_111'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      throw new RuntimeException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@316d6cda_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@316d6cda_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_56'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@316d6cda_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_60'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@316d6cda_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_69'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>prepare<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>prepare<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>prepare<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>prepare<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>prepare<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@316d6cda_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_87'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cleanup<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>cleanup<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>cleanup<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>cleanup<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>cleanup<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@316d6cda_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_101'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@316d6cda_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_102'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@316d6cda_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_106'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@316d6cda_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@316d6cda_109'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getBloomFilterFile<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testSingle(com.liveramp.cascading_ext.assembly.TestBloomJoin) (10100 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testNumHashes2(com.liveramp.cascading_ext.assembly.TestBloomFilter) (11574 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testSwapped(com.liveramp.cascading_ext.assembly.TestBloomFilter) (10861 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testExact(com.liveramp.cascading_ext.assembly.TestBloomFilter) (14638 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testIt(com.liveramp.cascading_ext.assembly.TestBloomJoin) (38009 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testNumHashes(com.liveramp.cascading_ext.assembly.TestBloomFilter) (10616 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter) (5270 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

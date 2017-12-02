@@ -1,0 +1,3260 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>ApplicableOverloadedMethods.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   Copyright 2009-2013 Attila Szegedi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   Licensed under both the Apache License, Version 2.0 (the &#34;Apache License&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   and the BSD License (the &#34;BSD License&#34;), with licensee being free to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   choose either of the two at their discretion.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   You may not use this file except in compliance with either the Apache</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   License or the BSD License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   If you choose to use this file in compliance with the Apache License, the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   following notice applies to you:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       You may obtain a copy of the Apache License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>           http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       implied. See the License for the specific language governing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       permissions and limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   If you choose to use this file in compliance with the BSD License, the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   following notice applies to you:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       Redistribution and use in source and binary forms, with or without</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       modification, are permitted provided that the following conditions are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       met:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Redistributions of source code must retain the above copyright</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         notice, this list of conditions and the following disclaimer.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Redistributions in binary form must reproduce the above copyright</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         notice, this list of conditions and the following disclaimer in the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         documentation and/or other materials provided with the distribution.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Neither the name of the copyright holder nor the names of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         contributors may be used to endorse or promote products derived from</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         this software without specific prior written permission.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &#34;AS</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       IS&#34; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>*/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.dynalang.dynalink.beans;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.invoke.MethodType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.LinkedList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.dynalang.dynalink.support.TypeUtilities;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Represents overloaded methods applicable to a specific call site signature.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Attila Szegedi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class ApplicableOverloadedMethods {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final List&#60;SingleDynamicMethod&#62; methods;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final boolean varArgs;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new ApplicableOverloadedMethods instance</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param methods a list of all overloaded methods with the same name for a class.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param callSiteType the type of the call site</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param test applicability test. One of {@link #APPLICABLE_BY_SUBTYPING},</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link #APPLICABLE_BY_METHOD_INVOCATION_CONVERSION}, or {@link #APPLICABLE_BY_VARIABLE_ARITY}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    ApplicableOverloadedMethods(final List&#60;SingleDynamicMethod&#62; methods, final MethodType callSiteType,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_77'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final ApplicabilityTest test) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_78'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.methods = new LinkedList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_79'/>
+79
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_79'>5</a>
+<span>
+1. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED<br/>
+2. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+3. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+4. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+5. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for(final SingleDynamicMethod m: methods) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_80'/>
+80
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_80'>5</a>
+<span>
+1. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+2. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+3. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+4. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+5. <init> : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if(test.isApplicable(callSiteType, m)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_81'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                this.methods.add(m);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_83'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_84'/>
+84
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_84'>10</a>
+<span>
+1. <init> : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. <init> : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+3. <init> : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+4. <init> : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+5. <init> : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+6. <init> : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+7. <init> : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+8. <init> : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+9. <init> : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+10. <init> : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        varArgs = test == APPLICABLE_BY_VARIABLE_ARITY;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_85'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Retrieves all the methods this object holds.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return list of all methods.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    List&#60;SingleDynamicMethod&#62; getMethods() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_93'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return methods;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a list of all methods in this objects that are maximally specific.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a list of maximally specific methods.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    List&#60;SingleDynamicMethod&#62; findMaximallySpecificMethods() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_102'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return MaximallySpecific.getMaximallySpecificMethods(methods, varArgs);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_105'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    abstract static class ApplicabilityTest {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        abstract boolean isApplicable(MethodType callSiteType, SingleDynamicMethod method);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Implements the applicability-by-subtyping test from JLS 15.12.2.2.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_112'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    static final ApplicabilityTest APPLICABLE_BY_SUBTYPING = new ApplicabilityTest() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        boolean isApplicable(final MethodType callSiteType, final SingleDynamicMethod method) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_115'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final MethodType methodType = method.getMethodType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_116'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final int methodArity = methodType.parameterCount();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_117'/>
+117
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_117'>8</a>
+<span>
+1. isApplicable : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. isApplicable : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+3. isApplicable : UOI - Decremented int variable &rarr; SURVIVED<br/>
+4. isApplicable : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+5. isApplicable : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+6. isApplicable : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+7. isApplicable : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+8. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if(methodArity != callSiteType.parameterCount()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_118'/>
+118
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_118'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // 0th arg is receiver; it doesn&#39;t matter for overload</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // resolution.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_122'/>
+122
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_122'>17</a>
+<span>
+1. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+4. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+5. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+6. isApplicable : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+7. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+9. isApplicable : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+10. isApplicable : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+11. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+12. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+13. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+14. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+15. isApplicable : UOI - Decremented int variable &rarr; KILLED<br/>
+16. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+17. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            for(int i = 1; i &#60; methodArity; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_123'/>
+123
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_123'>11</a>
+<span>
+1. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+2. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+3. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+4. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+5. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+6. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+7. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+8. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+9. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+10. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+11. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if(!TypeUtilities.isSubtype(callSiteType.parameterType(i), methodType.parameterType(i))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_124'/>
+124
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_124'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_127'/>
+127
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_127'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+4. isApplicable : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+5. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Implements the applicability-by-method-invocation-conversion test from JLS 15.12.2.3.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_134'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    static final ApplicabilityTest APPLICABLE_BY_METHOD_INVOCATION_CONVERSION = new ApplicabilityTest() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        boolean isApplicable(final MethodType callSiteType, final SingleDynamicMethod method) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_137'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final MethodType methodType = method.getMethodType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_138'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final int methodArity = methodType.parameterCount();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_139'/>
+139
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_139'>8</a>
+<span>
+1. isApplicable : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. isApplicable : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+3. isApplicable : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+4. isApplicable : UOI - Decremented int variable &rarr; SURVIVED<br/>
+5. isApplicable : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+6. isApplicable : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+7. isApplicable : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+8. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if(methodArity != callSiteType.parameterCount()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_140'/>
+140
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_140'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // 0th arg is receiver; it doesn&#39;t matter for overload</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // resolution.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_144'/>
+144
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_144'>17</a>
+<span>
+1. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+4. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+5. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+6. isApplicable : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+7. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+9. isApplicable : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+10. isApplicable : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+11. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+12. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+13. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+14. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+15. isApplicable : UOI - Decremented int variable &rarr; KILLED<br/>
+16. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+17. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            for(int i = 1; i &#60; methodArity; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_145'/>
+145
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_145'>11</a>
+<span>
+1. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+2. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+3. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+4. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+5. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+6. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+7. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+8. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+9. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+10. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+11. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if(!TypeUtilities.isMethodInvocationConvertible(callSiteType.parameterType(i),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_146'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        methodType.parameterType(i))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_147'/>
+147
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_147'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_150'/>
+150
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_150'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+4. isApplicable : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+5. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Implements the applicability-by-variable-arity test from JLS 15.12.2.4.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_157'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    static final ApplicabilityTest APPLICABLE_BY_VARIABLE_ARITY = new ApplicabilityTest() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        boolean isApplicable(final MethodType callSiteType, final SingleDynamicMethod method) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_160'/>
+160
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_160'>5</a>
+<span>
+1. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+2. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+3. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+4. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if(!method.isVarArgs()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_161'/>
+161
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_161'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_163'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final MethodType methodType = method.getMethodType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_164'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final int methodArity = methodType.parameterCount();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_165'/>
+165
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_165'>14</a>
+<span>
+1. isApplicable : AOD - Removed second operator from int sub &rarr; SURVIVED<br/>
+2. isApplicable : AOD - Removed second operator from int sub &rarr; SURVIVED<br/>
+3. isApplicable : AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; SURVIVED<br/>
+4. isApplicable : AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+5. isApplicable : AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+6. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+7. isApplicable : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+8. isApplicable : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+9. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+10. isApplicable : UOI - Incremented int variable &rarr; SURVIVED<br/>
+11. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+12. isApplicable : AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; KILLED<br/>
+13. isApplicable : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+14. isApplicable : UOI - Decremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            final int fixArity = methodArity - 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_166'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final int callSiteArity = callSiteType.parameterCount();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_167'/>
+167
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_167'>11</a>
+<span>
+1. isApplicable : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. isApplicable : ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+3. isApplicable : ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+4. isApplicable : UOI - Decremented int variable &rarr; SURVIVED<br/>
+5. isApplicable : UOI - Incremented int variable &rarr; SURVIVED<br/>
+6. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+7. isApplicable : ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+8. isApplicable : ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+9. isApplicable : ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+10. isApplicable : UOI - Decremented int variable &rarr; KILLED<br/>
+11. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if(fixArity &#62; callSiteArity) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_168'/>
+168
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_168'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // 0th arg is receiver; it doesn&#39;t matter for overload</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // resolution.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_172'/>
+172
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_172'>17</a>
+<span>
+1. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+4. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+5. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+6. isApplicable : UOI - Incremented int variable &rarr; SURVIVED<br/>
+7. isApplicable : UOI - Removed unary operator &rarr; SURVIVED<br/>
+8. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+9. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+10. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+11. isApplicable : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+12. isApplicable : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+13. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+14. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+15. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+16. isApplicable : UOI - Decremented int variable &rarr; KILLED<br/>
+17. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            for(int i = 1; i &#60; fixArity; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_173'/>
+173
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_173'>11</a>
+<span>
+1. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+2. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+3. isApplicable : UOI - Incremented int variable &rarr; SURVIVED<br/>
+4. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+5. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+6. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+7. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+9. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+10. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+11. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if(!TypeUtilities.isMethodInvocationConvertible(callSiteType.parameterType(i),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_174'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        methodType.parameterType(i))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_175'/>
+175
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_175'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. isApplicable : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_178'/>
+178
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_178'>3</a>
+<span>
+1. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. isApplicable : UOI - Decremented int variable &rarr; KILLED<br/>
+3. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            final Class&#60;?&#62; varArgType = methodType.parameterType(fixArity).getComponentType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_179'/>
+179
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_179'>15</a>
+<span>
+1. isApplicable : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED<br/>
+3. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+4. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+5. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+6. isApplicable : UOI - Decremented int variable &rarr; SURVIVED<br/>
+7. isApplicable : UOI - Decremented int variable &rarr; SURVIVED<br/>
+8. isApplicable : UOI - Incremented int variable &rarr; SURVIVED<br/>
+9. isApplicable : UOI - Incremented int variable &rarr; SURVIVED<br/>
+10. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+11. isApplicable : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+12. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+13. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+14. isApplicable : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+15. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            for(int i = fixArity; i &#60; callSiteArity; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_180'/>
+180
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_180'>8</a>
+<span>
+1. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+2. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+3. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+4. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+5. isApplicable : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+6. isApplicable : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+7. isApplicable : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. isApplicable : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if(!TypeUtilities.isMethodInvocationConvertible(callSiteType.parameterType(i), varArgType)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_181'/>
+181
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_181'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+2. isApplicable : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+3. isApplicable : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. isApplicable : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. isApplicable : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                    return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_184'/>
+184
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_184'>5</a>
+<span>
+1. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. isApplicable : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. isApplicable : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+4. isApplicable : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+5. isApplicable : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@25d625c4_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_79'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_80'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_84'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_117'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPrintLn.testPrintLn(org.dynalang.dynalink.beans.TestPrintLn)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPrintLn.testPrintLn(org.dynalang.dynalink.beans.TestPrintLn)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testExactMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testExactMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_123'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_127'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_139'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPrintLn.testPrintLn(org.dynalang.dynalink.beans.TestPrintLn)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_140'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_144'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testExactMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testExactMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_145'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_150'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_160'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_161'>161</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_161'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_165'>165</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_165'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int sub &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int sub &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_172'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_178'>178</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_178'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_179'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_180'>180</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_180'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_181'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@25d625c4_184'>184</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@25d625c4_184'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isApplicable<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter) (9 ms)</li><li>org.dynalang.dynalink.beans.TestPrintLn.testPrintLn(org.dynalang.dynalink.beans.TestPrintLn) (11 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringFormat(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (63 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (2 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testVarArg(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (18 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testExactMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (11 ms)</li><li>org.dynalang.dynalink.beans.TestStatics.testPropertyGetterSetter(org.dynalang.dynalink.beans.TestStatics) (10 ms)</li><li>org.dynalang.dynalink.beans.TestNew.testAll(org.dynalang.dynalink.beans.TestNew) (48 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testVeryGenericSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (6 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testIntOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (12 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

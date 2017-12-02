@@ -1,0 +1,1971 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>LineStyle.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The MIT License</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (c) 2011 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Permission is hereby granted, free of charge, to any person obtaining a copy</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * of this software and associated documentation files (the &#34;Software&#34;), to deal</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * in the Software without restriction, including without limitation the rights</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * copies of the Software, and to permit persons to whom the Software is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * furnished to do so, subject to the following conditions:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The above copyright notice and this permission notice shall be included in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * all copies or substantial portions of the Software.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * THE SOFTWARE IS PROVIDED &#34;AS IS&#34;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * THE SOFTWARE.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.googlecode.charts4j;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.googlecode.charts4j.collect.Preconditions.checkArgument;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Class for specifying line styles on {@link LineChart}s, {@link XYLine}s,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * and {@link RadarPlot}s. You can specify if a line is solid or dotted, and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the thickness of the line with this class. Also, for your convenience, there</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * are a few predefined lines.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Julien Chastang (julien.c.chastang at gmail dot com)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class LineStyle {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Thick line. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_41'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final LineStyle THICK_LINE         = newLineStyle(5, 1, 0);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Medium line. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_44'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final LineStyle MEDIUM_LINE        = newLineStyle(3, 1, 0);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Thin line. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_47'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final LineStyle THIN_LINE          = newLineStyle(1, 1, 0);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Thick dotted line. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_50'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final LineStyle THICK_DOTTED_LINE  = newLineStyle(5, 5, 3);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Medium dotted line. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final LineStyle MEDIUM_DOTTED_LINE = newLineStyle(3, 5, 3);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Thin dotted line. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_56'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final LineStyle THIN_DOTTED_LINE   = newLineStyle(1, 5, 3);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Line style thickness. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int       lineThickness;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Length of line segment. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int       lengthOfLineSegment;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Length of blank segment. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int       lengthOfBlankSegment;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see #newLineStyle(int, int, int)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_70'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    LineStyle(final int lineThickness, final int lengthOfLineSegment, final int lengthOfBlankSegment) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_71'>3</a>
+<span>
+1. <init> : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+2. <init> : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+3. <init> : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.lineThickness = lineThickness;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_72'>3</a>
+<span>
+1. <init> : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+2. <init> : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+3. <init> : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.lengthOfLineSegment = lengthOfLineSegment;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_73'/>
+73
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_73'>3</a>
+<span>
+1. <init> : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+2. <init> : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+3. <init> : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.lengthOfBlankSegment = lengthOfBlankSegment;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get the thickness of the line.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return The thickness of the line.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int getLineThickness() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_82'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return lineThickness;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get the length of the line segment.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return Length of line segment.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int getLengthOfLineSegment() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_91'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return lengthOfLineSegment;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get the length of the blank segment.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return Length of blank segment.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int getLengthOfBlankSegment() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_100'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return lengthOfBlankSegment;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Create a line style.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param lineThickness</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            Thickness of line. Must be &#62; 0.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param lengthOfLineSegment</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            Length of line segment. Must be &#62;= 0.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param lengthOfBlankSegment</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            Length of blank segment. Must be &#62;= 0.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a LineStyle</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static LineStyle newLineStyle(final int lineThickness, final int lengthOfLineSegment, final int lengthOfBlankSegment) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_115'>31</a>
+<span>
+1. newLineStyle : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+2. newLineStyle : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+3. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+4. newLineStyle : CRCR - Substituted 0 with -1 &rarr; NON_VIABLE<br/>
+5. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+6. newLineStyle : CRCR - Substituted 0 with -1 &rarr; NON_VIABLE<br/>
+7. newLineStyle : CRCR - Substituted 1 with -1 &rarr; NON_VIABLE<br/>
+8. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+9. newLineStyle : CRCR - Substituted 1 with -1 &rarr; NON_VIABLE<br/>
+10. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+11. newLineStyle : CRCR - Substituted 1 with 1 &rarr; NON_VIABLE<br/>
+12. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+13. newLineStyle : CRCR - Substituted 1 with 1 &rarr; NON_VIABLE<br/>
+14. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+15. newLineStyle : CRCR - Substituted 1 with 2 &rarr; NON_VIABLE<br/>
+16. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+17. newLineStyle : CRCR - Substituted 1 with 2 &rarr; NON_VIABLE<br/>
+18. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+19. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+20. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+21. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+22. newLineStyle : ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; NON_VIABLE<br/>
+23. newLineStyle : ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; NON_VIABLE<br/>
+24. newLineStyle : ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; NON_VIABLE<br/>
+25. newLineStyle : ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; NON_VIABLE<br/>
+26. newLineStyle : ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; NON_VIABLE<br/>
+27. newLineStyle : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+28. newLineStyle : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+29. newLineStyle : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+30. newLineStyle : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+31. newLineStyle : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        checkArgument(lineThickness &#62; 0, &#34;line thickness must be &#62; 0: %s&#34;, lineThickness);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_116'>31</a>
+<span>
+1. newLineStyle : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+2. newLineStyle : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+3. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+4. newLineStyle : CRCR - Substituted 0 with -1 &rarr; NON_VIABLE<br/>
+5. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+6. newLineStyle : CRCR - Substituted 0 with -1 &rarr; NON_VIABLE<br/>
+7. newLineStyle : CRCR - Substituted 1 with -1 &rarr; NON_VIABLE<br/>
+8. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+9. newLineStyle : CRCR - Substituted 1 with -1 &rarr; NON_VIABLE<br/>
+10. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+11. newLineStyle : CRCR - Substituted 1 with 1 &rarr; NON_VIABLE<br/>
+12. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+13. newLineStyle : CRCR - Substituted 1 with 1 &rarr; NON_VIABLE<br/>
+14. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+15. newLineStyle : CRCR - Substituted 1 with 2 &rarr; NON_VIABLE<br/>
+16. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+17. newLineStyle : CRCR - Substituted 1 with 2 &rarr; NON_VIABLE<br/>
+18. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+19. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+20. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+21. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+22. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+23. newLineStyle : ROR - Replaced &#34;IFLT&#34; with &#34;IFNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; NON_VIABLE<br/>
+24. newLineStyle : ROR - Replaced &#34;IFLT&#34; with &#34;IFLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; NON_VIABLE<br/>
+25. newLineStyle : ROR - Replaced &#34;IFLT&#34; with &#34;IFGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; NON_VIABLE<br/>
+26. newLineStyle : ROR - Replaced &#34;IFLT&#34; with &#34;IFGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NON_VIABLE<br/>
+27. newLineStyle : ROR - Replaced &#34;IFLT&#34; with &#34;IFEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; NON_VIABLE<br/>
+28. newLineStyle : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+29. newLineStyle : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+30. newLineStyle : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+31. newLineStyle : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        checkArgument(lengthOfLineSegment &#62;= 0, &#34;length of line segment must be &#62;= 0: %s&#34;, lengthOfLineSegment);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_117'>31</a>
+<span>
+1. newLineStyle : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+2. newLineStyle : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+3. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+4. newLineStyle : CRCR - Substituted 0 with -1 &rarr; NON_VIABLE<br/>
+5. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+6. newLineStyle : CRCR - Substituted 0 with -1 &rarr; NON_VIABLE<br/>
+7. newLineStyle : CRCR - Substituted 1 with -1 &rarr; NON_VIABLE<br/>
+8. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+9. newLineStyle : CRCR - Substituted 1 with -1 &rarr; NON_VIABLE<br/>
+10. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+11. newLineStyle : CRCR - Substituted 1 with 1 &rarr; NON_VIABLE<br/>
+12. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+13. newLineStyle : CRCR - Substituted 1 with 1 &rarr; NON_VIABLE<br/>
+14. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+15. newLineStyle : CRCR - Substituted 1 with 2 &rarr; NON_VIABLE<br/>
+16. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+17. newLineStyle : CRCR - Substituted 1 with 2 &rarr; NON_VIABLE<br/>
+18. newLineStyle : CRCR - Substituted 0 with 1 &rarr; NON_VIABLE<br/>
+19. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+20. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+21. newLineStyle : CRCR - Substituted 1 with 0 &rarr; NON_VIABLE<br/>
+22. newLineStyle : CRCR - Substituted 0 with 0 &rarr; NON_VIABLE<br/>
+23. newLineStyle : ROR - Replaced &#34;IFLT&#34; with &#34;IFNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; NON_VIABLE<br/>
+24. newLineStyle : ROR - Replaced &#34;IFLT&#34; with &#34;IFLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; NON_VIABLE<br/>
+25. newLineStyle : ROR - Replaced &#34;IFLT&#34; with &#34;IFGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; NON_VIABLE<br/>
+26. newLineStyle : ROR - Replaced &#34;IFLT&#34; with &#34;IFGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NON_VIABLE<br/>
+27. newLineStyle : ROR - Replaced &#34;IFLT&#34; with &#34;IFEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; NON_VIABLE<br/>
+28. newLineStyle : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+29. newLineStyle : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+30. newLineStyle : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+31. newLineStyle : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        checkArgument(lengthOfBlankSegment &#62;= 0, &#34;length of blank segment must be &#62; 0: %s&#34;, lengthOfBlankSegment);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_118'>9</a>
+<span>
+1. newLineStyle : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+2. newLineStyle : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+3. newLineStyle : ABS - Negated integer variable  &rarr; NON_VIABLE<br/>
+4. newLineStyle : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+5. newLineStyle : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+6. newLineStyle : UOI - Decremented int variable &rarr; NON_VIABLE<br/>
+7. newLineStyle : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+8. newLineStyle : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+9. newLineStyle : UOI - Incremented int variable &rarr; NON_VIABLE<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new LineStyle(lineThickness, lengthOfLineSegment, lengthOfBlankSegment);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@34849b62_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34849b62_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_71'/> 
+
+<p class='NON_VIABLE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34849b62_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_72'/> 
+
+<p class='NON_VIABLE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34849b62_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_73'/> 
+
+<p class='NON_VIABLE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34849b62_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_115'/> 
+
+<p class='NON_VIABLE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NON_VIABLE</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>com.googlecode.charts4j.LineStyleTest.com.googlecode.charts4j.LineStyleTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='NON_VIABLE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34849b62_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_116'/> 
+
+<p class='NON_VIABLE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34849b62_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_117'/> 
+
+<p class='NON_VIABLE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@34849b62_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@34849b62_118'/> 
+
+<p class='NON_VIABLE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> <p class='NON_VIABLE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>newLineStyle<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NON_VIABLE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.googlecode.charts4j.example.LineChartExample.com.googlecode.charts4j.example.LineChartExample (5 ms)</li><li>com.googlecode.charts4j.example.RadarChartExample.com.googlecode.charts4j.example.RadarChartExample (3 ms)</li><li>com.googlecode.charts4j.parameters.LineChartLineStylesParameterTest.com.googlecode.charts4j.parameters.LineChartLineStylesParameterTest (1 ms)</li><li>com.googlecode.charts4j.LineStyleTest.com.googlecode.charts4j.LineStyleTest (1 ms)</li><li>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest (47 ms)</li><li>com.googlecode.charts4j.RadarChartTest.com.googlecode.charts4j.RadarChartTest (10 ms)</li><li>com.googlecode.charts4j.example.BarChartExample.com.googlecode.charts4j.example.BarChartExample (3 ms)</li><li>com.googlecode.charts4j.AxisStyleTest.com.googlecode.charts4j.AxisStyleTest (18 ms)</li><li>com.googlecode.charts4j.AbstractAxisChartTest.com.googlecode.charts4j.AbstractAxisChartTest (231 ms)</li><li>com.googlecode.charts4j.example.ScatterChartExample.com.googlecode.charts4j.example.ScatterChartExample (1 ms)</li><li>com.googlecode.charts4j.example.GeneralExample.com.googlecode.charts4j.example.GeneralExample (4 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

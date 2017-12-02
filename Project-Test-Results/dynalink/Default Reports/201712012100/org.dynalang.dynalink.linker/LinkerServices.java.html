@@ -1,0 +1,2597 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>LinkerServices.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   Copyright 2009-2013 Attila Szegedi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   Licensed under both the Apache License, Version 2.0 (the &#34;Apache License&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   and the BSD License (the &#34;BSD License&#34;), with licensee being free to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   choose either of the two at their discretion.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   You may not use this file except in compliance with either the Apache</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   License or the BSD License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   If you choose to use this file in compliance with the Apache License, the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   following notice applies to you:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       You may obtain a copy of the Apache License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>           http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       implied. See the License for the specific language governing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       permissions and limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   If you choose to use this file in compliance with the BSD License, the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   following notice applies to you:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       Redistribution and use in source and binary forms, with or without</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       modification, are permitted provided that the following conditions are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       met:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Redistributions of source code must retain the above copyright</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         notice, this list of conditions and the following disclaimer.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Redistributions in binary form must reproduce the above copyright</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         notice, this list of conditions and the following disclaimer in the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         documentation and/or other materials provided with the distribution.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Neither the name of the copyright holder nor the names of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         contributors may be used to endorse or promote products derived from</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         this software without specific prior written permission.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &#34;AS</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       IS&#34; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>*/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.dynalang.dynalink.linker;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.invoke.MethodHandle;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.invoke.MethodHandles;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.invoke.MethodType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.dynalang.dynalink.DynamicLinker;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.dynalang.dynalink.DynamicLinkerFactory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.dynalang.dynalink.linker.ConversionComparator.Comparison;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.dynalang.dynalink.support.TypeUtilities;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Interface for services provided to {@link GuardingDynamicLinker} instances by the {@link DynamicLinker} that owns</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * them. You can think of it as the interface of the {@link DynamicLinker} that faces the {@link GuardingDynamicLinker}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * s.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Attila Szegedi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public interface LinkerServices {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Similar to {@link MethodHandle#asType(MethodType)} except it also hooks in method handles produced by</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link GuardingTypeConverterFactory} implementations, providing for language-specific type coercing of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * parameters. It will apply {@link MethodHandle#asType(MethodType)} for all primitive-to-primitive,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * wrapper-to-primitive, primitive-to-wrapper conversions as well as for all upcasts. For all other conversions,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * it&#39;ll insert {@link MethodHandles#filterArguments(MethodHandle, int, MethodHandle...)} with composite filters</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * provided by {@link GuardingTypeConverterFactory} implementations.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param handle target method handle</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param fromType the types of source arguments</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a method handle that is a suitable combination of {@link MethodHandle#asType(MethodType)},</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link MethodHandles#filterArguments(MethodHandle, int, MethodHandle...)}, and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link MethodHandles#filterReturnValue(MethodHandle, MethodHandle)} with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link GuardingTypeConverterFactory}-produced type converters as filters.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public MethodHandle asType(MethodHandle handle, MethodType fromType);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Similar to {@link #asType(MethodHandle, MethodType)} except it only converts the return type of the method handle</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * when it can be done using a conversion that loses neither precision nor magnitude, otherwise it leaves it</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * unchanged. The idea is that other conversions should not be performed by individual linkers, but instead the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link DynamicLinkerFactory#setPrelinkFilter(org.dynalang.dynalink.GuardedInvocationFilter) pre-link filter of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the dynamic linker} should implement the strategy of dealing with potentially lossy return type conversions in a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * manner specific to the language runtime.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param handle target method handle</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param fromType the types of source arguments</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a method handle that is a suitable combination of {@link MethodHandle#asType(MethodType)}, and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link MethodHandles#filterArguments(MethodHandle, int, MethodHandle...)} with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link GuardingTypeConverterFactory}-produced type converters as filters.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public MethodHandle asTypeLosslessReturn(MethodHandle handle, MethodType fromType);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Given a source and target type, returns a method handle that converts between them. Never returns null; in worst</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * case it will return an identity conversion (that might fail for some values at runtime). You rarely need to use</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * this method directly; you should mostly rely on {@link #asType(MethodHandle, MethodType)} instead. You really</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * only need this method if you have a piece of your program that is written in Java, and you need to reuse existing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * type conversion machinery in a non-invokedynamic context.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param sourceType the type to convert from</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param targetType the type to convert to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a method handle performing the conversion.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public MethodHandle getTypeConverter(Class&#60;?&#62; sourceType, Class&#60;?&#62; targetType);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns true if there might exist a conversion between the requested types (either an automatic JVM conversion,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * or one provided by any available {@link GuardingTypeConverterFactory}), or false if there definitely does not</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * exist a conversion between the requested types. Note that returning true does not guarantee that the conversion</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * will succeed at runtime (notably, if the &#34;from&#34; or &#34;to&#34; types are sufficiently generic), but returning false</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * guarantees that it would fail.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param from the source type for the conversion</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param to the target type for the conversion</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if there can be a conversion, false if there can not.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean canConvert(Class&#60;?&#62; from, Class&#60;?&#62; to);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a guarded invocation using the {@link DynamicLinker} that exposes this linker services interface. Linkers</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * can typically use them to delegate linking of wrapped objects.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param linkRequest a request for linking the invocation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a guarded invocation linked by the top-level linker (or any of its delegates). Can be null if no</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * available linker is able to link the invocation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws Exception in case the top-level linker throws an exception</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public GuardedInvocation getGuardedInvocation(LinkRequest linkRequest) throws Exception;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Determines which of the two type conversions from a source type to the two target types is preferred. This is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * used for dynamic overloaded method resolution. If the source type is convertible to exactly one target type with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * a method invocation conversion, it is chosen, otherwise available {@link ConversionComparator}s are consulted.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param sourceType the source type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param targetType1 one potential target type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param targetType2 another potential target type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return one of Comparison constants that establish which - if any - of the target types is preferable for the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * conversion.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Comparison compareConversion(Class&#60;?&#62; sourceType, Class&#60;?&#62; targetType1, Class&#60;?&#62; targetType2);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Modifies the method handle so that any parameters that can receive potentially internal language runtime objects</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * will have a filter added on them to prevent them from escaping, potentially by wrapping them.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * It can also potentially add an unwrapping filter to the return value.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param target the target method handle</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a method handle with parameters and/or return type potentially filtered for wrapping and unwrapping.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public MethodHandle filterInternalObjects(final MethodHandle target);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If we could just use Java 8 constructs, then {@code asTypeSafeReturn} would be a method with default</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * implementation. Since we can&#39;t do that, we extract common default implementations into this static class.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_164'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    public static class Implementation {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Default implementation for {@link LinkerServices#asTypeLosslessReturn(MethodHandle, MethodType)}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param linkerServices the linker services that delegates to this implementation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param handle the passed handle</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param fromType the passed type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @return the converted method handle, as per the {@code asTypeSafeReturn} semantics.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public static MethodHandle asTypeLosslessReturn(final LinkerServices linkerServices, final MethodHandle handle, final MethodType fromType) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_173'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final Class&#60;?&#62; handleReturnType = handle.type().returnType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_174'>2</a>
+<span>
+1. asTypeLosslessReturn : negated conditional &rarr; KILLED<br/>
+2. asTypeLosslessReturn : mutated return of Object value for org/dynalang/dynalink/linker/LinkerServices$Implementation::asTypeLosslessReturn to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return linkerServices.asType(handle, TypeUtilities.isConvertibleWithoutLoss(handleReturnType, fromType.returnType()) ?</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_175'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                    fromType : fromType.changeReturnType(handleReturnType));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@939c677_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@939c677_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@939c677_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@939c677_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>asTypeLosslessReturn<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnMap(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>asTypeLosslessReturn<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestSimpleDynamicMethod.testVarArgsWithoutConversion(org.dynalang.dynalink.beans.TestSimpleDynamicMethod)</span></span> mutated return of Object value for org/dynalang/dynalink/linker/LinkerServices$Implementation::asTypeLosslessReturn to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.dynalang.dynalink.beans.TestSimpleDynamicMethod.testVarArgsWithSinglePrimitiveArgRuntimeConversion(org.dynalang.dynalink.beans.TestSimpleDynamicMethod) (7 ms)</li><li>org.dynalang.dynalink.beans.TestSimpleDynamicMethod.testVarArgsWithoutConversion(org.dynalang.dynalink.beans.TestSimpleDynamicMethod) (0 ms)</li><li>org.dynalang.dynalink.beans.TestSimpleDynamicMethod.testVarArgsWithStringConversion(org.dynalang.dynalink.beans.TestSimpleDynamicMethod) (7 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundObjectArrayElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (3 ms)</li><li>org.dynalang.dynalink.beans.TestSimpleDynamicMethod.testVarArgsWithFixArgsOnly(org.dynalang.dynalink.beans.TestSimpleDynamicMethod) (5 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testVarArg(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (26 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetElemPropOnMap(org.dynalang.dynalink.beans.TestCompositeOperations) (7 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testExactMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (14 ms)</li><li>org.dynalang.dynalink.beans.TestSimpleDynamicMethod.testVarArgsWithSingleStringArgRuntimeConversion(org.dynalang.dynalink.beans.TestSimpleDynamicMethod) (2 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnMap(org.dynalang.dynalink.beans.TestCompositeOperations) (18 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations) (23 ms)</li><li>org.dynalang.dynalink.beans.TestLengthGetter.testArrayLengthPropertyGetter(org.dynalang.dynalink.beans.TestLengthGetter) (26 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundPrimitiveArrayElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (19 ms)</li><li>org.dynalang.dynalink.beans.TestSimpleDynamicMethod.testExactArgsOnFixArgs(org.dynalang.dynalink.beans.TestSimpleDynamicMethod) (1 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetMethodElemProp(org.dynalang.dynalink.beans.TestCompositeOperations) (8 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundListElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (12 ms)</li><li>org.dynalang.dynalink.beans.TestStatics.testPropertyGetterSetter(org.dynalang.dynalink.beans.TestStatics) (11 ms)</li><li>org.dynalang.dynalink.beans.TestNew.testAll(org.dynalang.dynalink.beans.TestNew) (61 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnArray(org.dynalang.dynalink.beans.TestCompositeOperations) (232 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundPrimitiveArrayElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (4 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundMapElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (8 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testLateBoundMapElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (11 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetPropElemMethod(org.dynalang.dynalink.beans.TestCompositeOperations) (8 ms)</li><li>org.dynalang.dynalink.beans.TestPropertySetter.testFixedNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter) (11 ms)</li><li>org.dynalang.dynalink.beans.TestSimpleDynamicMethod.testVarArgsWithSingleStringArgConversion(org.dynalang.dynalink.beans.TestSimpleDynamicMethod) (6 ms)</li><li>org.dynalang.dynalink.beans.TestSimpleDynamicMethod.testVarArgsWithSinglePrimitiveArgConversion(org.dynalang.dynalink.beans.TestSimpleDynamicMethod) (8 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testVeryGenericSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (10 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundMapElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (3 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnMap(org.dynalang.dynalink.beans.TestCompositeOperations) (4 ms)</li><li>org.dynalang.dynalink.beans.TestStatics.testFieldGetterSetter(org.dynalang.dynalink.beans.TestStatics) (18 ms)</li><li>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter) (14 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testLateBoundMapElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (12 ms)</li><li>org.dynalang.dynalink.beans.TestPrintLn.testPrintLn(org.dynalang.dynalink.beans.TestPrintLn) (19 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations) (5 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundListElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (14 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringFormat(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (59 ms)</li><li>org.dynalang.dynalink.beans.TestSimpleDynamicMethod.testVarArgsWithPrimitiveConversion(org.dynalang.dynalink.beans.TestSimpleDynamicMethod) (8 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundObjectArrayElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (2 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (3 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetElemPropOnList(org.dynalang.dynalink.beans.TestCompositeOperations) (19 ms)</li><li>org.dynalang.dynalink.beans.TestPropertyGetter.testFixedNamePropertyGetter(org.dynalang.dynalink.beans.TestPropertyGetter) (10 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testIntOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (12 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

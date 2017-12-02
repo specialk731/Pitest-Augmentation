@@ -1,0 +1,2384 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>SumExactAggregator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2012 LiveRamp</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p/&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p/&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p/&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.liveramp.cascading_ext.combiner.lib;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serializable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import cascading.tuple.Tuple;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import cascading.tuple.TupleEntry;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.liveramp.cascading_ext.combiner.ExactAggregator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.liveramp.commons.util.IntegerMemoryUsageEstimator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.liveramp.commons.util.LongMemoryUsageEstimator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.liveramp.commons.util.MemoryUsageEstimator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class SumExactAggregator extends BaseExactAggregator&#60;Number[]&#62; implements ExactAggregator&#60;Number[]&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final int numOutputFields;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private transient Mode mode;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_34'/>
+34
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_34'>3</a>
+<span>
+1. <init> : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. <init> : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+3. <init> : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>  private enum Mode {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_35'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    LONG, DOUBLE</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_38'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public SumExactAggregator(int numOutputFields) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_39'/>
+39
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_39'>3</a>
+<span>
+1. <init> : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. <init> : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+3. <init> : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    this.numOutputFields = numOutputFields;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_40'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public Number[] initialize() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_44'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    return new Number[numOutputFields];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public Number[] partialAggregate(Number[] aggregate, TupleEntry nextValue) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_49'/>
+49
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_49'>14</a>
+<span>
+1. partialAggregate : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. partialAggregate : CRCR - Substituted 0 with -1 &rarr; TIMED_OUT<br/>
+3. partialAggregate : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+4. partialAggregate : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+5. partialAggregate : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+6. partialAggregate : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+7. partialAggregate : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+8. partialAggregate : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+9. partialAggregate : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+10. partialAggregate : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+11. partialAggregate : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT<br/>
+12. partialAggregate : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+13. partialAggregate : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+14. partialAggregate : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    for (int i = 0; i &#60; aggregate.length; i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Determine mode if necessary</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_51'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      if (mode == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_52'/>
+52
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_52'>3</a>
+<span>
+1. partialAggregate : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. partialAggregate : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+3. partialAggregate : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        Object value = nextValue.getObject(i);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_53'/>
+53
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_53'>10</a>
+<span>
+1. partialAggregate : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+2. partialAggregate : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+3. partialAggregate : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+4. partialAggregate : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+5. partialAggregate : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+6. partialAggregate : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT<br/>
+7. partialAggregate : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT<br/>
+8. partialAggregate : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+9. partialAggregate : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+10. partialAggregate : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (value instanceof Long || value instanceof Integer) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_54'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          mode = Mode.LONG;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_55'/>
+55
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_55'>10</a>
+<span>
+1. partialAggregate : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. partialAggregate : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. partialAggregate : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+4. partialAggregate : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+5. partialAggregate : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+6. partialAggregate : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+7. partialAggregate : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+8. partialAggregate : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+9. partialAggregate : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+10. partialAggregate : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        } else if (value instanceof Double || value instanceof Float) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_56'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>          mode = Mode.DOUBLE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_58'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>          throw new RuntimeException(&#34;Unknown number class:&#34; + value.getClass());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_61'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      switch (mode) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case LONG:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_63'/>
+63
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_63'>3</a>
+<span>
+1. partialAggregate : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. partialAggregate : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+3. partialAggregate : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>          if (aggregate[i] == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_64'/>
+64
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_64'>8</a>
+<span>
+1. partialAggregate : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. partialAggregate : CRCR - Substituted 0 with -1 &rarr; TIMED_OUT<br/>
+3. partialAggregate : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+4. partialAggregate : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+5. partialAggregate : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+6. partialAggregate : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+7. partialAggregate : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+8. partialAggregate : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>            aggregate[i] = 0L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_66'/>
+66
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_66'>15</a>
+<span>
+1. partialAggregate : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. partialAggregate : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. partialAggregate : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+4. partialAggregate : AOD - Removed second operator from long add &rarr; TIMED_OUT<br/>
+5. partialAggregate : AOD - Removed second operator from long add &rarr; TIMED_OUT<br/>
+6. partialAggregate : AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT<br/>
+7. partialAggregate : AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT<br/>
+8. partialAggregate : AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT<br/>
+9. partialAggregate : AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT<br/>
+10. partialAggregate : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+11. partialAggregate : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+12. partialAggregate : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+13. partialAggregate : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+14. partialAggregate : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+15. partialAggregate : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>          aggregate[i] = ((Long)aggregate[i]) + nextValue.getLong(i);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_67'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case DOUBLE:</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_69'/>
+69
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_69'>3</a>
+<span>
+1. partialAggregate : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. partialAggregate : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+3. partialAggregate : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          if (aggregate[i] == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_70'/>
+70
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_70'>8</a>
+<span>
+1. partialAggregate : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. partialAggregate : CRCR - Substituted 0.0 with -1.0 &rarr; NO_COVERAGE<br/>
+3. partialAggregate : CRCR - Substituted 0.0 with -0.0 &rarr; NO_COVERAGE<br/>
+4. partialAggregate : CRCR - Substituted 0.0 with 1.0 &rarr; NO_COVERAGE<br/>
+5. partialAggregate : CRCR - Substituted 0.0 with 1.0 &rarr; NO_COVERAGE<br/>
+6. partialAggregate : CRCR - Substituted 0.0 with 0.0 &rarr; NO_COVERAGE<br/>
+7. partialAggregate : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+8. partialAggregate : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            aggregate[i] = 0D;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_72'/>
+72
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_72'>15</a>
+<span>
+1. partialAggregate : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. partialAggregate : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. partialAggregate : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+4. partialAggregate : AOD - Removed second operator from double add &rarr; NO_COVERAGE<br/>
+5. partialAggregate : AOD - Removed second operator from double add &rarr; NO_COVERAGE<br/>
+6. partialAggregate : AOR - Replaced Double &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+7. partialAggregate : AOR - Replaced Double &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+8. partialAggregate : AOR - Replaced Double &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+9. partialAggregate : AOR - Replaced Double &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+10. partialAggregate : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+11. partialAggregate : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+12. partialAggregate : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+13. partialAggregate : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+14. partialAggregate : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+15. partialAggregate : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          aggregate[i] = ((Double)aggregate[i]) + nextValue.getDouble(i);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_76'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    return aggregate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public Number[] finalAggregate(Number[] aggregate, TupleEntry partialAggregate) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_81'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    return partialAggregate(aggregate, partialAggregate);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public Tuple toTuple(Number[] values) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_86'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Tuple tuple = new Tuple();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_87'/>
+87
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_87'>20</a>
+<span>
+1. toTuple : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+2. toTuple : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+3. toTuple : ABS - Negated integer variable  &rarr; TIMED_OUT<br/>
+4. toTuple : CRCR - Substituted 0 with -1 &rarr; TIMED_OUT<br/>
+5. toTuple : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+6. toTuple : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+7. toTuple : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+8. toTuple : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+9. toTuple : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+10. toTuple : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+11. toTuple : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+12. toTuple : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+13. toTuple : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT<br/>
+14. toTuple : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+15. toTuple : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+16. toTuple : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+17. toTuple : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+18. toTuple : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+19. toTuple : UOI - Incremented int variable &rarr; TIMED_OUT<br/>
+20. toTuple : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    for (Number value : values) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_88'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      tuple.add(value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_90'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    return tuple;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_93'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  public static class SumExactAggregatorMemoryUsageEstimator implements MemoryUsageEstimator&#60;Number[]&#62;, Serializable {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_95'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    private static final IntegerMemoryUsageEstimator imue = new IntegerMemoryUsageEstimator();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_96'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    private static final LongMemoryUsageEstimator lmue = new LongMemoryUsageEstimator();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public long estimateMemorySize(Number[] items) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_100'/>
+100
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_100'>5</a>
+<span>
+1. estimateMemorySize : CRCR - Substituted 12 with 11 &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : CRCR - Substituted 12 with -12 &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : CRCR - Substituted 12 with 1 &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : CRCR - Substituted 12 with 13 &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : CRCR - Substituted 12 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      long size = 12L;  // estimate of array overhead</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_102'/>
+102
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_102'>20</a>
+<span>
+1. estimateMemorySize : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+6. estimateMemorySize : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+7. estimateMemorySize : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+8. estimateMemorySize : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+9. estimateMemorySize : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+10. estimateMemorySize : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+11. estimateMemorySize : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+12. estimateMemorySize : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+13. estimateMemorySize : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+14. estimateMemorySize : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+15. estimateMemorySize : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+16. estimateMemorySize : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+17. estimateMemorySize : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+18. estimateMemorySize : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+19. estimateMemorySize : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+20. estimateMemorySize : UOI - Removed unary operator &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      for (Number number : items) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_103'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        if (number == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_104'/>
+104
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_104'>11</a>
+<span>
+1. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+6. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+7. estimateMemorySize : CRCR - Substituted 8 with 7 &rarr; NO_COVERAGE<br/>
+8. estimateMemorySize : CRCR - Substituted 8 with -8 &rarr; NO_COVERAGE<br/>
+9. estimateMemorySize : CRCR - Substituted 8 with 1 &rarr; NO_COVERAGE<br/>
+10. estimateMemorySize : CRCR - Substituted 8 with 9 &rarr; NO_COVERAGE<br/>
+11. estimateMemorySize : CRCR - Substituted 8 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          size += 8L;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_105'/>
+105
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_105'>5</a>
+<span>
+1. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        } else if (number instanceof Integer) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_106'/>
+106
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_106'>6</a>
+<span>
+1. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+6. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          size += imue.estimateMemorySize((Integer)number);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_107'/>
+107
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_107'>5</a>
+<span>
+1. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        } else if (number instanceof Long) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_108'/>
+108
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_108'>6</a>
+<span>
+1. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+6. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          size += lmue.estimateMemorySize((Long)number);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_109'/>
+109
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_109'>5</a>
+<span>
+1. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        } else if (number instanceof Double) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_110'/>
+110
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_110'>11</a>
+<span>
+1. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+6. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+7. estimateMemorySize : CRCR - Substituted 16 with 15 &rarr; NO_COVERAGE<br/>
+8. estimateMemorySize : CRCR - Substituted 16 with -16 &rarr; NO_COVERAGE<br/>
+9. estimateMemorySize : CRCR - Substituted 16 with 1 &rarr; NO_COVERAGE<br/>
+10. estimateMemorySize : CRCR - Substituted 16 with 17 &rarr; NO_COVERAGE<br/>
+11. estimateMemorySize : CRCR - Substituted 16 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          size += 16L;  // same as Long</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_111'/>
+111
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_111'>5</a>
+<span>
+1. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        } else if (number instanceof Short) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_112'/>
+112
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_112'>11</a>
+<span>
+1. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+6. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+7. estimateMemorySize : CRCR - Substituted 8 with 7 &rarr; NO_COVERAGE<br/>
+8. estimateMemorySize : CRCR - Substituted 8 with -8 &rarr; NO_COVERAGE<br/>
+9. estimateMemorySize : CRCR - Substituted 8 with 1 &rarr; NO_COVERAGE<br/>
+10. estimateMemorySize : CRCR - Substituted 8 with 9 &rarr; NO_COVERAGE<br/>
+11. estimateMemorySize : CRCR - Substituted 8 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          size += 8L;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_113'>5</a>
+<span>
+1. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        } else if (number instanceof Float) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_114'>11</a>
+<span>
+1. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+6. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+7. estimateMemorySize : CRCR - Substituted 16 with 15 &rarr; NO_COVERAGE<br/>
+8. estimateMemorySize : CRCR - Substituted 16 with -16 &rarr; NO_COVERAGE<br/>
+9. estimateMemorySize : CRCR - Substituted 16 with 1 &rarr; NO_COVERAGE<br/>
+10. estimateMemorySize : CRCR - Substituted 16 with 17 &rarr; NO_COVERAGE<br/>
+11. estimateMemorySize : CRCR - Substituted 16 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          size += 16L;  // same as Integer</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_115'/>
+115
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_115'>5</a>
+<span>
+1. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        } else if (number instanceof Byte) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_116'/>
+116
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_116'>11</a>
+<span>
+1. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+2. estimateMemorySize : AOD - Removed second operator from long add &rarr; NO_COVERAGE<br/>
+3. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+4. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+5. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+6. estimateMemorySize : AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+7. estimateMemorySize : CRCR - Substituted 8 with 7 &rarr; NO_COVERAGE<br/>
+8. estimateMemorySize : CRCR - Substituted 8 with -8 &rarr; NO_COVERAGE<br/>
+9. estimateMemorySize : CRCR - Substituted 8 with 1 &rarr; NO_COVERAGE<br/>
+10. estimateMemorySize : CRCR - Substituted 8 with 9 &rarr; NO_COVERAGE<br/>
+11. estimateMemorySize : CRCR - Substituted 8 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          size += 8L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_118'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>          throw new RuntimeException(&#34;Unrecognized number format: &#34; + number.getClass());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_121'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      return size;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@30d7b122_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_34'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_39'>39</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_39'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_49'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_52'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_53'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_55'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_63'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_64'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_66'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_69'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_70'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with -1.0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with -0.0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 1.0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 1.0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 0.0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_72'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from double add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from double add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOR - Replaced Double &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOR - Replaced Double &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOR - Replaced Double &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> AOR - Replaced Double &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>partialAggregate<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_87'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>toTuple<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_100'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 12 with 11 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 12 with -12 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 12 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 12 with 13 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 12 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_102'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_104'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_105'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_106'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_107'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_108'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_109'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_110'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 15 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with -16 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 17 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_111'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_112'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_113'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_114'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 15 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with -16 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 17 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_115'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@30d7b122_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@30d7b122_116'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from long add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Long &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>estimateMemorySize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.liveramp.cascading_ext.combiner.TestSumExactAggregator.testMain(com.liveramp.cascading_ext.combiner.TestSumExactAggregator) (269 ms)</li><li>com.liveramp.cascading_ext.combiner.TestMultiCombiner.testMultiCombiner(com.liveramp.cascading_ext.combiner.TestMultiCombiner) (965 ms)</li><li>com.liveramp.cascading_ext.combiner.TestMultiCombiner.testMultiCombinerSingleTail(com.liveramp.cascading_ext.combiner.TestMultiCombiner) (267 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

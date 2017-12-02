@@ -1,0 +1,3701 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>CallSiteDescriptorFactory.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   Copyright 2009-2013 Attila Szegedi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   Licensed under both the Apache License, Version 2.0 (the &#34;Apache License&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   and the BSD License (the &#34;BSD License&#34;), with licensee being free to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   choose either of the two at their discretion.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   You may not use this file except in compliance with either the Apache</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   License or the BSD License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   If you choose to use this file in compliance with the Apache License, the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   following notice applies to you:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       You may obtain a copy of the Apache License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>           http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       implied. See the License for the specific language governing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       permissions and limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   If you choose to use this file in compliance with the BSD License, the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   following notice applies to you:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       Redistribution and use in source and binary forms, with or without</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       modification, are permitted provided that the following conditions are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       met:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Redistributions of source code must retain the above copyright</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         notice, this list of conditions and the following disclaimer.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Redistributions in binary form must reproduce the above copyright</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         notice, this list of conditions and the following disclaimer in the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         documentation and/or other materials provided with the distribution.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Neither the name of the copyright holder nor the names of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         contributors may be used to endorse or promote products derived from</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         this software without specific prior written permission.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &#34;AS</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       IS&#34; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>*/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.dynalang.dynalink.support;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.invoke.MethodHandles;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.invoke.MethodHandles.Lookup;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.invoke.MethodType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.ref.WeakReference;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Arrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collections;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.StringTokenizer;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.WeakHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.dynalang.dynalink.CallSiteDescriptor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Usable as a default factory for call site descriptor implementations. It is weakly canonicalizing, meaning it will</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * return the same immutable call site descriptor for identical inputs, i.e. repeated requests for a descriptor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * signifying public lookup for &#34;dyn:getProp:color&#34; of type &#34;Object(Object)&#34; will return the same object as long as</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * a previously created, at least softly reachable one exists. It also uses several different implementations of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * {@link CallSiteDescriptor} internally, and chooses the most space-efficient one based on the input.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Attila Szegedi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class CallSiteDescriptorFactory {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private static final WeakHashMap&#60;CallSiteDescriptor, WeakReference&#60;CallSiteDescriptor&#62;&#62; publicDescs =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            new WeakHashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_78'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    private CallSiteDescriptorFactory() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_79'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new call site descriptor instance. The actual underlying class of the instance is dependent on the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * passed arguments to be space efficient; i.e. if you  only use the public lookup, you&#39;ll get back an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * implementation that doesn&#39;t waste space on storing the lookup object.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param lookup the lookup that determines access rights at the call site. If your language runtime doesn&#39;t have</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * equivalents of Java access concepts, just use {@link MethodHandles#publicLookup()}. Must not be null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param name the name of the method at the call site. Must not be null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param methodType the type of the method at the call site. Must not be null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a call site descriptor representing the input. Note that although the method name is &#34;create&#34;, it will</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * in fact return a weakly-referenced canonical instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static CallSiteDescriptor create(final Lookup lookup, final String name, final MethodType methodType) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_93'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        name.getClass(); // NPE check</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_94'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        methodType.getClass(); // NPE check</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_95'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        lookup.getClass(); // NPE check</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_96'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final String[] tokenizedName = tokenizeName(name);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_97'/>
+97
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_97'>5</a>
+<span>
+1. create : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED<br/>
+2. create : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+3. create : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+4. create : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+5. create : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if(isPublicLookup(lookup)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_98'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return getCanonicalPublicDescriptor(createPublicCallSiteDescriptor(tokenizedName, methodType));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_100'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return new LookupCallSiteDescriptor(tokenizedName, methodType, lookup);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static CallSiteDescriptor getCanonicalPublicDescriptor(final CallSiteDescriptor desc) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_104'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized(publicDescs) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_105'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final WeakReference&#60;CallSiteDescriptor&#62; ref = publicDescs.get(desc);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_106'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if(ref != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_107'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                final CallSiteDescriptor canonical = ref.get();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_108'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                if(canonical != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_109'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    return canonical;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_112'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            publicDescs.put(desc, new WeakReference&#60;&#62;(desc));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_113'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_114'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return desc;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static CallSiteDescriptor createPublicCallSiteDescriptor(final String[] tokenizedName, final MethodType methodType) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_118'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int l = tokenizedName.length;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_119'/>
+119
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_119'>13</a>
+<span>
+1. createPublicCallSiteDescriptor : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. createPublicCallSiteDescriptor : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. createPublicCallSiteDescriptor : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+4. createPublicCallSiteDescriptor : ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+5. createPublicCallSiteDescriptor : ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+6. createPublicCallSiteDescriptor : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+7. createPublicCallSiteDescriptor : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+8. createPublicCallSiteDescriptor : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+9. createPublicCallSiteDescriptor : ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+10. createPublicCallSiteDescriptor : ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+11. createPublicCallSiteDescriptor : ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+12. createPublicCallSiteDescriptor : UOI - Decremented int variable &rarr; KILLED<br/>
+13. createPublicCallSiteDescriptor : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if(l &#62; 0 &#38;&#38; tokenizedName[0] == &#34;dyn&#34;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_120'/>
+120
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_120'>13</a>
+<span>
+1. createPublicCallSiteDescriptor : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. createPublicCallSiteDescriptor : CRCR - Substituted 2 with -2 &rarr; SURVIVED<br/>
+3. createPublicCallSiteDescriptor : CRCR - Substituted 2 with 0 &rarr; SURVIVED<br/>
+4. createPublicCallSiteDescriptor : CRCR - Substituted 2 with 1 &rarr; KILLED<br/>
+5. createPublicCallSiteDescriptor : CRCR - Substituted 2 with 1 &rarr; KILLED<br/>
+6. createPublicCallSiteDescriptor : CRCR - Substituted 2 with 3 &rarr; KILLED<br/>
+7. createPublicCallSiteDescriptor : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+8. createPublicCallSiteDescriptor : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+9. createPublicCallSiteDescriptor : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+10. createPublicCallSiteDescriptor : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+11. createPublicCallSiteDescriptor : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+12. createPublicCallSiteDescriptor : UOI - Decremented int variable &rarr; KILLED<br/>
+13. createPublicCallSiteDescriptor : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if(l == 2) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_121'/>
+121
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_121'>5</a>
+<span>
+1. createPublicCallSiteDescriptor : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+2. createPublicCallSiteDescriptor : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+3. createPublicCallSiteDescriptor : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+4. createPublicCallSiteDescriptor : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+5. createPublicCallSiteDescriptor : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return new UnnamedDynCallSiteDescriptor(tokenizedName[1], methodType);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_122'/>
+122
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_122'>13</a>
+<span>
+1. createPublicCallSiteDescriptor : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. createPublicCallSiteDescriptor : CRCR - Substituted 3 with 2 &rarr; SURVIVED<br/>
+3. createPublicCallSiteDescriptor : CRCR - Substituted 3 with -3 &rarr; SURVIVED<br/>
+4. createPublicCallSiteDescriptor : CRCR - Substituted 3 with 4 &rarr; SURVIVED<br/>
+5. createPublicCallSiteDescriptor : CRCR - Substituted 3 with 0 &rarr; SURVIVED<br/>
+6. createPublicCallSiteDescriptor : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+7. createPublicCallSiteDescriptor : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+8. createPublicCallSiteDescriptor : UOI - Decremented int variable &rarr; SURVIVED<br/>
+9. createPublicCallSiteDescriptor : UOI - Incremented int variable &rarr; SURVIVED<br/>
+10. createPublicCallSiteDescriptor : CRCR - Substituted 3 with 1 &rarr; KILLED<br/>
+11. createPublicCallSiteDescriptor : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+12. createPublicCallSiteDescriptor : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+13. createPublicCallSiteDescriptor : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            } if (l == 3) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_123'/>
+123
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_123'>10</a>
+<span>
+1. createPublicCallSiteDescriptor : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+2. createPublicCallSiteDescriptor : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+3. createPublicCallSiteDescriptor : CRCR - Substituted 2 with 1 &rarr; KILLED<br/>
+4. createPublicCallSiteDescriptor : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+5. createPublicCallSiteDescriptor : CRCR - Substituted 2 with -2 &rarr; KILLED<br/>
+6. createPublicCallSiteDescriptor : CRCR - Substituted 2 with 1 &rarr; KILLED<br/>
+7. createPublicCallSiteDescriptor : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+8. createPublicCallSiteDescriptor : CRCR - Substituted 2 with 3 &rarr; KILLED<br/>
+9. createPublicCallSiteDescriptor : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+10. createPublicCallSiteDescriptor : CRCR - Substituted 2 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return new NamedDynCallSiteDescriptor(tokenizedName[1], tokenizedName[2], methodType);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_126'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return new DefaultCallSiteDescriptor(tokenizedName, methodType);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static boolean isPublicLookup(final Lookup lookup) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_130'/>
+130
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_130'>10</a>
+<span>
+1. isPublicLookup : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. isPublicLookup : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+3. isPublicLookup : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+4. isPublicLookup : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+5. isPublicLookup : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+6. isPublicLookup : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+7. isPublicLookup : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+8. isPublicLookup : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+9. isPublicLookup : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+10. isPublicLookup : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return lookup == MethodHandles.publicLookup();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Tokenizes the composite name along colons, as well as {@link NameCodec#decode(String) demangles} and interns</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the tokens. The first two tokens are not demangled as they are supposed to be the naming scheme and the name of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the operation which can be expected to consist of just alphabetical characters.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param name the composite name consisting of colon-separated, possibly mangled tokens.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return an array of tokens</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static String[] tokenizeName(final String name) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_141'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final StringTokenizer tok = new StringTokenizer(name, CallSiteDescriptor.TOKEN_DELIMITER);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_142'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final String[] tokens = new String[tok.countTokens()];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_143'/>
+143
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_143'>14</a>
+<span>
+1. tokenizeName : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. tokenizeName : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. tokenizeName : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+4. tokenizeName : ABS - Negated integer variable  &rarr; KILLED<br/>
+5. tokenizeName : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+6. tokenizeName : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+7. tokenizeName : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+8. tokenizeName : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+9. tokenizeName : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+10. tokenizeName : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+11. tokenizeName : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+12. tokenizeName : UOI - Decremented int variable &rarr; KILLED<br/>
+13. tokenizeName : UOI - Incremented int variable &rarr; KILLED<br/>
+14. tokenizeName : UOI - Removed unary operator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for(int i = 0; i &#60; tokens.length; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_144'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            String token = tok.nextToken();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_145'/>
+145
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_145'>13</a>
+<span>
+1. tokenizeName : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. tokenizeName : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. tokenizeName : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+4. tokenizeName : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+5. tokenizeName : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+6. tokenizeName : ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED<br/>
+7. tokenizeName : ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+8. tokenizeName : ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+9. tokenizeName : ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+10. tokenizeName : ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+11. tokenizeName : ABS - Negated integer variable  &rarr; KILLED<br/>
+12. tokenizeName : UOI - Decremented int variable &rarr; KILLED<br/>
+13. tokenizeName : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if(i &#62; 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_146'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                token = NameCodec.decode(token);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_148'/>
+148
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_148'>3</a>
+<span>
+1. tokenizeName : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. tokenizeName : UOI - Decremented int variable &rarr; KILLED<br/>
+3. tokenizeName : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            tokens[i] = token.intern();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_150'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return tokens;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Tokenizes a composite operation name along pipe characters. I.e. if you have a &#34;dyn:getElem|getProp|getMethod&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * operation, returns a list of [&#34;getElem&#34;, &#34;getProp&#34;, &#34;getMethod&#34;]. The tokens are not interned.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param desc the call site descriptor with the operation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a list of tokens</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static List&#60;String&#62; tokenizeOperators(final CallSiteDescriptor desc) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_160'/>
+160
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_160'>5</a>
+<span>
+1. tokenizeOperators : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+2. tokenizeOperators : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+3. tokenizeOperators : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+4. tokenizeOperators : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+5. tokenizeOperators : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        final String ops = desc.getNameToken(CallSiteDescriptor.OPERATOR);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_161'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final StringTokenizer tok = new StringTokenizer(ops, CallSiteDescriptor.OPERATOR_DELIMITER);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_162'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int count = tok.countTokens();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_163'/>
+163
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_163'>13</a>
+<span>
+1. tokenizeOperators : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. tokenizeOperators : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. tokenizeOperators : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+4. tokenizeOperators : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+5. tokenizeOperators : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+6. tokenizeOperators : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+7. tokenizeOperators : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. tokenizeOperators : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+9. tokenizeOperators : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+10. tokenizeOperators : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+11. tokenizeOperators : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+12. tokenizeOperators : UOI - Decremented int variable &rarr; KILLED<br/>
+13. tokenizeOperators : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if(count == 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_164'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return Collections.singletonList(ops);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_166'/>
+166
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_166'>3</a>
+<span>
+1. tokenizeOperators : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. tokenizeOperators : UOI - Decremented int variable &rarr; KILLED<br/>
+3. tokenizeOperators : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final String[] tokens = new String[count];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_167'/>
+167
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_167'>17</a>
+<span>
+1. tokenizeOperators : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. tokenizeOperators : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. tokenizeOperators : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+4. tokenizeOperators : ABS - Negated integer variable  &rarr; KILLED<br/>
+5. tokenizeOperators : ABS - Negated integer variable  &rarr; KILLED<br/>
+6. tokenizeOperators : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+7. tokenizeOperators : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+8. tokenizeOperators : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+9. tokenizeOperators : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+10. tokenizeOperators : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+11. tokenizeOperators : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+12. tokenizeOperators : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+13. tokenizeOperators : UOI - Decremented int variable &rarr; KILLED<br/>
+14. tokenizeOperators : UOI - Decremented int variable &rarr; KILLED<br/>
+15. tokenizeOperators : UOI - Incremented int variable &rarr; KILLED<br/>
+16. tokenizeOperators : UOI - Incremented int variable &rarr; KILLED<br/>
+17. tokenizeOperators : UOI - Removed unary operator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for(int i = 0; i &#60; count; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_168'/>
+168
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_168'>3</a>
+<span>
+1. tokenizeOperators : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. tokenizeOperators : UOI - Decremented int variable &rarr; KILLED<br/>
+3. tokenizeOperators : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            tokens[i] = tok.nextToken();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_170'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return Arrays.asList(tokens);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a new call site descriptor that is identical to the passed one, except that it has some parameter types</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * removed from its method type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param desc the original call site descriptor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param start index of the first parameter to remove</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param end index of the first parameter to not remove</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a new call site descriptor with modified method type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static CallSiteDescriptor dropParameterTypes(final CallSiteDescriptor desc, final int start, final int end) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_182'/>
+182
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_182'>6</a>
+<span>
+1. dropParameterTypes : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. dropParameterTypes : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. dropParameterTypes : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+4. dropParameterTypes : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+5. dropParameterTypes : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+6. dropParameterTypes : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return desc.changeMethodType(desc.getMethodType().dropParameterTypes(start, end));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a new call site descriptor that is identical to the passed one, except that it has a single parameter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * type changed in its method type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param desc the original call site descriptor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param num index of the parameter to change</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param nptype the new parameter type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a new call site descriptor with modified method type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static CallSiteDescriptor changeParameterType(final CallSiteDescriptor desc, final int num, final Class&#60;?&#62; nptype) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_194'/>
+194
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_194'>3</a>
+<span>
+1. changeParameterType : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. changeParameterType : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+3. changeParameterType : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return desc.changeMethodType(desc.getMethodType().changeParameterType(num, nptype));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a new call site descriptor that is identical to the passed one, except that it has the return type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * changed in its method type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param desc the original call site descriptor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param nrtype the new return type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a new call site descriptor with modified method type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static CallSiteDescriptor changeReturnType(final CallSiteDescriptor desc, final Class&#60;?&#62; nrtype) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_205'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return desc.changeMethodType(desc.getMethodType().changeReturnType(nrtype));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a new call site descriptor that is identical to the passed one, except that it has additional parameter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * types inserted into its method type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param desc the original call site descriptor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param num index at which the new parameters are inserted</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param ptypesToInsert the new types to insert</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a new call site descriptor with modified method type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static CallSiteDescriptor insertParameterTypes(final CallSiteDescriptor desc, final int num, final Class&#60;?&#62;... ptypesToInsert) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_217'/>
+217
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_217'>3</a>
+<span>
+1. insertParameterTypes : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. insertParameterTypes : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+3. insertParameterTypes : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return desc.changeMethodType(desc.getMethodType().insertParameterTypes(num, ptypesToInsert));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a new call site descriptor that is identical to the passed one, except that it has additional parameter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * types inserted into its method type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param desc the original call site descriptor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param num index at which the new parameters are inserted</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param ptypesToInsert the new types to insert</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a new call site descriptor with modified method type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static CallSiteDescriptor insertParameterTypes(final CallSiteDescriptor desc, final int num, final List&#60;Class&#60;?&#62;&#62; ptypesToInsert) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_229'/>
+229
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_229'>3</a>
+<span>
+1. insertParameterTypes : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. insertParameterTypes : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+3. insertParameterTypes : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return desc.changeMethodType(desc.getMethodType().insertParameterTypes(num, ptypesToInsert));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@11335574_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@11335574_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_97'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>create<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>create<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>create<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>create<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>create<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_119'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_120'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> CRCR - Substituted 2 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with -2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> CRCR - Substituted 2 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 2 with 3 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_122'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with -3 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> CRCR - Substituted 3 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 4 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_123'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 2 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 2 with -2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 2 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 2 with 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>createPublicCallSiteDescriptor<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 2 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_130'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isPublicLookup<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isPublicLookup<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isPublicLookup<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isPublicLookup<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isPublicLookup<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isPublicLookup<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isPublicLookup<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isPublicLookup<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isPublicLookup<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isPublicLookup<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_143'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Removed unary operator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_145'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPLE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_148'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tokenizeName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_160'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_163'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_166'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Removed unary operator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tokenizeOperators<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_182'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dropParameterTypes<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>dropParameterTypes<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>dropParameterTypes<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>dropParameterTypes<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>dropParameterTypes<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>dropParameterTypes<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_194'>194</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_194'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>changeParameterType<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>changeParameterType<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>changeParameterType<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_217'>217</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_217'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>insertParameterTypes<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>insertParameterTypes<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>insertParameterTypes<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@11335574_229'>229</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@11335574_229'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>insertParameterTypes<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>insertParameterTypes<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>insertParameterTypes<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.dynalang.dynalink.beans.TestLengthGetter.testLateBoundLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter) (7 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundObjectArrayElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (2 ms)</li><li>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundCollectionLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter) (5 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testVarArg(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (18 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetElemPropOnMap(org.dynalang.dynalink.beans.TestCompositeOperations) (6 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testExactMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (11 ms)</li><li>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter) (2 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnMap(org.dynalang.dynalink.beans.TestCompositeOperations) (18 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations) (21 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (2 ms)</li><li>org.dynalang.dynalink.beans.TestLengthGetter.testArrayLengthPropertyGetter(org.dynalang.dynalink.beans.TestLengthGetter) (28 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundPrimitiveArrayElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (16 ms)</li><li>org.dynalang.dynalink.beans.TestPropertyGetter.testVariableNamePropertyGetter(org.dynalang.dynalink.beans.TestPropertyGetter) (4 ms)</li><li>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundMapLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter) (5 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetMethodElemProp(org.dynalang.dynalink.beans.TestCompositeOperations) (9 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundListElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (11 ms)</li><li>org.dynalang.dynalink.beans.TestStatics.testPropertyGetterSetter(org.dynalang.dynalink.beans.TestStatics) (10 ms)</li><li>org.dynalang.dynalink.beans.TestNew.testAll(org.dynalang.dynalink.beans.TestNew) (48 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnArray(org.dynalang.dynalink.beans.TestCompositeOperations) (192 ms)</li><li>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite) (1 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundPrimitiveArrayElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (4 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundMapElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (11 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testLateBoundMapElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (7 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetPropElemMethod(org.dynalang.dynalink.beans.TestCompositeOperations) (8 ms)</li><li>org.dynalang.dynalink.beans.TestPropertySetter.testFixedNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter) (6 ms)</li><li>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker) (2 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testVeryGenericSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (6 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundMapElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (3 ms)</li><li>org.dynalang.dynalink.TestMonomorphicCallSite.testSetGuardless(org.dynalang.dynalink.TestMonomorphicCallSite) (22 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnMap(org.dynalang.dynalink.beans.TestCompositeOperations) (4 ms)</li><li>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter) (9 ms)</li><li>org.dynalang.dynalink.beans.TestStatics.testFieldGetterSetter(org.dynalang.dynalink.beans.TestStatics) (21 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testLateBoundMapElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (12 ms)</li><li>org.dynalang.dynalink.beans.TestPrintLn.testPrintLn(org.dynalang.dynalink.beans.TestPrintLn) (11 ms)</li><li>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker) (0 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations) (4 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundListElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (11 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringFormat(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (63 ms)</li><li>org.dynalang.dynalink.TestRelinkableCallSite.testNullRelink(org.dynalang.dynalink.TestRelinkableCallSite) (0 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundObjectArrayElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (2 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (2 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetElemPropOnList(org.dynalang.dynalink.beans.TestCompositeOperations) (19 ms)</li><li>org.dynalang.dynalink.beans.TestPropertyGetter.testFixedNamePropertyGetter(org.dynalang.dynalink.beans.TestPropertyGetter) (5 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testIntOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (12 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

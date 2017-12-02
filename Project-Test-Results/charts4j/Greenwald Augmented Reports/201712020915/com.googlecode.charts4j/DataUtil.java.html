@@ -1,0 +1,4056 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>DataUtil.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The MIT License</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (c) 2011 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Permission is hereby granted, free of charge, to any person obtaining a copy</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * of this software and associated documentation files (the &#34;Software&#34;), to deal</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * in the Software without restriction, including without limitation the rights</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * copies of the Software, and to permit persons to whom the Software is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * furnished to do so, subject to the following conditions:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The above copyright notice and this permission notice shall be included in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * all copies or substantial portions of the Software.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * THE SOFTWARE IS PROVIDED &#34;AS IS&#34;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * THE SOFTWARE.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.googlecode.charts4j;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.googlecode.charts4j.collect.Preconditions.checkArgument;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.googlecode.charts4j.collect.Preconditions.checkContentsNotNull;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.googlecode.charts4j.collect.Preconditions.checkNotNull;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collections;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.googlecode.charts4j.collect.ImmutableList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.googlecode.charts4j.collect.Lists;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.googlecode.charts4j.collect.PrimitiveArrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Perusing the &#60;a href=&#34;http://groups.google.com/group/google-chart-api&#34;&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Google Chart API Group&#60;/a&#62; reveals that a lot of users and developers are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * having difficulty scaling their data. A common question is &#34;What do I do</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * about negative numbers?&#34;. Or &#34;What if my data lies outside the simple or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * extended encoding range?&#34; The answer to these problems is that users must</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * scale their data so that they may be rendered in the chart. This class helps</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * users achieve that goal.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Julien Chastang (julien.c.chastang at gmail dot com)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see Data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see Plots</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see GCharts</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class DataUtil {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructor must never be called.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_59'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    private DataUtil() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_60'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        throw new AssertionError();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Static factory method that will scale data between the min and max. If</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * max equals min or max is less than min, no scaling will occur.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Note that the min value can be less than the minimum value of the data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * and that the max value can be greater than the maximum value of the data.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This scenario is useful when you don&#39;t want your plot to span the entire</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * chart, but you would like the plots to be &#34;squeezed in&#34; a bit.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param min</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            The minimum value in the scaling range.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param max</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            The maximum value in the scaling range.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            The data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return A Data object scaled between min and max.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see Data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Data scaleWithinRange(final double min, final double max, final double[] data) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_83'/>
+83
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_83'>32</a>
+<span>
+1. scaleWithinRange : AOD - Removed second operator from double sub &rarr; SURVIVED<br/>
+2. scaleWithinRange : AOD - Removed second operator from double sub &rarr; SURVIVED<br/>
+3. scaleWithinRange : CRCR - Substituted 0.0 with -1.0 &rarr; SURVIVED<br/>
+4. scaleWithinRange : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+5. scaleWithinRange : CRCR - Substituted 0.0 with -0.0 &rarr; SURVIVED<br/>
+6. scaleWithinRange : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+7. scaleWithinRange : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+8. scaleWithinRange : CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED<br/>
+9. scaleWithinRange : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+10. scaleWithinRange : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+11. scaleWithinRange : CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED<br/>
+12. scaleWithinRange : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+13. scaleWithinRange : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+14. scaleWithinRange : CRCR - Substituted 0.0 with 0.0 &rarr; SURVIVED<br/>
+15. scaleWithinRange : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+16. scaleWithinRange : ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+17. scaleWithinRange : ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+18. scaleWithinRange : ABS - Negated double variable  &rarr; KILLED<br/>
+19. scaleWithinRange : ABS - Negated double variable  &rarr; KILLED<br/>
+20. scaleWithinRange : AOR - Replaced Double &#34;-&#34; with &#34;+&#34; &rarr; KILLED<br/>
+21. scaleWithinRange : AOR - Replaced Double &#34;-&#34; with &#34;/&#34; &rarr; KILLED<br/>
+22. scaleWithinRange : AOR - Replaced Double &#34;-&#34; with &#34;%&#34; &rarr; KILLED<br/>
+23. scaleWithinRange : AOR - Replaced Double &#34;-&#34; with &#34;*&#34; &rarr; KILLED<br/>
+24. scaleWithinRange : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+25. scaleWithinRange : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+26. scaleWithinRange : ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+27. scaleWithinRange : ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+28. scaleWithinRange : ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+29. scaleWithinRange : UOI - Decremented double variable &rarr; KILLED<br/>
+30. scaleWithinRange : UOI - Decremented double variable &rarr; KILLED<br/>
+31. scaleWithinRange : UOI - Incremented double variable &rarr; KILLED<br/>
+32. scaleWithinRange : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        checkArgument(max - min &#62; 0, &#34;min &#62;= max!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_84'>6</a>
+<span>
+1. scaleWithinRange : ABS - Negated double variable  &rarr; KILLED<br/>
+2. scaleWithinRange : ABS - Negated double variable  &rarr; KILLED<br/>
+3. scaleWithinRange : UOI - Decremented double variable &rarr; KILLED<br/>
+4. scaleWithinRange : UOI - Decremented double variable &rarr; KILLED<br/>
+5. scaleWithinRange : UOI - Incremented double variable &rarr; KILLED<br/>
+6. scaleWithinRange : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return Data.newData(privateScale(data, min, max));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Static factory method that will scale data between the min and max. If</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * max equals min or max is less than min, no scaling will occur.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Note that the min value can be less than the minimum value of the data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * and that the max value can be greater than the maximum value of the data.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This scenario is useful when you don&#39;t want your plot to span the entire</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * chart, but you would like the plots to be &#34;squeezed in&#34; a bit.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param min</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            The minimum value in the scaling range.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param max</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            The maximum value in the scaling range.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            The data list to be scaled. The Number type is used as a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            convenience but Numbers that fall outside the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            {@link Double#MAX_VALUE} and {@link Double#MIN_VALUE} should</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            not be used.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return A Data object scaled between min and max.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see Data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Data scaleWithinRange(final double min, final double max, final List&#60;? extends Number&#62; data) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_109'/>
+109
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_109'>6</a>
+<span>
+1. scaleWithinRange : ABS - Negated double variable  &rarr; SURVIVED<br/>
+2. scaleWithinRange : ABS - Negated double variable  &rarr; KILLED<br/>
+3. scaleWithinRange : UOI - Decremented double variable &rarr; KILLED<br/>
+4. scaleWithinRange : UOI - Decremented double variable &rarr; KILLED<br/>
+5. scaleWithinRange : UOI - Incremented double variable &rarr; KILLED<br/>
+6. scaleWithinRange : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return scaleWithinRange(min, max, toDoubleArray(Lists.copyOf(data)));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Static factory method that will simply scale between the minimum and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * maximum values in the data.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            Provide a data series that will be scaled by this method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return A Data object scaled between minimum and maximum in the provided</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         data series.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see Data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Data scale(final double... data) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_124'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        checkNotNull(data, &#34;data is null or contents of data is null.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_125'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final double min = Collections.min(PrimitiveArrays.asList(data));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_126'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final double max = Collections.max(PrimitiveArrays.asList(data));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_127'/>
+127
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_127'>21</a>
+<span>
+1. scale : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+2. scale : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. scale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+4. scale : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+5. scale : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+6. scale : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+7. scale : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+8. scale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+9. scale : ROR - Replaced &#34;IFGE&#34; with &#34;IFGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+10. scale : ROR - Replaced &#34;IFGE&#34; with &#34;IFEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+11. scale : ABS - Negated double variable  &rarr; KILLED<br/>
+12. scale : ABS - Negated double variable  &rarr; KILLED<br/>
+13. scale : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+14. scale : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+15. scale : ROR - Replaced &#34;IFGE&#34; with &#34;IFNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+16. scale : ROR - Replaced &#34;IFGE&#34; with &#34;IFLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+17. scale : ROR - Replaced &#34;IFGE&#34; with &#34;IFLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+18. scale : UOI - Decremented double variable &rarr; KILLED<br/>
+19. scale : UOI - Decremented double variable &rarr; KILLED<br/>
+20. scale : UOI - Incremented double variable &rarr; KILLED<br/>
+21. scale : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        checkArgument(min &#60; max, &#34;Cannot scale this data. It is ill conditioned.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_128'/>
+128
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_128'>6</a>
+<span>
+1. scale : ABS - Negated double variable  &rarr; KILLED<br/>
+2. scale : ABS - Negated double variable  &rarr; KILLED<br/>
+3. scale : UOI - Decremented double variable &rarr; KILLED<br/>
+4. scale : UOI - Decremented double variable &rarr; KILLED<br/>
+5. scale : UOI - Incremented double variable &rarr; KILLED<br/>
+6. scale : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return Data.newData(privateScale(data, min, max));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Static factory method that will simply scale between the minimum and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * maximum values in the data.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            Provide a data series that will be scaled by this method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return A Data object scaled between minimum and maximum in the provided</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         data series. The Number type is used as a convenience but Numbers</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         that fall outside the {@link Double#MAX_VALUE} and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         {@link Double#MIN_VALUE} should not be used.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see Data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Data scale(final List&#60;? extends Number&#62; data) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_145'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        checkContentsNotNull(data, &#34;data is null or contents of data is null.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_146'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return scale(toDoubleArray(Lists.copyOf(data)));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method is for scaling multiple data series at once. It is useful in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * situations where you have multiple plots in one chart, and you want the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * data consistently scaled by the same factor. The data are scaled between</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the minimum and maximum data points found for all data. The returned</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * scaled {@link Data} list can be plotted with the guarantee that all the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * plots will fit on the chart.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            the data. The first index is the data series index. The second</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            is the data series.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the list of Data objects that can then be plotted.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static List&#60;Data&#62; scale(final double data[][]) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_164'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        checkNotNull(data, &#34;data cannot be null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_165'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final List&#60;Double&#62; allData = Lists.newLinkedList();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_166'/>
+166
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_166'>20</a>
+<span>
+1. scale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. scale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+4. scale : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+5. scale : ABS - Negated integer variable  &rarr; KILLED<br/>
+6. scale : ABS - Negated integer variable  &rarr; KILLED<br/>
+7. scale : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. scale : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+9. scale : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+10. scale : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+11. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+12. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+13. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+14. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+15. scale : UOI - Decremented int variable &rarr; KILLED<br/>
+16. scale : UOI - Decremented int variable &rarr; KILLED<br/>
+17. scale : UOI - Decremented int variable &rarr; KILLED<br/>
+18. scale : UOI - Incremented int variable &rarr; KILLED<br/>
+19. scale : UOI - Incremented int variable &rarr; KILLED<br/>
+20. scale : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for (double[] d : data) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_167'/>
+167
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_167'>20</a>
+<span>
+1. scale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. scale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+4. scale : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+5. scale : ABS - Negated integer variable  &rarr; KILLED<br/>
+6. scale : ABS - Negated integer variable  &rarr; KILLED<br/>
+7. scale : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. scale : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+9. scale : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+10. scale : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+11. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+12. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+13. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+14. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+15. scale : UOI - Decremented int variable &rarr; KILLED<br/>
+16. scale : UOI - Decremented int variable &rarr; KILLED<br/>
+17. scale : UOI - Decremented int variable &rarr; KILLED<br/>
+18. scale : UOI - Incremented int variable &rarr; KILLED<br/>
+19. scale : UOI - Incremented int variable &rarr; KILLED<br/>
+20. scale : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            for (double doub : d) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_168'/>
+168
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_168'>3</a>
+<span>
+1. scale : ABS - Negated double variable  &rarr; KILLED<br/>
+2. scale : UOI - Decremented double variable &rarr; KILLED<br/>
+3. scale : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                allData.add(doub);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_171'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final double min = Collections.min(allData);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_172'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final double max = Collections.max(allData);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_173'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final List&#60;Data&#62; list = Lists.newLinkedList();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_174'/>
+174
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_174'>20</a>
+<span>
+1. scale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. scale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+4. scale : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+5. scale : ABS - Negated integer variable  &rarr; KILLED<br/>
+6. scale : ABS - Negated integer variable  &rarr; KILLED<br/>
+7. scale : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. scale : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+9. scale : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+10. scale : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+11. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+12. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+13. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+14. scale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+15. scale : UOI - Decremented int variable &rarr; KILLED<br/>
+16. scale : UOI - Decremented int variable &rarr; KILLED<br/>
+17. scale : UOI - Decremented int variable &rarr; KILLED<br/>
+18. scale : UOI - Incremented int variable &rarr; KILLED<br/>
+19. scale : UOI - Incremented int variable &rarr; KILLED<br/>
+20. scale : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for (double[] d : data) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_175'>6</a>
+<span>
+1. scale : ABS - Negated double variable  &rarr; KILLED<br/>
+2. scale : ABS - Negated double variable  &rarr; KILLED<br/>
+3. scale : UOI - Decremented double variable &rarr; KILLED<br/>
+4. scale : UOI - Decremented double variable &rarr; KILLED<br/>
+5. scale : UOI - Incremented double variable &rarr; KILLED<br/>
+6. scale : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            list.add(scaleWithinRange(min, max, d));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_177'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return list;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method is for scaling multiple data series at once. It is useful in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * situations where you have multiple plots in one chart, and you want the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * data consistently scaled by the same factor. The data are scaled between</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the minimum and maximum data points found for all data. The returned</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * scaled {@link Data} list can be plotted with the guarantee that all the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * plots will fit on the chart.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            the data.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the list of Data objects that can then be plotted.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static List&#60;Data&#62; scaleDataList(final List&#60;? extends List&#60;? extends Number&#62;&#62; data) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_194'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        checkContentsNotNull(data, &#34;data is null or contents of data is null.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_195'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final double[][] d = new double[data.size()][];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_196'/>
+196
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_196'>5</a>
+<span>
+1. scaleDataList : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. scaleDataList : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. scaleDataList : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. scaleDataList : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. scaleDataList : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        int j = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_197'/>
+197
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_197'>5</a>
+<span>
+1. scaleDataList : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+2. scaleDataList : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+3. scaleDataList : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+4. scaleDataList : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. scaleDataList : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for (List&#60;? extends Number&#62; datum : data) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_198'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            checkContentsNotNull(datum, &#34;data is null or contents of data is null.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_199'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            double[] plotData = new double[datum.size()];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_200'/>
+200
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_200'>5</a>
+<span>
+1. scaleDataList : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. scaleDataList : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. scaleDataList : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. scaleDataList : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. scaleDataList : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            int i = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_201'/>
+201
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_201'>5</a>
+<span>
+1. scaleDataList : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+2. scaleDataList : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+3. scaleDataList : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+4. scaleDataList : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. scaleDataList : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            for (Number n : datum) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_202'/>
+202
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_202'>4</a>
+<span>
+1. scaleDataList : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. scaleDataList : UOI - Decremented int variable &rarr; KILLED<br/>
+3. scaleDataList : UOI - Incremented int variable &rarr; KILLED<br/>
+4. scaleDataList : UOI - Removed unary operator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                plotData[i++] = n.doubleValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_203'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_204'/>
+204
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_204'>4</a>
+<span>
+1. scaleDataList : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. scaleDataList : UOI - Decremented int variable &rarr; KILLED<br/>
+3. scaleDataList : UOI - Incremented int variable &rarr; KILLED<br/>
+4. scaleDataList : UOI - Removed unary operator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            d[j++] = plotData;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_205'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_206'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return scale(d);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Convert a list of numbers to a double array. Numbers that fall outside</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the {@link Double.MAX_VALUE} and {@link Double.MIN_VALUE} should not be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * used.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param data</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            List of numbers</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a double a array.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static double[] toDoubleArray(final ImmutableList&#60;? extends Number&#62; data) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_219'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final double[] d = new double[data.size()];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_220'/>
+220
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_220'>14</a>
+<span>
+1. toDoubleArray : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. toDoubleArray : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. toDoubleArray : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+4. toDoubleArray : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+5. toDoubleArray : ABS - Negated integer variable  &rarr; KILLED<br/>
+6. toDoubleArray : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+7. toDoubleArray : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+8. toDoubleArray : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+9. toDoubleArray : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+10. toDoubleArray : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+11. toDoubleArray : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+12. toDoubleArray : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+13. toDoubleArray : UOI - Decremented int variable &rarr; KILLED<br/>
+14. toDoubleArray : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for (int i = 0; i &#60; d.length; i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_221'/>
+221
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_221'>6</a>
+<span>
+1. toDoubleArray : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. toDoubleArray : ABS - Negated integer variable  &rarr; KILLED<br/>
+3. toDoubleArray : UOI - Decremented int variable &rarr; KILLED<br/>
+4. toDoubleArray : UOI - Decremented int variable &rarr; KILLED<br/>
+5. toDoubleArray : UOI - Incremented int variable &rarr; KILLED<br/>
+6. toDoubleArray : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            d[i] = data.get(i).doubleValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_223'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return d;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Method that scales the data.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param doubleArray</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            Data to be scaled. Cannot be null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param min</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            Minimum range for scaled data.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param max</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            Maximum range of scaled data.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return scaled double array</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static double[] privateScale(final double[] doubleArray, final double min, final double max) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_238'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        checkNotNull(doubleArray, &#34;doubleArray cannot be null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_239'/>
+239
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_239'>32</a>
+<span>
+1. privateScale : AOD - Removed second operator from double sub &rarr; SURVIVED<br/>
+2. privateScale : AOD - Removed second operator from double sub &rarr; SURVIVED<br/>
+3. privateScale : CRCR - Substituted 0.0 with -1.0 &rarr; SURVIVED<br/>
+4. privateScale : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+5. privateScale : CRCR - Substituted 0.0 with -0.0 &rarr; SURVIVED<br/>
+6. privateScale : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+7. privateScale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+8. privateScale : CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED<br/>
+9. privateScale : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+10. privateScale : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+11. privateScale : CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED<br/>
+12. privateScale : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+13. privateScale : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+14. privateScale : CRCR - Substituted 0.0 with 0.0 &rarr; SURVIVED<br/>
+15. privateScale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+16. privateScale : ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+17. privateScale : ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+18. privateScale : ABS - Negated double variable  &rarr; KILLED<br/>
+19. privateScale : ABS - Negated double variable  &rarr; KILLED<br/>
+20. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;+&#34; &rarr; KILLED<br/>
+21. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;/&#34; &rarr; KILLED<br/>
+22. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;%&#34; &rarr; KILLED<br/>
+23. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;*&#34; &rarr; KILLED<br/>
+24. privateScale : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+25. privateScale : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+26. privateScale : ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+27. privateScale : ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+28. privateScale : ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+29. privateScale : UOI - Decremented double variable &rarr; KILLED<br/>
+30. privateScale : UOI - Decremented double variable &rarr; KILLED<br/>
+31. privateScale : UOI - Incremented double variable &rarr; KILLED<br/>
+32. privateScale : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        checkArgument(max - min &#62; 0, &#34;min &#62; max!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_240'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final double[] scaledData = new double[doubleArray.length];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_241'/>
+241
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_241'>14</a>
+<span>
+1. privateScale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. privateScale : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. privateScale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+4. privateScale : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+5. privateScale : ABS - Negated integer variable  &rarr; KILLED<br/>
+6. privateScale : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+7. privateScale : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+8. privateScale : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+9. privateScale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+10. privateScale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+11. privateScale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+12. privateScale : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+13. privateScale : UOI - Decremented int variable &rarr; KILLED<br/>
+14. privateScale : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for (int j = 0; j &#60; doubleArray.length; j++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_242'/>
+242
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_242'>44</a>
+<span>
+1. privateScale : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. privateScale : ABS - Negated integer variable  &rarr; KILLED<br/>
+3. privateScale : ABS - Negated double variable  &rarr; KILLED<br/>
+4. privateScale : ABS - Negated double variable  &rarr; KILLED<br/>
+5. privateScale : ABS - Negated double variable  &rarr; KILLED<br/>
+6. privateScale : AOD - Removed second operator from double sub &rarr; KILLED<br/>
+7. privateScale : AOD - Removed second operator from double sub &rarr; KILLED<br/>
+8. privateScale : AOD - Removed second operator from double div &rarr; KILLED<br/>
+9. privateScale : AOD - Removed second operator from double mul &rarr; KILLED<br/>
+10. privateScale : AOD - Removed second operator from double sub &rarr; KILLED<br/>
+11. privateScale : AOD - Removed second operator from double sub &rarr; KILLED<br/>
+12. privateScale : AOD - Removed second operator from double div &rarr; KILLED<br/>
+13. privateScale : AOD - Removed second operator from double mul &rarr; KILLED<br/>
+14. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;+&#34; &rarr; KILLED<br/>
+15. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;+&#34; &rarr; KILLED<br/>
+16. privateScale : AOR - Replaced Double &#34;/&#34; with &#34;+&#34; &rarr; KILLED<br/>
+17. privateScale : AOR - Replaced Double &#34;*&#34; with &#34;+&#34; &rarr; KILLED<br/>
+18. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;/&#34; &rarr; KILLED<br/>
+19. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;/&#34; &rarr; KILLED<br/>
+20. privateScale : AOR - Replaced Double &#34;*&#34; with &#34;/&#34; &rarr; KILLED<br/>
+21. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;%&#34; &rarr; KILLED<br/>
+22. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;%&#34; &rarr; KILLED<br/>
+23. privateScale : AOR - Replaced Double &#34;/&#34; with &#34;%&#34; &rarr; KILLED<br/>
+24. privateScale : AOR - Replaced Double &#34;*&#34; with &#34;%&#34; &rarr; KILLED<br/>
+25. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;*&#34; &rarr; KILLED<br/>
+26. privateScale : AOR - Replaced Double &#34;-&#34; with &#34;*&#34; &rarr; KILLED<br/>
+27. privateScale : AOR - Replaced Double &#34;/&#34; with &#34;*&#34; &rarr; KILLED<br/>
+28. privateScale : AOR - Replaced Double &#34;/&#34; with &#34;-&#34; &rarr; KILLED<br/>
+29. privateScale : AOR - Replaced Double &#34;*&#34; with &#34;-&#34; &rarr; KILLED<br/>
+30. privateScale : CRCR - Substituted 100.0 with 99.0 &rarr; KILLED<br/>
+31. privateScale : CRCR - Substituted 100.0 with -100.0 &rarr; KILLED<br/>
+32. privateScale : CRCR - Substituted 100.0 with 1.0 &rarr; KILLED<br/>
+33. privateScale : CRCR - Substituted 100.0 with 101.0 &rarr; KILLED<br/>
+34. privateScale : CRCR - Substituted 100.0 with 0.0 &rarr; KILLED<br/>
+35. privateScale : UOI - Decremented int variable &rarr; KILLED<br/>
+36. privateScale : UOI - Decremented int variable &rarr; KILLED<br/>
+37. privateScale : UOI - Decremented double variable &rarr; KILLED<br/>
+38. privateScale : UOI - Decremented double variable &rarr; KILLED<br/>
+39. privateScale : UOI - Decremented double variable &rarr; KILLED<br/>
+40. privateScale : UOI - Incremented int variable &rarr; KILLED<br/>
+41. privateScale : UOI - Incremented int variable &rarr; KILLED<br/>
+42. privateScale : UOI - Incremented double variable &rarr; KILLED<br/>
+43. privateScale : UOI - Incremented double variable &rarr; KILLED<br/>
+44. privateScale : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            scaledData[j] = ((doubleArray[j] - min) / (max - min)) * Data.MAX_VALUE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_244'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return scaledData;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5e5539f5_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from double sub &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from double sub &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;+&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with -1.0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with -0.0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 0.0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>32.<span><b>32</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_109'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>none</span></span> ABS - Negated double variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>scaleWithinRange<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFGE&#34; with &#34;IFNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFGE&#34; with &#34;IFLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFGE&#34; with &#34;IFLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFGE&#34; with &#34;IFGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFGE&#34; with &#34;IFEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_166'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>scale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_196'>196</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_196'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_197'>197</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_197'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_200'>200</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_200'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_201'>201</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_201'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_202'>202</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_202'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Removed unary operator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_204'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>scaleDataList<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Removed unary operator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_220'>220</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_220'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_221'>221</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_221'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toDoubleArray<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_239'>239</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_239'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from double sub &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from double sub &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;+&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with -1.0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with -0.0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 0.0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>32.<span><b>32</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_241'>241</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_241'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5e5539f5_242'>242</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5e5539f5_242'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOD - Removed second operator from double sub &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOD - Removed second operator from double sub &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOD - Removed second operator from double div &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOD - Removed second operator from double mul &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOD - Removed second operator from double sub &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOD - Removed second operator from double sub &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOD - Removed second operator from double div &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOD - Removed second operator from double mul &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;+&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;+&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;/&#34; with &#34;+&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;*&#34; with &#34;+&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;*&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;/&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;*&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;-&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;/&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;/&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> AOR - Replaced Double &#34;*&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 100.0 with 99.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 100.0 with -100.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>32.<span><b>32</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 100.0 with 1.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>33.<span><b>33</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 100.0 with 101.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>34.<span><b>34</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> CRCR - Substituted 100.0 with 0.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>35.<span><b>35</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>36.<span><b>36</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>37.<span><b>37</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>38.<span><b>38</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>39.<span><b>39</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>40.<span><b>40</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>41.<span><b>41</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>42.<span><b>42</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>43.<span><b>43</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>44.<span><b>44</b><br/><b>Location : </b>privateScale<br/><b>Killed by : </b>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.googlecode.charts4j.DataUtilTest.com.googlecode.charts4j.DataUtilTest (14 ms)</li><li>com.googlecode.charts4j.example.RadarChartExample.com.googlecode.charts4j.example.RadarChartExample (3 ms)</li><li>com.googlecode.charts4j.DataTest.com.googlecode.charts4j.DataTest (3 ms)</li><li>com.googlecode.charts4j.LineStyleTest.com.googlecode.charts4j.LineStyleTest (1 ms)</li><li>com.googlecode.charts4j.AbstractGChartTest.com.googlecode.charts4j.AbstractGChartTest (30 ms)</li><li>com.googlecode.charts4j.RadarChartTest.com.googlecode.charts4j.RadarChartTest (10 ms)</li><li>com.googlecode.charts4j.PlotTest.com.googlecode.charts4j.PlotTest (11 ms)</li><li>com.googlecode.charts4j.MarkableChartTest.com.googlecode.charts4j.MarkableChartTest (12 ms)</li><li>com.googlecode.charts4j.example.GeneralExample.com.googlecode.charts4j.example.GeneralExample (4 ms)</li><li>com.googlecode.charts4j.BarChartTest.com.googlecode.charts4j.BarChartTest (49 ms)</li><li>com.googlecode.charts4j.example.LineChartExample.com.googlecode.charts4j.example.LineChartExample (5 ms)</li><li>com.googlecode.charts4j.GChartsTest.com.googlecode.charts4j.GChartsTest (43 ms)</li><li>com.googlecode.charts4j.AbstractMarkableChartTest.com.googlecode.charts4j.AbstractMarkableChartTest (17 ms)</li><li>com.googlecode.charts4j.AxisLabelsTest.com.googlecode.charts4j.AxisLabelsTest (36 ms)</li><li>com.googlecode.charts4j.LineChartTest.com.googlecode.charts4j.LineChartTest (47 ms)</li><li>com.googlecode.charts4j.AbstractGraphChartTest.com.googlecode.charts4j.AbstractGraphChartTest (43 ms)</li><li>com.googlecode.charts4j.example.BarChartExample.com.googlecode.charts4j.example.BarChartExample (3 ms)</li><li>com.googlecode.charts4j.DataEncodingTest.com.googlecode.charts4j.DataEncodingTest (2 ms)</li><li>com.googlecode.charts4j.BarChartPlotTest.com.googlecode.charts4j.BarChartPlotTest (15 ms)</li><li>com.googlecode.charts4j.AxisStyleTest.com.googlecode.charts4j.AxisStyleTest (18 ms)</li><li>com.googlecode.charts4j.AbstractAxisChartTest.com.googlecode.charts4j.AbstractAxisChartTest (231 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

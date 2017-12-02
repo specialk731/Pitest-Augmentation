@@ -1,0 +1,176 @@
+<html>
+<head>
+  
+    <style type='text/css'>
+   
+   .tests {
+     width: 50%;
+     float: left;
+   }
+   
+   .mutees {
+     float: right;
+     width: 50%;
+   }
+   
+   .unit {
+     padding-top: 20px;
+     clear: both;
+   }
+   
+   .coverage_bar {
+     display: inline-block;
+     height: 1.1em;
+     width: 130px;
+     background: #FAA;
+     margin: 0 5px;
+     vertical-align: middle;
+     border: 1px solid #AAA;
+     position: relative;
+   }
+   
+   .coverage_complete {
+     display: inline-block;
+     height: 100%;
+     background: #DFD;
+     float: left;
+   }
+   
+   .coverage_legend {
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     left: 0;
+     top: 0;
+     text-align: center;
+   }
+   
+   .line, .mut {
+     vertical-align: middle;
+   }
+   
+   .coverage_percentage {
+     display: inline-block;
+     width: 3em;
+     text-align: right;
+   }
+  </style>
+  
+</head>
+<body>
+
+<h1>Pit Test Coverage Report</h1>
+
+<h3>Project Summary</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>75</td>
+            <td>67% <div class="coverage_bar"><div class="coverage_complete" style="width:67%"></div><div class="coverage_legend">2131/3171</div></div></td>
+            <td>66% <div class="coverage_bar"><div class="coverage_complete" style="width:66%"></div><div class="coverage_legend">964/1466</div></div></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Breakdown by Package</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><a href="./com.cloudhopper.smpp/index.html">com.cloudhopper.smpp</a></td>
+            <td>3</td>
+            <td><div class="coverage_percentage">73% </div><div class="coverage_bar"><div class="coverage_complete" style="width:73%"></div><div class="coverage_legend">114/156</div></div></td>
+            <td><div class="coverage_percentage">76% </div><div class="coverage_bar"><div class="coverage_complete" style="width:76%"></div><div class="coverage_legend">35/46</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.cloudhopper.smpp.channel/index.html">com.cloudhopper.smpp.channel</a></td>
+            <td>7</td>
+            <td><div class="coverage_percentage">88% </div><div class="coverage_bar"><div class="coverage_complete" style="width:88%"></div><div class="coverage_legend">99/112</div></div></td>
+            <td><div class="coverage_percentage">81% </div><div class="coverage_bar"><div class="coverage_complete" style="width:81%"></div><div class="coverage_legend">39/48</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.cloudhopper.smpp.impl/index.html">com.cloudhopper.smpp.impl</a></td>
+            <td>9</td>
+            <td><div class="coverage_percentage">59% </div><div class="coverage_bar"><div class="coverage_complete" style="width:59%"></div><div class="coverage_legend">533/903</div></div></td>
+            <td><div class="coverage_percentage">56% </div><div class="coverage_bar"><div class="coverage_complete" style="width:56%"></div><div class="coverage_legend">240/431</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.cloudhopper.smpp.pdu/index.html">com.cloudhopper.smpp.pdu</a></td>
+            <td>26</td>
+            <td><div class="coverage_percentage">80% </div><div class="coverage_bar"><div class="coverage_complete" style="width:80%"></div><div class="coverage_legend">514/639</div></div></td>
+            <td><div class="coverage_percentage">84% </div><div class="coverage_bar"><div class="coverage_complete" style="width:84%"></div><div class="coverage_legend">231/275</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.cloudhopper.smpp.simulator/index.html">com.cloudhopper.smpp.simulator</a></td>
+            <td>4</td>
+            <td><div class="coverage_percentage">76% </div><div class="coverage_bar"><div class="coverage_complete" style="width:76%"></div><div class="coverage_legend">98/129</div></div></td>
+            <td><div class="coverage_percentage">50% </div><div class="coverage_bar"><div class="coverage_complete" style="width:50%"></div><div class="coverage_legend">19/38</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.cloudhopper.smpp.ssl/index.html">com.cloudhopper.smpp.ssl</a></td>
+            <td>4</td>
+            <td><div class="coverage_percentage">41% </div><div class="coverage_bar"><div class="coverage_complete" style="width:41%"></div><div class="coverage_legend">183/450</div></div></td>
+            <td><div class="coverage_percentage">37% </div><div class="coverage_bar"><div class="coverage_complete" style="width:37%"></div><div class="coverage_legend">82/224</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.cloudhopper.smpp.tlv/index.html">com.cloudhopper.smpp.tlv</a></td>
+            <td>1</td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">71/71</div></div></td>
+            <td><div class="coverage_percentage">93% </div><div class="coverage_bar"><div class="coverage_complete" style="width:93%"></div><div class="coverage_legend">37/40</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.cloudhopper.smpp.transcoder/index.html">com.cloudhopper.smpp.transcoder</a></td>
+            <td>2</td>
+            <td><div class="coverage_percentage">99% </div><div class="coverage_bar"><div class="coverage_complete" style="width:99%"></div><div class="coverage_legend">119/120</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">66/66</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.cloudhopper.smpp.type/index.html">com.cloudhopper.smpp.type</a></td>
+            <td>9</td>
+            <td><div class="coverage_percentage">87% </div><div class="coverage_bar"><div class="coverage_complete" style="width:87%"></div><div class="coverage_legend">91/105</div></div></td>
+            <td><div class="coverage_percentage">85% </div><div class="coverage_bar"><div class="coverage_complete" style="width:85%"></div><div class="coverage_legend">33/39</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.cloudhopper.smpp.util/index.html">com.cloudhopper.smpp.util</a></td>
+            <td>10</td>
+            <td><div class="coverage_percentage">64% </div><div class="coverage_bar"><div class="coverage_complete" style="width:64%"></div><div class="coverage_legend">309/486</div></div></td>
+            <td><div class="coverage_percentage">70% </div><div class="coverage_bar"><div class="coverage_complete" style="width:70%"></div><div class="coverage_legend">182/259</div></div></td>
+        </tr>
+
+     </tbody>
+</table>
+<br/>
+
+
+
+<hr/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

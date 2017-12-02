@@ -1,0 +1,1956 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>Chunker.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.neo4j.batchimport.utils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Reader;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>* @author mh</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>* @since 13.11.12</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>*/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class Chunker {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_11'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final String EOF = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_12'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final String EOL = &#34;\n&#34;.intern();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_13'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final String NO_VALUE = &#34;&#34;.intern();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final char EOL_CHAR2 = &#39;\r&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final char EOL_CHAR = &#39;\n&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final char EOF_CHAR = (char)-1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final int PREV_EOL_CHAR = -2;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final int BUFSIZE = 32*1024;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Reader reader;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final char delim;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_21'/>
+21
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_21'>5</a>
+<span>
+1. <init> : CRCR - Substituted 32768 with 32767 &rarr; SURVIVED<br/>
+2. <init> : CRCR - Substituted 32768 with 32769 &rarr; SURVIVED<br/>
+3. <init> : CRCR - Substituted 32768 with -32768 &rarr; KILLED<br/>
+4. <init> : CRCR - Substituted 32768 with 1 &rarr; KILLED<br/>
+5. <init> : CRCR - Substituted 32768 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    private final char[] buffer=new char[BUFSIZE];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_22'/>
+22
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_22'>5</a>
+<span>
+1. <init> : CRCR - Substituted -2 with -3 &rarr; KILLED<br/>
+2. <init> : CRCR - Substituted -2 with 2 &rarr; KILLED<br/>
+3. <init> : CRCR - Substituted -2 with 1 &rarr; KILLED<br/>
+4. <init> : CRCR - Substituted -2 with -1 &rarr; KILLED<br/>
+5. <init> : CRCR - Substituted -2 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    private int lastChar = PREV_EOL_CHAR;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_23'/>
+23
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_23'>5</a>
+<span>
+1. <init> : CRCR - Substituted 32768 with 32767 &rarr; KILLED<br/>
+2. <init> : CRCR - Substituted 32768 with -32768 &rarr; KILLED<br/>
+3. <init> : CRCR - Substituted 32768 with 1 &rarr; KILLED<br/>
+4. <init> : CRCR - Substituted 32768 with 32769 &rarr; KILLED<br/>
+5. <init> : CRCR - Substituted 32768 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    private int pos=BUFSIZE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_25'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public Chunker(Reader reader, char delim) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_26'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.reader = reader;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_27'/>
+27
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_27'>3</a>
+<span>
+1. <init> : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. <init> : UOI - Decremented int variable &rarr; KILLED<br/>
+3. <init> : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.delim = delim;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_28'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the token, null for EOF, empty string for no value read (just delim) or &#34;\n&#34; for EOL</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String nextWord() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_35'/>
+35
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_35'>5</a>
+<span>
+1. nextWord : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. nextWord : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. nextWord : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. nextWord : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. nextWord : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        int count = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        int ch;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_37'/>
+37
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_37'>10</a>
+<span>
+1. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+2. nextWord : CRCR - Substituted 65535 with 65534 &rarr; KILLED<br/>
+3. nextWord : CRCR - Substituted 65535 with -65535 &rarr; KILLED<br/>
+4. nextWord : CRCR - Substituted 65535 with 1 &rarr; KILLED<br/>
+5. nextWord : CRCR - Substituted 65535 with 65536 &rarr; KILLED<br/>
+6. nextWord : CRCR - Substituted 65535 with 0 &rarr; KILLED<br/>
+7. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+8. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+9. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+10. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (lastChar == EOF_CHAR) return EOF;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_38'/>
+38
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_38'>10</a>
+<span>
+1. nextWord : CRCR - Substituted 10 with 9 &rarr; KILLED<br/>
+2. nextWord : CRCR - Substituted 10 with -10 &rarr; KILLED<br/>
+3. nextWord : CRCR - Substituted 10 with 1 &rarr; KILLED<br/>
+4. nextWord : CRCR - Substituted 10 with 11 &rarr; KILLED<br/>
+5. nextWord : CRCR - Substituted 10 with 0 &rarr; KILLED<br/>
+6. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+7. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+8. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+9. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+10. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (lastChar == EOL_CHAR) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_39'/>
+39
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_39'>5</a>
+<span>
+1. nextWord : CRCR - Substituted -2 with -3 &rarr; KILLED<br/>
+2. nextWord : CRCR - Substituted -2 with 2 &rarr; KILLED<br/>
+3. nextWord : CRCR - Substituted -2 with 1 &rarr; KILLED<br/>
+4. nextWord : CRCR - Substituted -2 with -1 &rarr; KILLED<br/>
+5. nextWord : CRCR - Substituted -2 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            lastChar = PREV_EOL_CHAR;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_40'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return EOL;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_43'/>
+43
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_43'>10</a>
+<span>
+1. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+2. nextWord : CRCR - Substituted 32768 with 32767 &rarr; KILLED<br/>
+3. nextWord : CRCR - Substituted 32768 with -32768 &rarr; KILLED<br/>
+4. nextWord : CRCR - Substituted 32768 with 1 &rarr; KILLED<br/>
+5. nextWord : CRCR - Substituted 32768 with 32769 &rarr; KILLED<br/>
+6. nextWord : CRCR - Substituted 32768 with 0 &rarr; KILLED<br/>
+7. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+8. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+9. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+10. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (pos == BUFSIZE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_44'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            int available = reader.read(buffer);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_45'/>
+45
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_45'>5</a>
+<span>
+1. nextWord : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. nextWord : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. nextWord : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. nextWord : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. nextWord : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            pos = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_46'/>
+46
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_46'>13</a>
+<span>
+1. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+2. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+3. nextWord : CRCR - Substituted -1 with -2 &rarr; KILLED<br/>
+4. nextWord : CRCR - Substituted -1 with 1 &rarr; KILLED<br/>
+5. nextWord : CRCR - Substituted -1 with 1 &rarr; KILLED<br/>
+6. nextWord : CRCR - Substituted -1 with 0 &rarr; KILLED<br/>
+7. nextWord : CRCR - Substituted -1 with 0 &rarr; KILLED<br/>
+8. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+9. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+10. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+11. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+12. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+13. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (available == -1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_47'/>
+47
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_47'>5</a>
+<span>
+1. nextWord : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. nextWord : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. nextWord : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+4. nextWord : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+5. nextWord : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                available = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_49'/>
+49
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_49'>13</a>
+<span>
+1. nextWord : CRCR - Substituted 32768 with 32767 &rarr; SURVIVED<br/>
+2. nextWord : CRCR - Substituted 32768 with 32769 &rarr; SURVIVED<br/>
+3. nextWord : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+4. nextWord : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+5. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+6. nextWord : CRCR - Substituted 32768 with -32768 &rarr; KILLED<br/>
+7. nextWord : CRCR - Substituted 32768 with 1 &rarr; KILLED<br/>
+8. nextWord : CRCR - Substituted 32768 with 0 &rarr; KILLED<br/>
+9. nextWord : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+10. nextWord : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+11. nextWord : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+12. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+13. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (available &#60; BUFSIZE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_50'/>
+50
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_50'>8</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. nextWord : CRCR - Substituted 65535 with 65534 &rarr; KILLED<br/>
+3. nextWord : CRCR - Substituted 65535 with -65535 &rarr; KILLED<br/>
+4. nextWord : CRCR - Substituted 65535 with 1 &rarr; KILLED<br/>
+5. nextWord : CRCR - Substituted 65535 with 65536 &rarr; KILLED<br/>
+6. nextWord : CRCR - Substituted 65535 with 0 &rarr; KILLED<br/>
+7. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+8. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                buffer[available] = EOF_CHAR;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int start = pos;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_54'/>
+54
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_54'>42</a>
+<span>
+1. nextWord : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+2. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+3. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+4. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+5. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+6. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+7. nextWord : AOD - Removed second operator from int add &rarr; KILLED<br/>
+8. nextWord : AOD - Removed second operator from int add &rarr; KILLED<br/>
+9. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; KILLED<br/>
+10. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; KILLED<br/>
+11. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; KILLED<br/>
+12. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED<br/>
+13. nextWord : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+14. nextWord : CRCR - Substituted 10 with 9 &rarr; KILLED<br/>
+15. nextWord : CRCR - Substituted 65535 with 65534 &rarr; KILLED<br/>
+16. nextWord : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+17. nextWord : CRCR - Substituted 10 with -10 &rarr; KILLED<br/>
+18. nextWord : CRCR - Substituted 65535 with -65535 &rarr; KILLED<br/>
+19. nextWord : CRCR - Substituted 10 with 1 &rarr; KILLED<br/>
+20. nextWord : CRCR - Substituted 65535 with 1 &rarr; KILLED<br/>
+21. nextWord : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+22. nextWord : CRCR - Substituted 10 with 11 &rarr; KILLED<br/>
+23. nextWord : CRCR - Substituted 65535 with 65536 &rarr; KILLED<br/>
+24. nextWord : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+25. nextWord : CRCR - Substituted 10 with 0 &rarr; KILLED<br/>
+26. nextWord : CRCR - Substituted 65535 with 0 &rarr; KILLED<br/>
+27. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+28. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+29. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+30. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+31. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+32. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+33. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+34. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+35. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+36. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+37. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+38. nextWord : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+39. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+40. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+41. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+42. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        while ((ch = buffer[pos++])!=delim &#38;&#38; ch!= EOL_CHAR &#38;&#38; ch!= EOF_CHAR) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_55'>1</a>
+<span>
+1. nextWord : UOI - Removed unary operator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            count++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_56'/>
+56
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_56'>10</a>
+<span>
+1. nextWord : CRCR - Substituted 32768 with 32767 &rarr; SURVIVED<br/>
+2. nextWord : CRCR - Substituted 32768 with -32768 &rarr; SURVIVED<br/>
+3. nextWord : CRCR - Substituted 32768 with 32769 &rarr; SURVIVED<br/>
+4. nextWord : CRCR - Substituted 32768 with 0 &rarr; SURVIVED<br/>
+5. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+6. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+7. nextWord : CRCR - Substituted 32768 with 1 &rarr; KILLED<br/>
+8. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+9. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+10. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (pos == BUFSIZE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_57'/>
+57
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_57'>11</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. nextWord : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. nextWord : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+4. nextWord : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+5. nextWord : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+6. nextWord : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+7. nextWord : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+8. nextWord : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+9. nextWord : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+10. nextWord : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+11. nextWord : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                System.arraycopy(buffer, start, buffer, 0, count);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_58'/>
+58
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_58'>17</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. nextWord : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. nextWord : AOD - Removed second operator from int sub &rarr; NO_COVERAGE<br/>
+4. nextWord : AOD - Removed second operator from int sub &rarr; NO_COVERAGE<br/>
+5. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; NO_COVERAGE<br/>
+6. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+7. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+8. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+9. nextWord : CRCR - Substituted 32768 with 32767 &rarr; NO_COVERAGE<br/>
+10. nextWord : CRCR - Substituted 32768 with -32768 &rarr; NO_COVERAGE<br/>
+11. nextWord : CRCR - Substituted 32768 with 1 &rarr; NO_COVERAGE<br/>
+12. nextWord : CRCR - Substituted 32768 with 32769 &rarr; NO_COVERAGE<br/>
+13. nextWord : CRCR - Substituted 32768 with 0 &rarr; NO_COVERAGE<br/>
+14. nextWord : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+15. nextWord : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+16. nextWord : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+17. nextWord : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                int available = reader.read(buffer, count, BUFSIZE - count);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_59'/>
+59
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_59'>3</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. nextWord : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+3. nextWord : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                pos = count;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_60'/>
+60
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_60'>5</a>
+<span>
+1. nextWord : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+2. nextWord : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+3. nextWord : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. nextWord : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. nextWord : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                start = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_61'/>
+61
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_61'>13</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. nextWord : CRCR - Substituted -1 with -2 &rarr; NO_COVERAGE<br/>
+3. nextWord : CRCR - Substituted -1 with 1 &rarr; NO_COVERAGE<br/>
+4. nextWord : CRCR - Substituted -1 with 1 &rarr; NO_COVERAGE<br/>
+5. nextWord : CRCR - Substituted -1 with 0 &rarr; NO_COVERAGE<br/>
+6. nextWord : CRCR - Substituted -1 with 0 &rarr; NO_COVERAGE<br/>
+7. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+8. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+9. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+10. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+11. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+12. nextWord : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+13. nextWord : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                if (available == -1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_62'/>
+62
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_62'>5</a>
+<span>
+1. nextWord : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+2. nextWord : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+3. nextWord : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. nextWord : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. nextWord : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                    available = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_64'/>
+64
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_64'>22</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. nextWord : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. nextWord : AOD - Removed second operator from int sub &rarr; NO_COVERAGE<br/>
+4. nextWord : AOD - Removed second operator from int sub &rarr; NO_COVERAGE<br/>
+5. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; NO_COVERAGE<br/>
+6. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+7. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+8. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+9. nextWord : CRCR - Substituted 32768 with 32767 &rarr; NO_COVERAGE<br/>
+10. nextWord : CRCR - Substituted 32768 with -32768 &rarr; NO_COVERAGE<br/>
+11. nextWord : CRCR - Substituted 32768 with 1 &rarr; NO_COVERAGE<br/>
+12. nextWord : CRCR - Substituted 32768 with 32769 &rarr; NO_COVERAGE<br/>
+13. nextWord : CRCR - Substituted 32768 with 0 &rarr; NO_COVERAGE<br/>
+14. nextWord : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE<br/>
+15. nextWord : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+16. nextWord : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+17. nextWord : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+18. nextWord : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+19. nextWord : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+20. nextWord : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+21. nextWord : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+22. nextWord : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                if (available &#60; BUFSIZE - count) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_65'/>
+65
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_65'>17</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. nextWord : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. nextWord : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+4. nextWord : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+5. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+6. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+7. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+8. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+9. nextWord : CRCR - Substituted 65535 with 65534 &rarr; NO_COVERAGE<br/>
+10. nextWord : CRCR - Substituted 65535 with -65535 &rarr; NO_COVERAGE<br/>
+11. nextWord : CRCR - Substituted 65535 with 1 &rarr; NO_COVERAGE<br/>
+12. nextWord : CRCR - Substituted 65535 with 65536 &rarr; NO_COVERAGE<br/>
+13. nextWord : CRCR - Substituted 65535 with 0 &rarr; NO_COVERAGE<br/>
+14. nextWord : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+15. nextWord : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+16. nextWord : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+17. nextWord : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                    buffer[available + count] = EOF_CHAR;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_67'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_69'/>
+69
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_69'>8</a>
+<span>
+1. nextWord : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+2. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+3. nextWord : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+4. nextWord : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+5. nextWord : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+6. nextWord : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+7. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+8. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (count == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_70'/>
+70
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_70'>28</a>
+<span>
+1. nextWord : CRCR - Substituted 65535 with 65534 &rarr; SURVIVED<br/>
+2. nextWord : CRCR - Substituted 65535 with -65535 &rarr; SURVIVED<br/>
+3. nextWord : CRCR - Substituted 65535 with 1 &rarr; SURVIVED<br/>
+4. nextWord : CRCR - Substituted 65535 with 65536 &rarr; SURVIVED<br/>
+5. nextWord : CRCR - Substituted 65535 with 0 &rarr; SURVIVED<br/>
+6. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+7. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+8. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+9. nextWord : CRCR - Substituted -2 with -3 &rarr; KILLED<br/>
+10. nextWord : CRCR - Substituted 65535 with 65534 &rarr; KILLED<br/>
+11. nextWord : CRCR - Substituted -2 with 2 &rarr; KILLED<br/>
+12. nextWord : CRCR - Substituted 65535 with -65535 &rarr; KILLED<br/>
+13. nextWord : CRCR - Substituted -2 with 1 &rarr; KILLED<br/>
+14. nextWord : CRCR - Substituted 65535 with 1 &rarr; KILLED<br/>
+15. nextWord : CRCR - Substituted -2 with -1 &rarr; KILLED<br/>
+16. nextWord : CRCR - Substituted 65535 with 65536 &rarr; KILLED<br/>
+17. nextWord : CRCR - Substituted -2 with 0 &rarr; KILLED<br/>
+18. nextWord : CRCR - Substituted 65535 with 0 &rarr; KILLED<br/>
+19. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+20. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+21. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+22. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+23. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+24. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+25. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+26. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+27. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+28. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (lastChar==PREV_EOL_CHAR &#38;&#38; ch== EOF_CHAR) { lastChar=EOF_CHAR;return EOF; }            </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_71'>3</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+3. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            lastChar=ch;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_72'/>
+72
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_72'>13</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. nextWord : CRCR - Substituted 65535 with 65534 &rarr; SURVIVED<br/>
+3. nextWord : CRCR - Substituted 65535 with -65535 &rarr; SURVIVED<br/>
+4. nextWord : CRCR - Substituted 65535 with 1 &rarr; SURVIVED<br/>
+5. nextWord : CRCR - Substituted 65535 with 65536 &rarr; SURVIVED<br/>
+6. nextWord : CRCR - Substituted 65535 with 0 &rarr; SURVIVED<br/>
+7. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+8. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+9. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+10. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+11. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+12. nextWord : UOI - Decremented int variable &rarr; SURVIVED<br/>
+13. nextWord : UOI - Incremented int variable &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (ch == EOF_CHAR) return NO_VALUE;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_73'/>
+73
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_73'>13</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. nextWord : CRCR - Substituted 10 with 9 &rarr; SURVIVED<br/>
+3. nextWord : CRCR - Substituted 10 with -10 &rarr; SURVIVED<br/>
+4. nextWord : CRCR - Substituted 10 with 1 &rarr; SURVIVED<br/>
+5. nextWord : CRCR - Substituted 10 with 11 &rarr; SURVIVED<br/>
+6. nextWord : CRCR - Substituted 10 with 0 &rarr; SURVIVED<br/>
+7. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+8. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+9. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+10. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+11. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+12. nextWord : UOI - Decremented int variable &rarr; SURVIVED<br/>
+13. nextWord : UOI - Incremented int variable &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (ch == EOL_CHAR) return NO_VALUE;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return NO_VALUE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_76'>3</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+3. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        lastChar=ch;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_77'/>
+77
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_77'>34</a>
+<span>
+1. nextWord : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+2. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+3. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+4. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+5. nextWord : AOD - Removed second operator from int add &rarr; KILLED<br/>
+6. nextWord : AOD - Removed second operator from int sub &rarr; KILLED<br/>
+7. nextWord : AOD - Removed second operator from int add &rarr; KILLED<br/>
+8. nextWord : AOD - Removed second operator from int sub &rarr; KILLED<br/>
+9. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; KILLED<br/>
+10. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; KILLED<br/>
+11. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; KILLED<br/>
+12. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; KILLED<br/>
+13. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; KILLED<br/>
+14. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; KILLED<br/>
+15. nextWord : AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; KILLED<br/>
+16. nextWord : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED<br/>
+17. nextWord : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+18. nextWord : CRCR - Substituted 13 with 12 &rarr; KILLED<br/>
+19. nextWord : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+20. nextWord : CRCR - Substituted 13 with -13 &rarr; KILLED<br/>
+21. nextWord : CRCR - Substituted 13 with 1 &rarr; KILLED<br/>
+22. nextWord : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+23. nextWord : CRCR - Substituted 13 with 14 &rarr; KILLED<br/>
+24. nextWord : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+25. nextWord : CRCR - Substituted 13 with 0 &rarr; KILLED<br/>
+26. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+27. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+28. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+29. nextWord : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+30. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+31. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+32. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+33. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+34. nextWord : UOI - Removed unary operator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (buffer[start + count-1]==EOL_CHAR2) count--;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_78'>6</a>
+<span>
+1. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+2. nextWord : ABS - Negated integer variable  &rarr; KILLED<br/>
+3. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+4. nextWord : UOI - Decremented int variable &rarr; KILLED<br/>
+5. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+6. nextWord : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return String.valueOf(buffer, start, count);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5a2d7459_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_21'>21</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_21'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 32767 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with -32768 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 32769 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_22'>22</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_22'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with -3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_23'>23</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_23'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 32767 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with -32768 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 32769 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_27'>27</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_27'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_35'>35</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_35'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_37'>37</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_37'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 65534 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with -65535 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 65536 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_38'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 10 with 9 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 10 with -10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 10 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 10 with 11 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 10 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testNormalWithCommas(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_39'>39</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_39'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with -3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_43'>43</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_43'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 32767 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with -32768 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 32769 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_45'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_46'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -1 with -2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -1 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_49'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 32767 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with -32768 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 32769 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_50'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 65534 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with -65535 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 65536 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_54'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOD - Removed second operator from int add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOD - Removed second operator from int add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 10 with 9 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 65534 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 10 with -10 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with -65535 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 10 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 10 with 11 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 65536 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 10 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>32.<span><b>32</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>33.<span><b>33</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>34.<span><b>34</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>35.<span><b>35</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>36.<span><b>36</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>37.<span><b>37</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>38.<span><b>38</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>39.<span><b>39</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>40.<span><b>40</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>41.<span><b>41</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>42.<span><b>42</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Removed unary operator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_56'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 32767 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with -32768 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 32768 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 32769 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_57'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_58'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int sub &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int sub &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 32767 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with -32768 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 32769 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_59'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_60'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_61'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with -2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_62'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_64'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int sub &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int sub &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 32767 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with -32768 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 32769 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 32768 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_65'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 65534 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with -65535 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 65536 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with -3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 65534 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 65534 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with -65535 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with -65535 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 65536 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 65536 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted -2 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 65535 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_72'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 65534 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with -65535 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 65536 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 65535 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_73'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 10 with 9 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 10 with -10 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 10 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 10 with 11 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 10 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOD - Removed second operator from int add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> AOD - Removed second operator from int sub &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOD - Removed second operator from int add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> AOD - Removed second operator from int sub &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> CRCR - Substituted 13 with 12 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> CRCR - Substituted 13 with -13 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> CRCR - Substituted 13 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> CRCR - Substituted 13 with 14 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> CRCR - Substituted 13 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>32.<span><b>32</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>33.<span><b>33</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>34.<span><b>34</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest)</span></span> UOI - Removed unary operator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5a2d7459_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5a2d7459_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>nextWord<br/><b>Killed by : </b>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFieldWithNewline(org.neo4j.batchimport.utils.ChunkerTest) (1 ms)</li><li>org.neo4j.batchimport.utils.ChunkerTest.testLineWithOnlyEmptyFields(org.neo4j.batchimport.utils.ChunkerTest) (1 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testNormalCells(org.neo4j.batchimport.csv.ChunkerRowDataTest) (1 ms)</li><li>org.neo4j.batchimport.utils.ChunkerTest.testUtf8(org.neo4j.batchimport.utils.ChunkerTest) (1 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testEmptyRow(org.neo4j.batchimport.csv.ChunkerRowDataTest) (1 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testLeadTwoRow(org.neo4j.batchimport.csv.ChunkerRowDataTest) (1 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testTrailingEmptyCells(org.neo4j.batchimport.csv.ChunkerRowDataTest) (1 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testLeadOneRow(org.neo4j.batchimport.csv.ChunkerRowDataTest) (1 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testNormalWithCommas(org.neo4j.batchimport.csv.ChunkerRowDataTest) (1 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testHandleNewLines(org.neo4j.batchimport.csv.ChunkerRowDataTest) (1 ms)</li><li>org.neo4j.batchimport.utils.ChunkerTest.testEmptyFile(org.neo4j.batchimport.utils.ChunkerTest) (1 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testNormalCellsTwoRows(org.neo4j.batchimport.csv.ChunkerRowDataTest) (1 ms)</li><li>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyField(org.neo4j.batchimport.utils.ChunkerTest) (1 ms)</li><li>org.neo4j.batchimport.csv.StreamTokenizerTest.testReadHeader(org.neo4j.batchimport.csv.StreamTokenizerTest) (1 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testConvert(org.neo4j.batchimport.csv.ChunkerRowDataTest) (5 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testLeadingAndTrailingEmptyCells(org.neo4j.batchimport.csv.ChunkerRowDataTest) (1 ms)</li><li>org.neo4j.batchimport.utils.ChunkerTest.testLineWithEmptyLines(org.neo4j.batchimport.utils.ChunkerTest) (1 ms)</li><li>org.neo4j.batchimport.utils.ChunkerTest.testLineWithFields(org.neo4j.batchimport.utils.ChunkerTest) (1 ms)</li><li>org.neo4j.batchimport.utils.ChunkerTest.testEmptyField(org.neo4j.batchimport.utils.ChunkerTest) (0 ms)</li><li>org.neo4j.batchimport.csv.ChunkerRowDataTest.testLeadingEmptyCells(org.neo4j.batchimport.csv.ChunkerRowDataTest) (1 ms)</li><li>org.neo4j.batchimport.utils.ChunkerTest.testEmptyLine(org.neo4j.batchimport.utils.ChunkerTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

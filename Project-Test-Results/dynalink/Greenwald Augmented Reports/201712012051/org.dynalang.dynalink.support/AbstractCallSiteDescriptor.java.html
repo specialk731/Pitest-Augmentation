@@ -1,0 +1,2827 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>AbstractCallSiteDescriptor.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   Copyright 2009-2013 Attila Szegedi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   Licensed under both the Apache License, Version 2.0 (the &#34;Apache License&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   and the BSD License (the &#34;BSD License&#34;), with licensee being free to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   choose either of the two at their discretion.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   You may not use this file except in compliance with either the Apache</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   License or the BSD License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   If you choose to use this file in compliance with the Apache License, the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   following notice applies to you:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       You may obtain a copy of the Apache License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>           http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       implied. See the License for the specific language governing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       permissions and limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   If you choose to use this file in compliance with the BSD License, the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   following notice applies to you:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       Redistribution and use in source and binary forms, with or without</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       modification, are permitted provided that the following conditions are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       met:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Redistributions of source code must retain the above copyright</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         notice, this list of conditions and the following disclaimer.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Redistributions in binary form must reproduce the above copyright</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         notice, this list of conditions and the following disclaimer in the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         documentation and/or other materials provided with the distribution.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * Neither the name of the copyright holder nor the names of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         contributors may be used to endorse or promote products derived from</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         this software without specific prior written permission.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &#34;AS</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       IS&#34; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>*/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.dynalang.dynalink.support;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.invoke.MethodHandles;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.invoke.MethodHandles.Lookup;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Objects;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.dynalang.dynalink.CallSiteDescriptor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A base class for call site descriptor implementations. Provides reconstruction of the name from the tokens, as well</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * as a generally useful {@code equals} and {@code hashCode} methods.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Attila Szegedi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_64'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public abstract class AbstractCallSiteDescriptor implements CallSiteDescriptor {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String getName() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_68'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return appendName(new StringBuilder(getNameLength())).toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   public Lookup getLookup() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>       return MethodHandles.publicLookup();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean equals(final Object obj) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_78'/>
+78
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_78'>20</a>
+<span>
+1. equals : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. equals : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+3. equals : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+4. equals : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+5. equals : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+6. equals : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+7. equals : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+8. equals : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+9. equals : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+10. equals : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+11. equals : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED<br/>
+12. equals : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED<br/>
+13. equals : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+14. equals : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+15. equals : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+16. equals : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+17. equals : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+18. equals : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+19. equals : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+20. equals : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return obj instanceof CallSiteDescriptor &#38;&#38; equals((CallSiteDescriptor)obj);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns true if this call site descriptor is equal to the passed call site descriptor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param csd the other call site descriptor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if they are equal.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean equals(final CallSiteDescriptor csd) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_87'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if(csd == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_88'/>
+88
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_88'>5</a>
+<span>
+1. equals : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+2. equals : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+3. equals : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. equals : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. equals : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_90'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if(csd == this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_91'/>
+91
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_91'>5</a>
+<span>
+1. equals : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. equals : CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+3. equals : CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE<br/>
+4. equals : CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+5. equals : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_93'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int ntc = getNameTokenCount();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_94'/>
+94
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_94'>8</a>
+<span>
+1. equals : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. equals : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED<br/>
+3. equals : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+4. equals : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+5. equals : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+6. equals : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+7. equals : UOI - Decremented int variable &rarr; SURVIVED<br/>
+8. equals : UOI - Incremented int variable &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if(ntc != csd.getNameTokenCount()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_95'>5</a>
+<span>
+1. equals : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+2. equals : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+3. equals : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. equals : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. equals : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_97'/>
+97
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_97'>12</a>
+<span>
+1. equals : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. equals : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+3. equals : ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+4. equals : ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+5. equals : UOI - Decremented int variable &rarr; SURVIVED<br/>
+6. equals : UOI - Decremented int variable &rarr; SURVIVED<br/>
+7. equals : ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+8. equals : ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+9. equals : ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+10. equals : UOI - Incremented int variable &rarr; KILLED<br/>
+11. equals : UOI - Incremented int variable &rarr; KILLED<br/>
+12. equals : UOI - Removed unary operator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for(int i = ntc; i-- &#62; 0;) { // Reverse order as variability is higher at the end</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_98'/>
+98
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_98'>11</a>
+<span>
+1. equals : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+2. equals : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+3. equals : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+4. equals : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+5. equals : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+6. equals : UOI - Decremented int variable &rarr; SURVIVED<br/>
+7. equals : ABS - Negated integer variable  &rarr; KILLED<br/>
+8. equals : ABS - Negated integer variable  &rarr; KILLED<br/>
+9. equals : UOI - Decremented int variable &rarr; KILLED<br/>
+10. equals : UOI - Incremented int variable &rarr; KILLED<br/>
+11. equals : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if(!Objects.equals(getNameToken(i), csd.getNameToken(i))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_99'>5</a>
+<span>
+1. equals : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+2. equals : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+3. equals : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. equals : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. equals : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_102'/>
+102
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_102'>5</a>
+<span>
+1. equals : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+2. equals : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+3. equals : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED<br/>
+4. equals : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED<br/>
+5. equals : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if(!getMethodType().equals(csd.getMethodType())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_103'/>
+103
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_103'>5</a>
+<span>
+1. equals : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+2. equals : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+3. equals : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. equals : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. equals : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_105'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return lookupsEqual(getLookup(), csd.getLookup());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int hashCode() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_110'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final MethodHandles.Lookup lookup = getLookup();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_111'/>
+111
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_111'>17</a>
+<span>
+1. hashCode : AOD - Removed second operator from int mul &rarr; SURVIVED<br/>
+2. hashCode : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+3. hashCode : AOD - Removed second operator from int mul &rarr; SURVIVED<br/>
+4. hashCode : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+5. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;+&#34; &rarr; SURVIVED<br/>
+6. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+7. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+8. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+9. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+10. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+11. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+12. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+13. hashCode : CRCR - Substituted 31 with 30 &rarr; SURVIVED<br/>
+14. hashCode : CRCR - Substituted 31 with -31 &rarr; SURVIVED<br/>
+15. hashCode : CRCR - Substituted 31 with 1 &rarr; SURVIVED<br/>
+16. hashCode : CRCR - Substituted 31 with 32 &rarr; SURVIVED<br/>
+17. hashCode : CRCR - Substituted 31 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        int h = lookup.lookupClass().hashCode() + 31 * lookup.lookupModes();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_112'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int c = getNameTokenCount();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_113'>17</a>
+<span>
+1. hashCode : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. hashCode : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. hashCode : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+4. hashCode : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+5. hashCode : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+6. hashCode : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+7. hashCode : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+8. hashCode : UOI - Decremented int variable &rarr; SURVIVED<br/>
+9. hashCode : UOI - Incremented int variable &rarr; SURVIVED<br/>
+10. hashCode : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+11. hashCode : ABS - Negated integer variable  &rarr; KILLED<br/>
+12. hashCode : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+13. hashCode : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+14. hashCode : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+15. hashCode : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+16. hashCode : UOI - Decremented int variable &rarr; KILLED<br/>
+17. hashCode : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for(int i = 0; i &#60; c; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_114'>23</a>
+<span>
+1. hashCode : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. hashCode : AOD - Removed second operator from int mul &rarr; SURVIVED<br/>
+3. hashCode : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+4. hashCode : AOD - Removed second operator from int mul &rarr; SURVIVED<br/>
+5. hashCode : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+6. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;+&#34; &rarr; SURVIVED<br/>
+7. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+8. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+9. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+10. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+11. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+12. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+13. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+14. hashCode : CRCR - Substituted 31 with 30 &rarr; SURVIVED<br/>
+15. hashCode : CRCR - Substituted 31 with -31 &rarr; SURVIVED<br/>
+16. hashCode : CRCR - Substituted 31 with 1 &rarr; SURVIVED<br/>
+17. hashCode : CRCR - Substituted 31 with 32 &rarr; SURVIVED<br/>
+18. hashCode : CRCR - Substituted 31 with 0 &rarr; SURVIVED<br/>
+19. hashCode : UOI - Decremented int variable &rarr; SURVIVED<br/>
+20. hashCode : UOI - Incremented int variable &rarr; SURVIVED<br/>
+21. hashCode : ABS - Negated integer variable  &rarr; KILLED<br/>
+22. hashCode : UOI - Decremented int variable &rarr; KILLED<br/>
+23. hashCode : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            h = h * 31 + getNameToken(i).hashCode();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_116'/>
+116
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_116'>20</a>
+<span>
+1. hashCode : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. hashCode : AOD - Removed second operator from int mul &rarr; SURVIVED<br/>
+3. hashCode : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+4. hashCode : AOD - Removed second operator from int mul &rarr; SURVIVED<br/>
+5. hashCode : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+6. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;+&#34; &rarr; SURVIVED<br/>
+7. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+8. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+9. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+10. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+11. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+12. hashCode : AOR - Replaced Integer &#34;*&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+13. hashCode : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+14. hashCode : CRCR - Substituted 31 with 30 &rarr; SURVIVED<br/>
+15. hashCode : CRCR - Substituted 31 with -31 &rarr; SURVIVED<br/>
+16. hashCode : CRCR - Substituted 31 with 1 &rarr; SURVIVED<br/>
+17. hashCode : CRCR - Substituted 31 with 32 &rarr; SURVIVED<br/>
+18. hashCode : CRCR - Substituted 31 with 0 &rarr; SURVIVED<br/>
+19. hashCode : UOI - Decremented int variable &rarr; SURVIVED<br/>
+20. hashCode : UOI - Incremented int variable &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return h * 31 + getMethodType().hashCode();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_121'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final String mt = getMethodType().toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_122'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final String l = getLookup().toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_123'/>
+123
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_123'>23</a>
+<span>
+1. toString : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+2. toString : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+3. toString : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+4. toString : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+5. toString : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+6. toString : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+7. toString : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+8. toString : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+9. toString : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+10. toString : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+11. toString : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+12. toString : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+13. toString : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+14. toString : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+15. toString : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+16. toString : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+17. toString : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+18. toString : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+19. toString : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+20. toString : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+21. toString : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+22. toString : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+23. toString : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        final StringBuilder b = new StringBuilder(l.length() + 1 + mt.length() + getNameLength());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_124'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return appendName(b).append(mt).append(&#34;@&#34;).append(l).toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private int getNameLength() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_128'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int c = getNameTokenCount();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_129'/>
+129
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_129'>5</a>
+<span>
+1. getNameLength : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+2. getNameLength : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. getNameLength : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+4. getNameLength : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+5. getNameLength : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        int l = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_130'/>
+130
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_130'>17</a>
+<span>
+1. getNameLength : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. getNameLength : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. getNameLength : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+4. getNameLength : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+5. getNameLength : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+6. getNameLength : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED<br/>
+7. getNameLength : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+8. getNameLength : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+9. getNameLength : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+10. getNameLength : UOI - Decremented int variable &rarr; SURVIVED<br/>
+11. getNameLength : UOI - Incremented int variable &rarr; SURVIVED<br/>
+12. getNameLength : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+13. getNameLength : ABS - Negated integer variable  &rarr; KILLED<br/>
+14. getNameLength : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+15. getNameLength : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+16. getNameLength : UOI - Decremented int variable &rarr; KILLED<br/>
+17. getNameLength : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for(int i = 0; i &#60; c; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_131'/>
+131
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_131'>12</a>
+<span>
+1. getNameLength : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. getNameLength : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+3. getNameLength : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+4. getNameLength : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+5. getNameLength : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+6. getNameLength : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+7. getNameLength : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+8. getNameLength : UOI - Decremented int variable &rarr; SURVIVED<br/>
+9. getNameLength : UOI - Incremented int variable &rarr; SURVIVED<br/>
+10. getNameLength : ABS - Negated integer variable  &rarr; KILLED<br/>
+11. getNameLength : UOI - Decremented int variable &rarr; KILLED<br/>
+12. getNameLength : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            l += getNameToken(i).length();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_133'/>
+133
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_133'>23</a>
+<span>
+1. getNameLength : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. getNameLength : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+3. getNameLength : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+4. getNameLength : AOD - Removed second operator from int sub &rarr; SURVIVED<br/>
+5. getNameLength : AOD - Removed second operator from int add &rarr; SURVIVED<br/>
+6. getNameLength : AOD - Removed second operator from int sub &rarr; SURVIVED<br/>
+7. getNameLength : AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; SURVIVED<br/>
+8. getNameLength : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+9. getNameLength : AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; SURVIVED<br/>
+10. getNameLength : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+11. getNameLength : AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; SURVIVED<br/>
+12. getNameLength : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+13. getNameLength : AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; SURVIVED<br/>
+14. getNameLength : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED<br/>
+15. getNameLength : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+16. getNameLength : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+17. getNameLength : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+18. getNameLength : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+19. getNameLength : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+20. getNameLength : UOI - Decremented int variable &rarr; SURVIVED<br/>
+21. getNameLength : UOI - Decremented int variable &rarr; SURVIVED<br/>
+22. getNameLength : UOI - Incremented int variable &rarr; SURVIVED<br/>
+23. getNameLength : UOI - Incremented int variable &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return l +  c - 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private StringBuilder appendName(final StringBuilder b) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_137'/>
+137
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_137'>5</a>
+<span>
+1. appendName : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. appendName : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. appendName : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+4. appendName : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+5. appendName : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        b.append(getNameToken(0));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_138'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int c = getNameTokenCount();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_139'/>
+139
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_139'>17</a>
+<span>
+1. appendName : ABS - Negated integer variable  &rarr; SURVIVED<br/>
+2. appendName : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+3. appendName : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+4. appendName : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+5. appendName : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+6. appendName : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED<br/>
+7. appendName : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+8. appendName : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED<br/>
+9. appendName : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+10. appendName : UOI - Decremented int variable &rarr; SURVIVED<br/>
+11. appendName : UOI - Incremented int variable &rarr; SURVIVED<br/>
+12. appendName : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+13. appendName : UOI - Removed unary operator &rarr; TIMED_OUT<br/>
+14. appendName : ABS - Negated integer variable  &rarr; KILLED<br/>
+15. appendName : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+16. appendName : ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+17. appendName : UOI - Incremented int variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for(int i = 1; i &#60; c; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_140'/>
+140
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_140'>8</a>
+<span>
+1. appendName : CRCR - Substituted 58 with 57 &rarr; SURVIVED<br/>
+2. appendName : CRCR - Substituted 58 with -58 &rarr; SURVIVED<br/>
+3. appendName : CRCR - Substituted 58 with 1 &rarr; SURVIVED<br/>
+4. appendName : CRCR - Substituted 58 with 59 &rarr; SURVIVED<br/>
+5. appendName : CRCR - Substituted 58 with 0 &rarr; SURVIVED<br/>
+6. appendName : UOI - Incremented int variable &rarr; SURVIVED<br/>
+7. appendName : UOI - Decremented int variable &rarr; TIMED_OUT<br/>
+8. appendName : ABS - Negated integer variable  &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            b.append(&#39;:&#39;).append(getNameToken(i));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_142'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return b;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static boolean lookupsEqual(final Lookup l1, final Lookup l2) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_146'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if(l1 == l2) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_147'/>
+147
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_147'>5</a>
+<span>
+1. lookupsEqual : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. lookupsEqual : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+3. lookupsEqual : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+4. lookupsEqual : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+5. lookupsEqual : CRCR - Substituted 1 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_149'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        if(l1.lookupClass() != l2.lookupClass()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_150'/>
+150
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_150'>5</a>
+<span>
+1. lookupsEqual : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+2. lookupsEqual : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+3. lookupsEqual : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. lookupsEqual : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. lookupsEqual : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_152'/>
+152
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_152'>15</a>
+<span>
+1. lookupsEqual : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. lookupsEqual : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+3. lookupsEqual : CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+4. lookupsEqual : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+5. lookupsEqual : CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE<br/>
+6. lookupsEqual : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+7. lookupsEqual : CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+8. lookupsEqual : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+9. lookupsEqual : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+10. lookupsEqual : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+11. lookupsEqual : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+12. lookupsEqual : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+13. lookupsEqual : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+14. lookupsEqual : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+15. lookupsEqual : ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return l1.lookupModes() == l2.lookupModes();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@443ddcad_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_78'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_88'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_91'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_94'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_95'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_97'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.TestRelinkableCallSite.testNullRelink(org.dynalang.dynalink.TestRelinkableCallSite)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFNE&#34; (&#34;&#62;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.TestRelinkableCallSite.testNullRelink(org.dynalang.dynalink.TestRelinkableCallSite)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFLT&#34; (&#34;&#62;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGE&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.TestRelinkableCallSite.testNullRelink(org.dynalang.dynalink.TestRelinkableCallSite)</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFGT&#34; (&#34;&#62;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLE&#34; with &#34;IFEQ&#34; (&#34;&#62;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.TestRelinkableCallSite.testNullRelink(org.dynalang.dynalink.TestRelinkableCallSite)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.TestRelinkableCallSite.testNullRelink(org.dynalang.dynalink.TestRelinkableCallSite)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Removed unary operator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnMap(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_99'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_102'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_103'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_111'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int mul &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int mul &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;+&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 30 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with -31 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 32 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_114'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int mul &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int mul &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;+&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 30 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with -31 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 32 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_116'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int mul &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int mul &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;+&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;*&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 30 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with -31 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 32 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 31 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_123'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_129'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_131'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Decremented int variable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Incremented int variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_133'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int sub &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int sub &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;+&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;/&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;%&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;-&#34; with &#34;*&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>getNameLength<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPNE&#34; (&#34;&#60;&#34; -&#62; &#34;==&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLE&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPLT&#34; (&#34;&#60;&#34; -&#62; &#34;&#62;=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPGT&#34; (&#34;&#60;&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPGE&#34; with &#34;IF_ICMPEQ&#34; (&#34;&#60;&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> UOI - Incremented int variable &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> UOI - Removed unary operator &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_140'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations)</span></span> ABS - Negated integer variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 58 with 57 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 58 with -58 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 58 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 58 with 59 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 58 with 0 &rarr; SURVIVED</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; TIMED_OUT</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>appendName<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_147'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_150'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@443ddcad_152'>152</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@443ddcad_152'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>lookupsEqual<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IF_ICMPNE&#34; with &#34;IF_ICMPEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.dynalang.dynalink.beans.TestLengthGetter.testLateBoundLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter) (7 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundObjectArrayElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (2 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testVarArg(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (18 ms)</li><li>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundCollectionLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter) (5 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetElemPropOnMap(org.dynalang.dynalink.beans.TestCompositeOperations) (6 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testExactMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (11 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnList(org.dynalang.dynalink.beans.TestCompositeOperations) (21 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnMap(org.dynalang.dynalink.beans.TestCompositeOperations) (18 ms)</li><li>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundArrayLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter) (2 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testNoneMatchSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (2 ms)</li><li>org.dynalang.dynalink.beans.TestLengthGetter.testArrayLengthPropertyGetter(org.dynalang.dynalink.beans.TestLengthGetter) (28 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundPrimitiveArrayElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (16 ms)</li><li>org.dynalang.dynalink.beans.TestPropertyGetter.testVariableNamePropertyGetter(org.dynalang.dynalink.beans.TestPropertyGetter) (4 ms)</li><li>org.dynalang.dynalink.beans.TestLengthGetter.testEarlyBoundMapLengthGetter(org.dynalang.dynalink.beans.TestLengthGetter) (5 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetMethodElemProp(org.dynalang.dynalink.beans.TestCompositeOperations) (9 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundListElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (11 ms)</li><li>org.dynalang.dynalink.beans.TestStatics.testPropertyGetterSetter(org.dynalang.dynalink.beans.TestStatics) (10 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetElemPropMethodOnArray(org.dynalang.dynalink.beans.TestCompositeOperations) (192 ms)</li><li>org.dynalang.dynalink.beans.TestNew.testAll(org.dynalang.dynalink.beans.TestNew) (48 ms)</li><li>org.dynalang.dynalink.TestMonomorphicCallSite.testSetNull(org.dynalang.dynalink.TestMonomorphicCallSite) (1 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundPrimitiveArrayElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (4 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundMapElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (11 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testLateBoundMapElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (7 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testGetPropElemMethod(org.dynalang.dynalink.beans.TestCompositeOperations) (8 ms)</li><li>org.dynalang.dynalink.beans.TestPropertySetter.testFixedNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter) (6 ms)</li><li>org.dynalang.dynalink.beans.TestBeansLinker.testAllNulls(org.dynalang.dynalink.beans.TestBeansLinker) (2 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testVeryGenericSignature(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (6 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testEarlyBoundMapElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (3 ms)</li><li>org.dynalang.dynalink.TestMonomorphicCallSite.testSetGuardless(org.dynalang.dynalink.TestMonomorphicCallSite) (22 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnMap(org.dynalang.dynalink.beans.TestCompositeOperations) (4 ms)</li><li>org.dynalang.dynalink.beans.TestPropertySetter.testVariableNamePropertySetter(org.dynalang.dynalink.beans.TestPropertySetter) (9 ms)</li><li>org.dynalang.dynalink.beans.TestStatics.testFieldGetterSetter(org.dynalang.dynalink.beans.TestStatics) (21 ms)</li><li>org.dynalang.dynalink.beans.TestElementGetter.testLateBoundMapElementGetter(org.dynalang.dynalink.beans.TestElementGetter) (12 ms)</li><li>org.dynalang.dynalink.beans.TestPrintLn.testPrintLn(org.dynalang.dynalink.beans.TestPrintLn) (11 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetPropElemOnList(org.dynalang.dynalink.beans.TestCompositeOperations) (4 ms)</li><li>org.dynalang.dynalink.beans.TestBeansLinker.testInvalidName(org.dynalang.dynalink.beans.TestBeansLinker) (0 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundListElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (11 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringFormat(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (63 ms)</li><li>org.dynalang.dynalink.TestRelinkableCallSite.testNullRelink(org.dynalang.dynalink.TestRelinkableCallSite) (0 ms)</li><li>org.dynalang.dynalink.beans.TestElementSetter.testEarlyBoundObjectArrayElementSetter(org.dynalang.dynalink.beans.TestElementSetter) (2 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testStringOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (2 ms)</li><li>org.dynalang.dynalink.beans.TestCompositeOperations.testSetElemPropOnList(org.dynalang.dynalink.beans.TestCompositeOperations) (19 ms)</li><li>org.dynalang.dynalink.beans.TestPropertyGetter.testFixedNamePropertyGetter(org.dynalang.dynalink.beans.TestPropertyGetter) (5 ms)</li><li>org.dynalang.dynalink.beans.TestOverloadedDynamicMethod.testIntOrDouble(org.dynalang.dynalink.beans.TestOverloadedDynamicMethod) (12 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

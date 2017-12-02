@@ -1,0 +1,260 @@
+<html>
+<head>
+  
+    <style type='text/css'>
+   
+   .tests {
+     width: 50%;
+     float: left;
+   }
+   
+   .mutees {
+     float: right;
+     width: 50%;
+   }
+   
+   .unit {
+     padding-top: 20px;
+     clear: both;
+   }
+   
+   .coverage_bar {
+     display: inline-block;
+     height: 1.1em;
+     width: 130px;
+     background: #FAA;
+     margin: 0 5px;
+     vertical-align: middle;
+     border: 1px solid #AAA;
+     position: relative;
+   }
+   
+   .coverage_complete {
+     display: inline-block;
+     height: 100%;
+     background: #DFD;
+     float: left;
+   }
+   
+   .coverage_legend {
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     left: 0;
+     top: 0;
+     text-align: center;
+   }
+   
+   .line, .mut {
+     vertical-align: middle;
+   }
+   
+   .coverage_percentage {
+     display: inline-block;
+     width: 3em;
+     text-align: right;
+   }
+  </style>
+  
+</head>
+<body>
+
+<h1>Pit Test Coverage Report</h1>
+
+<h3>Project Summary</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>82</td>
+            <td>57% <div class="coverage_bar"><div class="coverage_complete" style="width:57%"></div><div class="coverage_legend">1626/2853</div></div></td>
+            <td>58% <div class="coverage_bar"><div class="coverage_complete" style="width:58%"></div><div class="coverage_legend">4134/7174</div></div></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Breakdown by Package</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext/index.html">com.liveramp.cascading_ext</a></td>
+            <td>6</td>
+            <td><div class="coverage_percentage">57% </div><div class="coverage_bar"><div class="coverage_complete" style="width:57%"></div><div class="coverage_legend">202/353</div></div></td>
+            <td><div class="coverage_percentage">46% </div><div class="coverage_bar"><div class="coverage_complete" style="width:46%"></div><div class="coverage_legend">282/616</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.assembly/index.html">com.liveramp.cascading_ext.assembly</a></td>
+            <td>9</td>
+            <td><div class="coverage_percentage">66% </div><div class="coverage_bar"><div class="coverage_complete" style="width:66%"></div><div class="coverage_legend">160/244</div></div></td>
+            <td><div class="coverage_percentage">63% </div><div class="coverage_bar"><div class="coverage_complete" style="width:63%"></div><div class="coverage_legend">552/882</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.bloom/index.html">com.liveramp.cascading_ext.bloom</a></td>
+            <td>5</td>
+            <td><div class="coverage_percentage">83% </div><div class="coverage_bar"><div class="coverage_complete" style="width:83%"></div><div class="coverage_legend">212/254</div></div></td>
+            <td><div class="coverage_percentage">92% </div><div class="coverage_bar"><div class="coverage_complete" style="width:92%"></div><div class="coverage_legend">508/554</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.bloom.operation/index.html">com.liveramp.cascading_ext.bloom.operation</a></td>
+            <td>3</td>
+            <td><div class="coverage_percentage">92% </div><div class="coverage_bar"><div class="coverage_complete" style="width:92%"></div><div class="coverage_legend">73/79</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">267/267</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.combiner/index.html">com.liveramp.cascading_ext.combiner</a></td>
+            <td>11</td>
+            <td><div class="coverage_percentage">78% </div><div class="coverage_bar"><div class="coverage_complete" style="width:78%"></div><div class="coverage_legend">388/498</div></div></td>
+            <td><div class="coverage_percentage">70% </div><div class="coverage_bar"><div class="coverage_complete" style="width:70%"></div><div class="coverage_legend">797/1134</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.combiner.lib/index.html">com.liveramp.cascading_ext.combiner.lib</a></td>
+            <td>10</td>
+            <td><div class="coverage_percentage">36% </div><div class="coverage_bar"><div class="coverage_complete" style="width:36%"></div><div class="coverage_legend">63/177</div></div></td>
+            <td><div class="coverage_percentage">40% </div><div class="coverage_bar"><div class="coverage_complete" style="width:40%"></div><div class="coverage_legend">287/709</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.counters/index.html">com.liveramp.cascading_ext.counters</a></td>
+            <td>2</td>
+            <td><div class="coverage_percentage">55% </div><div class="coverage_bar"><div class="coverage_complete" style="width:55%"></div><div class="coverage_legend">118/214</div></div></td>
+            <td><div class="coverage_percentage">66% </div><div class="coverage_bar"><div class="coverage_complete" style="width:66%"></div><div class="coverage_legend">354/537</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.example/index.html">com.liveramp.cascading_ext.example</a></td>
+            <td>4</td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/82</div></div></td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/265</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.flow/index.html">com.liveramp.cascading_ext.flow</a></td>
+            <td>5</td>
+            <td><div class="coverage_percentage">40% </div><div class="coverage_bar"><div class="coverage_complete" style="width:40%"></div><div class="coverage_legend">74/184</div></div></td>
+            <td><div class="coverage_percentage">42% </div><div class="coverage_bar"><div class="coverage_complete" style="width:42%"></div><div class="coverage_legend">46/109</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.flow_step_strategy/index.html">com.liveramp.cascading_ext.flow_step_strategy</a></td>
+            <td>2</td>
+            <td><div class="coverage_percentage">76% </div><div class="coverage_bar"><div class="coverage_complete" style="width:76%"></div><div class="coverage_legend">39/51</div></div></td>
+            <td><div class="coverage_percentage">74% </div><div class="coverage_bar"><div class="coverage_complete" style="width:74%"></div><div class="coverage_legend">112/151</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.fs/index.html">com.liveramp.cascading_ext.fs</a></td>
+            <td>1</td>
+            <td><div class="coverage_percentage">55% </div><div class="coverage_bar"><div class="coverage_complete" style="width:55%"></div><div class="coverage_legend">11/20</div></div></td>
+            <td><div class="coverage_percentage">71% </div><div class="coverage_bar"><div class="coverage_complete" style="width:71%"></div><div class="coverage_legend">45/63</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.hash/index.html">com.liveramp.cascading_ext.hash</a></td>
+            <td>1</td>
+            <td><div class="coverage_percentage">93% </div><div class="coverage_bar"><div class="coverage_complete" style="width:93%"></div><div class="coverage_legend">14/15</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">39/39</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.hash.murmur/index.html">com.liveramp.cascading_ext.hash.murmur</a></td>
+            <td>2</td>
+            <td><div class="coverage_percentage">98% </div><div class="coverage_bar"><div class="coverage_complete" style="width:98%"></div><div class="coverage_legend">43/44</div></div></td>
+            <td><div class="coverage_percentage">99% </div><div class="coverage_bar"><div class="coverage_complete" style="width:99%"></div><div class="coverage_legend">483/488</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.jobs/index.html">com.liveramp.cascading_ext.jobs</a></td>
+            <td>1</td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/80</div></div></td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/236</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.joiner/index.html">com.liveramp.cascading_ext.joiner</a></td>
+            <td>1</td>
+            <td><div class="coverage_percentage">83% </div><div class="coverage_bar"><div class="coverage_complete" style="width:83%"></div><div class="coverage_legend">20/24</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">62/62</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.multi_group_by/index.html">com.liveramp.cascading_ext.multi_group_by</a></td>
+            <td>2</td>
+            <td><div class="coverage_percentage">76% </div><div class="coverage_bar"><div class="coverage_complete" style="width:76%"></div><div class="coverage_legend">19/25</div></div></td>
+            <td><div class="coverage_percentage">53% </div><div class="coverage_bar"><div class="coverage_complete" style="width:53%"></div><div class="coverage_legend">16/30</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.operation/index.html">com.liveramp.cascading_ext.operation</a></td>
+            <td>8</td>
+            <td><div class="coverage_percentage">74% </div><div class="coverage_bar"><div class="coverage_complete" style="width:74%"></div><div class="coverage_legend">139/189</div></div></td>
+            <td><div class="coverage_percentage">96% </div><div class="coverage_bar"><div class="coverage_complete" style="width:96%"></div><div class="coverage_legend">191/199</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.serialization/index.html">com.liveramp.cascading_ext.serialization</a></td>
+            <td>2</td>
+            <td><div class="coverage_percentage">2% </div><div class="coverage_bar"><div class="coverage_complete" style="width:2%"></div><div class="coverage_legend">1/43</div></div></td>
+            <td><div class="coverage_percentage">4% </div><div class="coverage_bar"><div class="coverage_complete" style="width:4%"></div><div class="coverage_legend">10/264</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.tap/index.html">com.liveramp.cascading_ext.tap</a></td>
+            <td>2</td>
+            <td><div class="coverage_percentage">53% </div><div class="coverage_bar"><div class="coverage_complete" style="width:53%"></div><div class="coverage_legend">24/45</div></div></td>
+            <td><div class="coverage_percentage">18% </div><div class="coverage_bar"><div class="coverage_complete" style="width:18%"></div><div class="coverage_legend">10/55</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.util/index.html">com.liveramp.cascading_ext.util</a></td>
+            <td>3</td>
+            <td><div class="coverage_percentage">20% </div><div class="coverage_bar"><div class="coverage_complete" style="width:20%"></div><div class="coverage_legend">26/129</div></div></td>
+            <td><div class="coverage_percentage">25% </div><div class="coverage_bar"><div class="coverage_complete" style="width:25%"></div><div class="coverage_legend">73/292</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.util.scripts/index.html">com.liveramp.cascading_ext.util.scripts</a></td>
+            <td>1</td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/52</div></div></td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/174</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./com.liveramp.cascading_ext.yarn/index.html">com.liveramp.cascading_ext.yarn</a></td>
+            <td>1</td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/51</div></div></td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/48</div></div></td>
+        </tr>
+
+     </tbody>
+</table>
+<br/>
+
+
+
+<hr/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

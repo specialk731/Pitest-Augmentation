@@ -1,0 +1,1105 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>TrashHelper.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.liveramp.cascading_ext.fs;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.liveramp.cascading_ext.CascadingUtil;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.liveramp.cascading_ext.FileSystemHelper;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.hadoop.fs.FileSystem;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.hadoop.fs.Path;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.hadoop.fs.Trash;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.slf4j.Logger;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.slf4j.LoggerFactory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_14'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>public class TrashHelper {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_15'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Logger LOG = LoggerFactory.getLogger(TrashHelper.class);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static boolean moveToTrash(FileSystem fs, Path path) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_18'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    boolean move = Trash.moveToAppropriateTrash(fs, path, CascadingUtil.get().getJobConf());</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_19'/>
+19
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_19'>8</a>
+<span>
+1. moveToTrash : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. moveToTrash : ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE<br/>
+3. moveToTrash : ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE<br/>
+4. moveToTrash : ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE<br/>
+5. moveToTrash : ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE<br/>
+6. moveToTrash : ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE<br/>
+7. moveToTrash : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+8. moveToTrash : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    if (!move) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_20'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      throw new RuntimeException(&#34;Trash disabled or path already in trash: &#34; + path);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_23'/>
+23
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_23'>5</a>
+<span>
+1. moveToTrash : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. moveToTrash : CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+3. moveToTrash : CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE<br/>
+4. moveToTrash : CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+5. moveToTrash : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static boolean deleteUsingTrashIfEnabled(Path path) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_27'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    return deleteUsingTrashIfEnabled(FileSystemHelper.getFileSystemForPath(path), path);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static boolean deleteUsingTrashIfEnabled(FileSystem fs, Path path) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_31'/>
+31
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_31'>5</a>
+<span>
+1. deleteUsingTrashIfEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+2. deleteUsingTrashIfEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+3. deleteUsingTrashIfEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+4. deleteUsingTrashIfEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT<br/>
+5. deleteUsingTrashIfEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    if (fs.exists(path)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_32'/>
+32
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_32'>5</a>
+<span>
+1. deleteUsingTrashIfEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+2. deleteUsingTrashIfEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+3. deleteUsingTrashIfEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+4. deleteUsingTrashIfEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT<br/>
+5. deleteUsingTrashIfEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      if (isEnabled()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_33'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        LOG.info(&#34;Moving to trash: &#34; + path);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_34'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return moveToTrash(fs, path);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_36'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        LOG.info(&#34;Deleting: &#34; + path);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_37'/>
+37
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_37'>5</a>
+<span>
+1. deleteUsingTrashIfEnabled : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+2. deleteUsingTrashIfEnabled : CRCR - Substituted 1 with -1 &rarr; TIMED_OUT<br/>
+3. deleteUsingTrashIfEnabled : CRCR - Substituted 1 with 1 &rarr; TIMED_OUT<br/>
+4. deleteUsingTrashIfEnabled : CRCR - Substituted 1 with 2 &rarr; TIMED_OUT<br/>
+5. deleteUsingTrashIfEnabled : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        return fs.delete(path, true);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //  if it wasn&#39;t there, consider it a success</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_42'/>
+42
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_42'>5</a>
+<span>
+1. deleteUsingTrashIfEnabled : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+2. deleteUsingTrashIfEnabled : CRCR - Substituted 1 with -1 &rarr; TIMED_OUT<br/>
+3. deleteUsingTrashIfEnabled : CRCR - Substituted 1 with 1 &rarr; TIMED_OUT<br/>
+4. deleteUsingTrashIfEnabled : CRCR - Substituted 1 with 2 &rarr; TIMED_OUT<br/>
+5. deleteUsingTrashIfEnabled : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static boolean isEnabled() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //  check if enabled locally</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_48'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Integer interval = Integer.parseInt(CascadingUtil.get().getJobConf().get(&#34;fs.trash.interval&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_50'/>
+50
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_50'>5</a>
+<span>
+1. isEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+2. isEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+3. isEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+4. isEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT<br/>
+5. isEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    if (interval != 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_51'/>
+51
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_51'>5</a>
+<span>
+1. isEnabled : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. isEnabled : CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+3. isEnabled : CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE<br/>
+4. isEnabled : CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+5. isEnabled : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //  it could also be configured on the namenode rather than locally, so look there</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    FileSystem fs = FileSystemHelper.getFS();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_56'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    long trashInterval = fs.getServerDefaults(new Path(&#34;/tmp/some_dummy_path&#34;)).getTrashInterval();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_58'/>
+58
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_58'>20</a>
+<span>
+1. isEnabled : CRCR - Substituted 0 with -1 &rarr; TIMED_OUT<br/>
+2. isEnabled : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+3. isEnabled : CRCR - Substituted 0 with -1 &rarr; TIMED_OUT<br/>
+4. isEnabled : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+5. isEnabled : CRCR - Substituted 1 with -1 &rarr; TIMED_OUT<br/>
+6. isEnabled : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+7. isEnabled : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+8. isEnabled : CRCR - Substituted 1 with 1 &rarr; TIMED_OUT<br/>
+9. isEnabled : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+10. isEnabled : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+11. isEnabled : CRCR - Substituted 1 with 2 &rarr; TIMED_OUT<br/>
+12. isEnabled : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+13. isEnabled : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+14. isEnabled : CRCR - Substituted 1 with 0 &rarr; TIMED_OUT<br/>
+15. isEnabled : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+16. isEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT<br/>
+17. isEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT<br/>
+18. isEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT<br/>
+19. isEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT<br/>
+20. isEnabled : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    return trashInterval != 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1548ea24_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1548ea24_19'>19</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_19'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFLT&#34; (&#34;==&#34; -&#62; &#34;&#62;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGE&#34; (&#34;==&#34; -&#62; &#34;&#60;&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFGT&#34; (&#34;==&#34; -&#62; &#34;&#60;=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFNE&#34; with &#34;IFEQ&#34; (&#34;==&#34; -&#62; &#34;!=&#34;) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1548ea24_23'>23</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_23'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>moveToTrash<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1548ea24_31'>31</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_31'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1548ea24_32'>32</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_32'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1548ea24_37'>37</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_37'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1548ea24_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_42'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>deleteUsingTrashIfEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1548ea24_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_50'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1548ea24_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_51'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1548ea24_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1548ea24_58'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>isEnabled<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.liveramp.cascading_ext.tap.TestNullTap.testMultiFlow(com.liveramp.cascading_ext.tap.TestNullTap) (66 ms)</li><li>com.liveramp.cascading_ext.serialization.TestRawComparator.testOrdering(com.liveramp.cascading_ext.serialization.TestRawComparator) (2 ms)</li><li>com.liveramp.cascading_ext.multi_group_by.TestSingleElementTupleIterator.testIt(com.liveramp.cascading_ext.multi_group_by.TestSingleElementTupleIterator) (2 ms)</li><li>com.liveramp.cascading_ext.combiner.TestCombiner.testComplexCombiner(com.liveramp.cascading_ext.combiner.TestCombiner) (305 ms)</li><li>com.liveramp.cascading_ext.assembly.TestIncrement.run(com.liveramp.cascading_ext.assembly.TestIncrement) (173 ms)</li><li>com.liveramp.cascading_ext.combiner.TestCombiner.testSimpleCombinerWithMemoryLimit(com.liveramp.cascading_ext.combiner.TestCombiner) (201 ms)</li><li>com.liveramp.cascading_ext.operation.TestFilterStats.run(com.liveramp.cascading_ext.operation.TestFilterStats) (151 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testExact(com.liveramp.cascading_ext.assembly.TestBloomFilter) (14638 ms)</li><li>com.liveramp.cascading_ext.tap.TestNullTap.testFlow(com.liveramp.cascading_ext.tap.TestNullTap) (148 ms)</li><li>com.liveramp.cascading_ext.operation.TestBufferStats.run(com.liveramp.cascading_ext.operation.TestBufferStats) (217 ms)</li><li>com.liveramp.cascading_ext.combiner.TestMultiCombiner.testMultiCombiner(com.liveramp.cascading_ext.combiner.TestMultiCombiner) (965 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testInexact(com.liveramp.cascading_ext.assembly.TestBloomFilter) (5270 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testRightJoinLargeRHS(com.liveramp.cascading_ext.assembly.TestBloomJoin) (349 ms)</li><li>com.liveramp.cascading_ext.combiner.TestMultiCombiner.testMultiCombinerSingleTail(com.liveramp.cascading_ext.combiner.TestMultiCombiner) (267 ms)</li><li>com.liveramp.cascading_ext.TestFixedWidthTextScheme.testNoFailureOnNonStrict(com.liveramp.cascading_ext.TestFixedWidthTextScheme) (86 ms)</li><li>com.liveramp.cascading_ext.assembly.TestMultiGroupBy.testSimple2(com.liveramp.cascading_ext.assembly.TestMultiGroupBy) (386 ms)</li><li>com.liveramp.cascading_ext.operation.TestFunctionStats.run(com.liveramp.cascading_ext.operation.TestFunctionStats) (185 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testLeftJoinLargeLHS(com.liveramp.cascading_ext.assembly.TestBloomJoin) (355 ms)</li><li>com.liveramp.cascading_ext.operation.TestAggregatorStats.run(com.liveramp.cascading_ext.operation.TestAggregatorStats) (245 ms)</li><li>com.liveramp.cascading_ext.assembly.TestMultiGroupBy.testSimple(com.liveramp.cascading_ext.assembly.TestMultiGroupBy) (317 ms)</li><li>com.liveramp.cascading_ext.assembly.TestEachStats.run(com.liveramp.cascading_ext.assembly.TestEachStats) (185 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testNumHashes2(com.liveramp.cascading_ext.assembly.TestBloomFilter) (11574 ms)</li><li>com.liveramp.cascading_ext.assembly.TestMultiGroupBy.testSimple3(com.liveramp.cascading_ext.assembly.TestMultiGroupBy) (378 ms)</li><li>com.liveramp.cascading_ext.assembly.TestIncrementForFieldValues.runMultiValue(com.liveramp.cascading_ext.assembly.TestIncrementForFieldValues) (196 ms)</li><li>com.liveramp.cascading_ext.TestFixedSizeBitSet.testGetSet(com.liveramp.cascading_ext.TestFixedSizeBitSet) (2 ms)</li><li>com.liveramp.cascading_ext.TestFixedWidthTextScheme.testColsFieldsMismatch(com.liveramp.cascading_ext.TestFixedWidthTextScheme) (87 ms)</li><li>com.liveramp.cascading_ext.TestTupleSerializationUtil.testNoErrorsAcrossSerializations(com.liveramp.cascading_ext.TestTupleSerializationUtil) (60 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testNumHashes(com.liveramp.cascading_ext.assembly.TestBloomFilter) (10616 ms)</li><li>com.liveramp.cascading_ext.combiner.TestMultiExactAggregator.testMain(com.liveramp.cascading_ext.combiner.TestMultiExactAggregator) (254 ms)</li><li>com.liveramp.cascading_ext.joiner.TestLimitJoin.checkLimits(com.liveramp.cascading_ext.joiner.TestLimitJoin) (334 ms)</li><li>com.liveramp.cascading_ext.assembly.TestCreateBloomFilter.testSingle(com.liveramp.cascading_ext.assembly.TestCreateBloomFilter) (1188 ms)</li><li>com.liveramp.cascading_ext.TestFixedWidthTextScheme.testRead(com.liveramp.cascading_ext.TestFixedWidthTextScheme) (117 ms)</li><li>com.liveramp.cascading_ext.tap.TestNullTap.testWrite(com.liveramp.cascading_ext.tap.TestNullTap) (21 ms)</li><li>com.liveramp.cascading_ext.bloom.TestBloomFilter.testFalsePositiveRate(com.liveramp.cascading_ext.bloom.TestBloomFilter) (36 ms)</li><li>com.liveramp.cascading_ext.combiner.TestCountExactAggregator.testMain(com.liveramp.cascading_ext.combiner.TestCountExactAggregator) (255 ms)</li><li>com.liveramp.cascading_ext.TestTupleSerializationUtil.testSerializationWithNativeObjects(com.liveramp.cascading_ext.TestTupleSerializationUtil) (31 ms)</li><li>com.liveramp.cascading_ext.operation.TestBatchFunction.testFunc(com.liveramp.cascading_ext.operation.TestBatchFunction) (193 ms)</li><li>com.liveramp.cascading_ext.assembly.TestRenameInPlace.testIt(com.liveramp.cascading_ext.assembly.TestRenameInPlace) (241 ms)</li><li>com.liveramp.cascading_ext.bloom.TestBloomFilter.testSetSanity(com.liveramp.cascading_ext.bloom.TestBloomFilter) (2 ms)</li><li>com.liveramp.cascading_ext.combiner.TestCombiner.testSimpleCombiner(com.liveramp.cascading_ext.combiner.TestCombiner) (273 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testSingle(com.liveramp.cascading_ext.assembly.TestBloomJoin) (10100 ms)</li><li>com.liveramp.cascading_ext.TestFixedWidthTextScheme.testShortRead(com.liveramp.cascading_ext.TestFixedWidthTextScheme) (68 ms)</li><li>com.liveramp.cascading_ext.TestFileSystemHelper.testPrefixStripping(com.liveramp.cascading_ext.TestFileSystemHelper) (984 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomFilter.testSwapped(com.liveramp.cascading_ext.assembly.TestBloomFilter) (10861 ms)</li><li>com.liveramp.cascading_ext.assembly.TestBloomJoin.testIt(com.liveramp.cascading_ext.assembly.TestBloomJoin) (38009 ms)</li><li>com.liveramp.cascading_ext.TestTupleSerializationUtil.testSerializationWithBytesWritables(com.liveramp.cascading_ext.TestTupleSerializationUtil) (37 ms)</li><li>com.liveramp.cascading_ext.assembly.TestIncrementForFieldValues.run(com.liveramp.cascading_ext.assembly.TestIncrementForFieldValues) (177 ms)</li><li>com.liveramp.cascading_ext.counters.TestCounters.testBlackHoleWarning(com.liveramp.cascading_ext.counters.TestCounters) (463 ms)</li><li>com.liveramp.cascading_ext.assembly.TestEveryStats.run(com.liveramp.cascading_ext.assembly.TestEveryStats) (233 ms)</li><li>com.liveramp.cascading_ext.TestFixedWidthTextScheme.testLengthyRead(com.liveramp.cascading_ext.TestFixedWidthTextScheme) (222 ms)</li><li>com.liveramp.cascading_ext.combiner.TestSumExactAggregator.testMain(com.liveramp.cascading_ext.combiner.TestSumExactAggregator) (269 ms)</li><li>com.liveramp.cascading_ext.TestFixedSizeBitSet.testFill(com.liveramp.cascading_ext.TestFixedSizeBitSet) (15 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

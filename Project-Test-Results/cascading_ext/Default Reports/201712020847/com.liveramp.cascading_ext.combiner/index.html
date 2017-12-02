@@ -1,0 +1,177 @@
+<html>
+<head>
+  
+    <style type='text/css'>
+   
+   .tests {
+     width: 50%;
+     float: left;
+   }
+   
+   .mutees {
+     float: right;
+     width: 50%;
+   }
+   
+   .unit {
+     padding-top: 20px;
+     clear: both;
+   }
+   
+   .coverage_bar {
+     display: inline-block;
+     height: 1.1em;
+     width: 130px;
+     background: #FAA;
+     margin: 0 5px;
+     vertical-align: middle;
+     border: 1px solid #AAA;
+     position: relative;
+   }
+   
+   .coverage_complete {
+     display: inline-block;
+     height: 100%;
+     background: #DFD;
+     float: left;
+   }
+   
+   .coverage_legend {
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     left: 0;
+     top: 0;
+     text-align: center;
+   }
+   
+   .line, .mut {
+     vertical-align: middle;
+   }
+   
+   .coverage_percentage {
+     display: inline-block;
+     width: 3em;
+     text-align: right;
+   }
+  </style>
+  
+</head>
+<body>
+
+<h1>Pit Test Coverage Report</h1>
+<h2>Package Summary</h2>
+<h3>com.liveramp.cascading_ext.combiner</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>12</td>
+            <td>79% <div class="coverage_bar"><div class="coverage_complete" style="width:79%"></div><div class="coverage_legend">420/530</div></div></td>
+            <td>81% <div class="coverage_bar"><div class="coverage_complete" style="width:81%"></div><div class="coverage_legend">197/243</div></div></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Breakdown by Class</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><a href="./Combiner.java.html">Combiner.java</a></td>
+            <td><div class="coverage_percentage">33% </div><div class="coverage_bar"><div class="coverage_complete" style="width:33%"></div><div class="coverage_legend">23/70</div></div></td>
+            <td><div class="coverage_percentage">31% </div><div class="coverage_bar"><div class="coverage_complete" style="width:31%"></div><div class="coverage_legend">8/26</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./CombinerAggregator.java.html">CombinerAggregator.java</a></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">23/23</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">6/6</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./CombinerAggregatorContext.java.html">CombinerAggregatorContext.java</a></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">17/17</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">4/4</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./CombinerDefinition.java.html">CombinerDefinition.java</a></td>
+            <td><div class="coverage_percentage">95% </div><div class="coverage_bar"><div class="coverage_complete" style="width:95%"></div><div class="coverage_legend">37/39</div></div></td>
+            <td><div class="coverage_percentage">96% </div><div class="coverage_bar"><div class="coverage_complete" style="width:96%"></div><div class="coverage_legend">23/24</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./CombinerDefinitionBuilder.java.html">CombinerDefinitionBuilder.java</a></td>
+            <td><div class="coverage_percentage">86% </div><div class="coverage_bar"><div class="coverage_complete" style="width:86%"></div><div class="coverage_legend">38/44</div></div></td>
+            <td><div class="coverage_percentage">80% </div><div class="coverage_bar"><div class="coverage_complete" style="width:80%"></div><div class="coverage_legend">16/20</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./CombinerFunction.java.html">CombinerFunction.java</a></td>
+            <td><div class="coverage_percentage">73% </div><div class="coverage_bar"><div class="coverage_complete" style="width:73%"></div><div class="coverage_legend">43/59</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">13/13</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./CombinerFunctionContext.java.html">CombinerFunctionContext.java</a></td>
+            <td><div class="coverage_percentage">85% </div><div class="coverage_bar"><div class="coverage_complete" style="width:85%"></div><div class="coverage_legend">88/103</div></div></td>
+            <td><div class="coverage_percentage">86% </div><div class="coverage_bar"><div class="coverage_complete" style="width:86%"></div><div class="coverage_legend">51/59</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./CombinerUtils.java.html">CombinerUtils.java</a></td>
+            <td><div class="coverage_percentage">75% </div><div class="coverage_bar"><div class="coverage_complete" style="width:75%"></div><div class="coverage_legend">6/8</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">8/8</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./MultiCombiner.java.html">MultiCombiner.java</a></td>
+            <td><div class="coverage_percentage">92% </div><div class="coverage_bar"><div class="coverage_complete" style="width:92%"></div><div class="coverage_legend">72/78</div></div></td>
+            <td><div class="coverage_percentage">88% </div><div class="coverage_bar"><div class="coverage_complete" style="width:88%"></div><div class="coverage_legend">36/41</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./MultiCombinerAggregator.java.html">MultiCombinerAggregator.java</a></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">29/29</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">14/14</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./MultiCombinerFunction.java.html">MultiCombinerFunction.java</a></td>
+            <td><div class="coverage_percentage">98% </div><div class="coverage_bar"><div class="coverage_complete" style="width:98%"></div><div class="coverage_legend">44/45</div></div></td>
+            <td><div class="coverage_percentage">95% </div><div class="coverage_bar"><div class="coverage_complete" style="width:95%"></div><div class="coverage_legend">18/19</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./MultiCombinerTupleEmitter.java.html">MultiCombinerTupleEmitter.java</a></td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/15</div></div></td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/9</div></div></td>
+        </tr>
+
+     </tbody>
+</table>
+<br/>
+
+
+
+<hr/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

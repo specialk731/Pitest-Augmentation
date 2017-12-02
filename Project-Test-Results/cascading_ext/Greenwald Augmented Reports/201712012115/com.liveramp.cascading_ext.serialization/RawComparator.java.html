@@ -1,0 +1,1466 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>RawComparator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2012 LiveRamp</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.liveramp.cascading_ext.serialization;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import cascading.tuple.StreamComparator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import cascading.tuple.hadoop.io.BufferedInputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.hadoop.io.WritableComparator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_23'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>public abstract class RawComparator implements StreamComparator&#60;BufferedInputStream&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static final int NUM_BYTES_RESERVED_FOR_ARRAY_LENGTH = 4;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public int compare(BufferedInputStream lhs, BufferedInputStream rhs) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_28'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    if (lhs == null &#38;&#38; rhs == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_29'/>
+29
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_29'>5</a>
+<span>
+1. compare : CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE<br/>
+2. compare : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+3. compare : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. compare : CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. compare : CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_30'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    } else if (lhs == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_31'/>
+31
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_31'>5</a>
+<span>
+1. compare : CRCR - Substituted -1 with -2 &rarr; NO_COVERAGE<br/>
+2. compare : CRCR - Substituted -1 with 1 &rarr; NO_COVERAGE<br/>
+3. compare : CRCR - Substituted -1 with 1 &rarr; NO_COVERAGE<br/>
+4. compare : CRCR - Substituted -1 with 0 &rarr; NO_COVERAGE<br/>
+5. compare : CRCR - Substituted -1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_32'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    } else if (rhs == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_33'/>
+33
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_33'>5</a>
+<span>
+1. compare : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. compare : CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+3. compare : CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE<br/>
+4. compare : CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+5. compare : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_36'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    byte[] lhsBuffer = lhs.getBuffer();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_37'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    int lhsOff = lhs.getPosition();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_38'/>
+38
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_38'>3</a>
+<span>
+1. compare : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. compare : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+3. compare : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    int lhsSize = readSize(lhsBuffer, lhsOff);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_40'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    byte[] rhsBuffer = rhs.getBuffer();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_41'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    int rhsOff = rhs.getPosition();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_42'/>
+42
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_42'>3</a>
+<span>
+1. compare : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. compare : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+3. compare : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    int rhsSize = readSize(rhsBuffer, rhsOff);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //use hadoop&#39;s lexicographical byte array ordering</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_45'/>
+45
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_45'>34</a>
+<span>
+1. compare : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. compare : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. compare : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+4. compare : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+5. compare : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+6. compare : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+7. compare : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+8. compare : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+9. compare : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+10. compare : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+11. compare : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+12. compare : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+13. compare : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+14. compare : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+15. compare : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+16. compare : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+17. compare : CRCR - Substituted 4 with 3 &rarr; NO_COVERAGE<br/>
+18. compare : CRCR - Substituted 4 with 3 &rarr; NO_COVERAGE<br/>
+19. compare : CRCR - Substituted 4 with -4 &rarr; NO_COVERAGE<br/>
+20. compare : CRCR - Substituted 4 with -4 &rarr; NO_COVERAGE<br/>
+21. compare : CRCR - Substituted 4 with 1 &rarr; NO_COVERAGE<br/>
+22. compare : CRCR - Substituted 4 with 1 &rarr; NO_COVERAGE<br/>
+23. compare : CRCR - Substituted 4 with 5 &rarr; NO_COVERAGE<br/>
+24. compare : CRCR - Substituted 4 with 5 &rarr; NO_COVERAGE<br/>
+25. compare : CRCR - Substituted 4 with 0 &rarr; NO_COVERAGE<br/>
+26. compare : CRCR - Substituted 4 with 0 &rarr; NO_COVERAGE<br/>
+27. compare : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+28. compare : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+29. compare : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+30. compare : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+31. compare : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+32. compare : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+33. compare : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+34. compare : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    int result = compareByteArrays(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        lhsBuffer,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        lhsOff + NUM_BYTES_RESERVED_FOR_ARRAY_LENGTH,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        lhsSize,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        rhsBuffer,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        rhsOff + NUM_BYTES_RESERVED_FOR_ARRAY_LENGTH,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        rhsSize);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_53'/>
+53
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_53'>14</a>
+<span>
+1. compare : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. compare : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+3. compare : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+4. compare : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+5. compare : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+6. compare : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+7. compare : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+8. compare : CRCR - Substituted 4 with 3 &rarr; NO_COVERAGE<br/>
+9. compare : CRCR - Substituted 4 with -4 &rarr; NO_COVERAGE<br/>
+10. compare : CRCR - Substituted 4 with 1 &rarr; NO_COVERAGE<br/>
+11. compare : CRCR - Substituted 4 with 5 &rarr; NO_COVERAGE<br/>
+12. compare : CRCR - Substituted 4 with 0 &rarr; NO_COVERAGE<br/>
+13. compare : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+14. compare : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    lhs.skip(lhsSize + NUM_BYTES_RESERVED_FOR_ARRAY_LENGTH);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_54'/>
+54
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_54'>14</a>
+<span>
+1. compare : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. compare : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+3. compare : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+4. compare : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+5. compare : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+6. compare : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+7. compare : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+8. compare : CRCR - Substituted 4 with 3 &rarr; NO_COVERAGE<br/>
+9. compare : CRCR - Substituted 4 with -4 &rarr; NO_COVERAGE<br/>
+10. compare : CRCR - Substituted 4 with 1 &rarr; NO_COVERAGE<br/>
+11. compare : CRCR - Substituted 4 with 5 &rarr; NO_COVERAGE<br/>
+12. compare : CRCR - Substituted 4 with 0 &rarr; NO_COVERAGE<br/>
+13. compare : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+14. compare : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    rhs.skip(rhsSize + NUM_BYTES_RESERVED_FOR_ARRAY_LENGTH);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_56'/>
+56
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_56'>3</a>
+<span>
+1. compare : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. compare : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+3. compare : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static int compareByteArrays(byte[] lhsBuffer, byte[] rhsBuffer) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_60'/>
+60
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_60'>10</a>
+<span>
+1. compareByteArrays : CRCR - Substituted 0 with -1 &rarr; TIMED_OUT<br/>
+2. compareByteArrays : CRCR - Substituted 0 with -1 &rarr; TIMED_OUT<br/>
+3. compareByteArrays : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+4. compareByteArrays : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+5. compareByteArrays : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+6. compareByteArrays : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+7. compareByteArrays : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+8. compareByteArrays : CRCR - Substituted 0 with 1 &rarr; TIMED_OUT<br/>
+9. compareByteArrays : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+10. compareByteArrays : CRCR - Substituted 0 with 0 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    return WritableComparator.compareBytes(lhsBuffer, 0, lhsBuffer.length, rhsBuffer, 0, rhsBuffer.length);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static int compareByteArrays(byte[] lhsBuffer, int lhsOff, int lhsSize, byte[] rhsBuffer, int rhsOff, int rhsSize) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_64'/>
+64
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_64'>12</a>
+<span>
+1. compareByteArrays : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. compareByteArrays : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. compareByteArrays : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+4. compareByteArrays : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+5. compareByteArrays : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+6. compareByteArrays : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+7. compareByteArrays : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+8. compareByteArrays : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+9. compareByteArrays : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+10. compareByteArrays : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+11. compareByteArrays : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+12. compareByteArrays : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return WritableComparator.compareBytes(lhsBuffer, lhsOff, lhsSize, rhsBuffer, rhsOff, rhsSize);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  protected static int readSize(byte[] buffer, int off) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_69'/>
+69
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_69'>87</a>
+<span>
+1. readSize : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+2. readSize : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+3. readSize : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+4. readSize : ABS - Negated integer variable  &rarr; NO_COVERAGE<br/>
+5. readSize : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+6. readSize : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+7. readSize : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+8. readSize : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+9. readSize : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+10. readSize : AOD - Removed second operator from int add &rarr; NO_COVERAGE<br/>
+11. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+12. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+13. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE<br/>
+14. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+15. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+16. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE<br/>
+17. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+18. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+19. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE<br/>
+20. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+21. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+22. readSize : AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE<br/>
+23. readSize : CRCR - Substituted 255 with 254 &rarr; NO_COVERAGE<br/>
+24. readSize : CRCR - Substituted 24 with 23 &rarr; NO_COVERAGE<br/>
+25. readSize : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+26. readSize : CRCR - Substituted 255 with 254 &rarr; NO_COVERAGE<br/>
+27. readSize : CRCR - Substituted 16 with 15 &rarr; NO_COVERAGE<br/>
+28. readSize : CRCR - Substituted 2 with 1 &rarr; NO_COVERAGE<br/>
+29. readSize : CRCR - Substituted 255 with 254 &rarr; NO_COVERAGE<br/>
+30. readSize : CRCR - Substituted 8 with 7 &rarr; NO_COVERAGE<br/>
+31. readSize : CRCR - Substituted 3 with 2 &rarr; NO_COVERAGE<br/>
+32. readSize : CRCR - Substituted 255 with 254 &rarr; NO_COVERAGE<br/>
+33. readSize : CRCR - Substituted 255 with -255 &rarr; NO_COVERAGE<br/>
+34. readSize : CRCR - Substituted 24 with -24 &rarr; NO_COVERAGE<br/>
+35. readSize : CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE<br/>
+36. readSize : CRCR - Substituted 255 with -255 &rarr; NO_COVERAGE<br/>
+37. readSize : CRCR - Substituted 16 with -16 &rarr; NO_COVERAGE<br/>
+38. readSize : CRCR - Substituted 2 with -2 &rarr; NO_COVERAGE<br/>
+39. readSize : CRCR - Substituted 255 with -255 &rarr; NO_COVERAGE<br/>
+40. readSize : CRCR - Substituted 8 with -8 &rarr; NO_COVERAGE<br/>
+41. readSize : CRCR - Substituted 3 with -3 &rarr; NO_COVERAGE<br/>
+42. readSize : CRCR - Substituted 255 with -255 &rarr; NO_COVERAGE<br/>
+43. readSize : CRCR - Substituted 255 with 1 &rarr; NO_COVERAGE<br/>
+44. readSize : CRCR - Substituted 24 with 1 &rarr; NO_COVERAGE<br/>
+45. readSize : CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE<br/>
+46. readSize : CRCR - Substituted 255 with 1 &rarr; NO_COVERAGE<br/>
+47. readSize : CRCR - Substituted 16 with 1 &rarr; NO_COVERAGE<br/>
+48. readSize : CRCR - Substituted 2 with 1 &rarr; NO_COVERAGE<br/>
+49. readSize : CRCR - Substituted 255 with 1 &rarr; NO_COVERAGE<br/>
+50. readSize : CRCR - Substituted 8 with 1 &rarr; NO_COVERAGE<br/>
+51. readSize : CRCR - Substituted 3 with 1 &rarr; NO_COVERAGE<br/>
+52. readSize : CRCR - Substituted 255 with 1 &rarr; NO_COVERAGE<br/>
+53. readSize : CRCR - Substituted 255 with 256 &rarr; NO_COVERAGE<br/>
+54. readSize : CRCR - Substituted 24 with 25 &rarr; NO_COVERAGE<br/>
+55. readSize : CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE<br/>
+56. readSize : CRCR - Substituted 255 with 256 &rarr; NO_COVERAGE<br/>
+57. readSize : CRCR - Substituted 16 with 17 &rarr; NO_COVERAGE<br/>
+58. readSize : CRCR - Substituted 2 with 3 &rarr; NO_COVERAGE<br/>
+59. readSize : CRCR - Substituted 255 with 256 &rarr; NO_COVERAGE<br/>
+60. readSize : CRCR - Substituted 8 with 9 &rarr; NO_COVERAGE<br/>
+61. readSize : CRCR - Substituted 3 with 4 &rarr; NO_COVERAGE<br/>
+62. readSize : CRCR - Substituted 255 with 256 &rarr; NO_COVERAGE<br/>
+63. readSize : CRCR - Substituted 255 with 0 &rarr; NO_COVERAGE<br/>
+64. readSize : CRCR - Substituted 24 with 0 &rarr; NO_COVERAGE<br/>
+65. readSize : CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+66. readSize : CRCR - Substituted 255 with 0 &rarr; NO_COVERAGE<br/>
+67. readSize : CRCR - Substituted 16 with 0 &rarr; NO_COVERAGE<br/>
+68. readSize : CRCR - Substituted 2 with 0 &rarr; NO_COVERAGE<br/>
+69. readSize : CRCR - Substituted 255 with 0 &rarr; NO_COVERAGE<br/>
+70. readSize : CRCR - Substituted 8 with 0 &rarr; NO_COVERAGE<br/>
+71. readSize : CRCR - Substituted 3 with 0 &rarr; NO_COVERAGE<br/>
+72. readSize : CRCR - Substituted 255 with 0 &rarr; NO_COVERAGE<br/>
+73. readSize : OBBN - Replaced Integer AND with OR &rarr; NO_COVERAGE<br/>
+74. readSize : OBBN - Replaced Integer AND with OR &rarr; NO_COVERAGE<br/>
+75. readSize : OBBN - Replaced Integer OR with AND &rarr; NO_COVERAGE<br/>
+76. readSize : OBBN - Replaced Integer AND with OR &rarr; NO_COVERAGE<br/>
+77. readSize : OBBN - Replaced Integer OR with AND &rarr; NO_COVERAGE<br/>
+78. readSize : OBBN - Replaced Integer AND with OR &rarr; NO_COVERAGE<br/>
+79. readSize : OBBN - Replaced Integer OR with AND &rarr; NO_COVERAGE<br/>
+80. readSize : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+81. readSize : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+82. readSize : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+83. readSize : UOI - Decremented int variable &rarr; NO_COVERAGE<br/>
+84. readSize : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+85. readSize : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+86. readSize : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+87. readSize : UOI - Incremented int variable &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return ((buffer[off] &#38; 0xff) &#60;&#60; 24) |</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        ((buffer[off + 1] &#38; 0xff) &#60;&#60; 16) |</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        ((buffer[off + 2] &#38; 0xff) &#60;&#60; 8) |</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        ((buffer[off + 3] &#38; 0xff));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51391987_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51391987_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_29'>29</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_29'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_31'>31</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_31'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with -2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted -1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_33'>33</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_33'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_38'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_42'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_45'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with -4 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with -4 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 5 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 5 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>32.<span><b>32</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>33.<span><b>33</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>34.<span><b>34</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_53'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with -4 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 5 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_54'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with -4 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 5 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 4 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_56'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_60'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_64'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>compareByteArrays<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51391987_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51391987_69'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> ABS - Negated integer variable  &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOD - Removed second operator from int add &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;/&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;%&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;*&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> AOR - Replaced Integer &#34;+&#34; with &#34;-&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 24 with 23 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 15 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 7 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>32.<span><b>32</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 254 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>33.<span><b>33</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>34.<span><b>34</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 24 with -24 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>35.<span><b>35</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>36.<span><b>36</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>37.<span><b>37</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with -16 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>38.<span><b>38</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with -2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>39.<span><b>39</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>40.<span><b>40</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with -8 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>41.<span><b>41</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with -3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>42.<span><b>42</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with -255 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>43.<span><b>43</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>44.<span><b>44</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 24 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>45.<span><b>45</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>46.<span><b>46</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>47.<span><b>47</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>48.<span><b>48</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>49.<span><b>49</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>50.<span><b>50</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>51.<span><b>51</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>52.<span><b>52</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>53.<span><b>53</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>54.<span><b>54</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 24 with 25 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>55.<span><b>55</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>56.<span><b>56</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>57.<span><b>57</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 17 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>58.<span><b>58</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>59.<span><b>59</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>60.<span><b>60</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 9 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>61.<span><b>61</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 4 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>62.<span><b>62</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 256 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>63.<span><b>63</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>64.<span><b>64</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 24 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>65.<span><b>65</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>66.<span><b>66</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>67.<span><b>67</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 16 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>68.<span><b>68</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 2 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>69.<span><b>69</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>70.<span><b>70</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 8 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>71.<span><b>71</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 3 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>72.<span><b>72</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 255 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>73.<span><b>73</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>74.<span><b>74</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>75.<span><b>75</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer OR with AND &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>76.<span><b>76</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>77.<span><b>77</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer OR with AND &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>78.<span><b>78</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer AND with OR &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>79.<span><b>79</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> OBBN - Replaced Integer OR with AND &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>80.<span><b>80</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>81.<span><b>81</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>82.<span><b>82</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>83.<span><b>83</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> UOI - Decremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>84.<span><b>84</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>85.<span><b>85</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>86.<span><b>86</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>87.<span><b>87</b><br/><b>Location : </b>readSize<br/><b>Killed by : </b>none</span></span> UOI - Incremented int variable &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.liveramp.cascading_ext.serialization.TestRawComparator.testOrdering(com.liveramp.cascading_ext.serialization.TestRawComparator) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

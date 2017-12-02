@@ -1,0 +1,219 @@
+<html>
+<head>
+  
+    <style type='text/css'>
+   
+   .tests {
+     width: 50%;
+     float: left;
+   }
+   
+   .mutees {
+     float: right;
+     width: 50%;
+   }
+   
+   .unit {
+     padding-top: 20px;
+     clear: both;
+   }
+   
+   .coverage_bar {
+     display: inline-block;
+     height: 1.1em;
+     width: 130px;
+     background: #FAA;
+     margin: 0 5px;
+     vertical-align: middle;
+     border: 1px solid #AAA;
+     position: relative;
+   }
+   
+   .coverage_complete {
+     display: inline-block;
+     height: 100%;
+     background: #DFD;
+     float: left;
+   }
+   
+   .coverage_legend {
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     left: 0;
+     top: 0;
+     text-align: center;
+   }
+   
+   .line, .mut {
+     vertical-align: middle;
+   }
+   
+   .coverage_percentage {
+     display: inline-block;
+     width: 3em;
+     text-align: right;
+   }
+  </style>
+  
+</head>
+<body>
+
+<h1>Pit Test Coverage Report</h1>
+<h2>Package Summary</h2>
+<h3>org.dynalang.dynalink.beans</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>19</td>
+            <td>79% <div class="coverage_bar"><div class="coverage_complete" style="width:79%"></div><div class="coverage_legend">911/1155</div></div></td>
+            <td>43% <div class="coverage_bar"><div class="coverage_complete" style="width:43%"></div><div class="coverage_legend">1423/3337</div></div></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Breakdown by Class</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><a href="./AbstractJavaLinker.java.html">AbstractJavaLinker.java</a></td>
+            <td><div class="coverage_percentage">89% </div><div class="coverage_bar"><div class="coverage_complete" style="width:89%"></div><div class="coverage_legend">248/279</div></div></td>
+            <td><div class="coverage_percentage">48% </div><div class="coverage_bar"><div class="coverage_complete" style="width:48%"></div><div class="coverage_legend">314/652</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./AccessibleMembersLookup.java.html">AccessibleMembersLookup.java</a></td>
+            <td><div class="coverage_percentage">79% </div><div class="coverage_bar"><div class="coverage_complete" style="width:79%"></div><div class="coverage_legend">38/48</div></div></td>
+            <td><div class="coverage_percentage">21% </div><div class="coverage_bar"><div class="coverage_complete" style="width:21%"></div><div class="coverage_legend">35/165</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./ApplicableOverloadedMethods.java.html">ApplicableOverloadedMethods.java</a></td>
+            <td><div class="coverage_percentage">98% </div><div class="coverage_bar"><div class="coverage_complete" style="width:98%"></div><div class="coverage_legend">49/50</div></div></td>
+            <td><div class="coverage_percentage">52% </div><div class="coverage_bar"><div class="coverage_complete" style="width:52%"></div><div class="coverage_legend">121/231</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./BeanIntrospector.java.html">BeanIntrospector.java</a></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">4/4</div></div></td>
+            <td><div class="coverage_percentage">60% </div><div class="coverage_bar"><div class="coverage_complete" style="width:60%"></div><div class="coverage_legend">3/5</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./BeanLinker.java.html">BeanLinker.java</a></td>
+            <td><div class="coverage_percentage">86% </div><div class="coverage_bar"><div class="coverage_complete" style="width:86%"></div><div class="coverage_legend">179/209</div></div></td>
+            <td><div class="coverage_percentage">51% </div><div class="coverage_bar"><div class="coverage_complete" style="width:51%"></div><div class="coverage_legend">209/406</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./BeansLinker.java.html">BeansLinker.java</a></td>
+            <td><div class="coverage_percentage">43% </div><div class="coverage_bar"><div class="coverage_complete" style="width:43%"></div><div class="coverage_legend">13/30</div></div></td>
+            <td><div class="coverage_percentage">34% </div><div class="coverage_bar"><div class="coverage_complete" style="width:34%"></div><div class="coverage_legend">13/38</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./CallerSensitiveDetector.java.html">CallerSensitiveDetector.java</a></td>
+            <td><div class="coverage_percentage">36% </div><div class="coverage_bar"><div class="coverage_complete" style="width:36%"></div><div class="coverage_legend">4/11</div></div></td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/45</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./CallerSensitiveDynamicMethod.java.html">CallerSensitiveDynamicMethod.java</a></td>
+            <td><div class="coverage_percentage">65% </div><div class="coverage_bar"><div class="coverage_complete" style="width:65%"></div><div class="coverage_legend">15/23</div></div></td>
+            <td><div class="coverage_percentage">3% </div><div class="coverage_bar"><div class="coverage_complete" style="width:3%"></div><div class="coverage_legend">2/59</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./CheckRestrictedPackage.java.html">CheckRestrictedPackage.java</a></td>
+            <td><div class="coverage_percentage">35% </div><div class="coverage_bar"><div class="coverage_complete" style="width:35%"></div><div class="coverage_legend">7/20</div></div></td>
+            <td><div class="coverage_percentage">10% </div><div class="coverage_bar"><div class="coverage_complete" style="width:10%"></div><div class="coverage_legend">6/59</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./ClassString.java.html">ClassString.java</a></td>
+            <td><div class="coverage_percentage">83% </div><div class="coverage_bar"><div class="coverage_complete" style="width:83%"></div><div class="coverage_legend">43/52</div></div></td>
+            <td><div class="coverage_percentage">46% </div><div class="coverage_bar"><div class="coverage_complete" style="width:46%"></div><div class="coverage_legend">134/290</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./DynamicMethodLinker.java.html">DynamicMethodLinker.java</a></td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/17</div></div></td>
+            <td><div class="coverage_percentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_legend">0/55</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./FacetIntrospector.java.html">FacetIntrospector.java</a></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">19/19</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_legend">56/56</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./GuardedInvocationComponent.java.html">GuardedInvocationComponent.java</a></td>
+            <td><div class="coverage_percentage">58% </div><div class="coverage_bar"><div class="coverage_complete" style="width:58%"></div><div class="coverage_legend">23/40</div></div></td>
+            <td><div class="coverage_percentage">32% </div><div class="coverage_bar"><div class="coverage_complete" style="width:32%"></div><div class="coverage_legend">12/38</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./MaximallySpecific.java.html">MaximallySpecific.java</a></td>
+            <td><div class="coverage_percentage">89% </div><div class="coverage_bar"><div class="coverage_complete" style="width:89%"></div><div class="coverage_legend">54/61</div></div></td>
+            <td><div class="coverage_percentage">46% </div><div class="coverage_bar"><div class="coverage_complete" style="width:46%"></div><div class="coverage_legend">105/227</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./OverloadedDynamicMethod.java.html">OverloadedDynamicMethod.java</a></td>
+            <td><div class="coverage_percentage">83% </div><div class="coverage_bar"><div class="coverage_complete" style="width:83%"></div><div class="coverage_legend">68/82</div></div></td>
+            <td><div class="coverage_percentage">60% </div><div class="coverage_bar"><div class="coverage_complete" style="width:60%"></div><div class="coverage_legend">166/276</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./OverloadedMethod.java.html">OverloadedMethod.java</a></td>
+            <td><div class="coverage_percentage">56% </div><div class="coverage_bar"><div class="coverage_complete" style="width:56%"></div><div class="coverage_legend">51/91</div></div></td>
+            <td><div class="coverage_percentage">18% </div><div class="coverage_bar"><div class="coverage_complete" style="width:18%"></div><div class="coverage_legend">50/272</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./SingleDynamicMethod.java.html">SingleDynamicMethod.java</a></td>
+            <td><div class="coverage_percentage">85% </div><div class="coverage_bar"><div class="coverage_complete" style="width:85%"></div><div class="coverage_legend">55/65</div></div></td>
+            <td><div class="coverage_percentage">53% </div><div class="coverage_bar"><div class="coverage_complete" style="width:53%"></div><div class="coverage_legend">188/357</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./StaticClassIntrospector.java.html">StaticClassIntrospector.java</a></td>
+            <td><div class="coverage_percentage">87% </div><div class="coverage_bar"><div class="coverage_complete" style="width:87%"></div><div class="coverage_legend">13/15</div></div></td>
+            <td><div class="coverage_percentage">3% </div><div class="coverage_bar"><div class="coverage_complete" style="width:3%"></div><div class="coverage_legend">2/61</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./StaticClassLinker.java.html">StaticClassLinker.java</a></td>
+            <td><div class="coverage_percentage">72% </div><div class="coverage_bar"><div class="coverage_complete" style="width:72%"></div><div class="coverage_legend">28/39</div></div></td>
+            <td><div class="coverage_percentage">16% </div><div class="coverage_bar"><div class="coverage_complete" style="width:16%"></div><div class="coverage_legend">7/45</div></div></td>
+        </tr>
+
+     </tbody>
+</table>
+<br/>
+
+
+
+<hr/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>

@@ -1,0 +1,1610 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10; display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+</style>
+
+</head>
+<body>
+
+
+<h1>GoogleOMeter.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The MIT License</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (c) 2011 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Permission is hereby granted, free of charge, to any person obtaining a copy</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * of this software and associated documentation files (the &#34;Software&#34;), to deal</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * in the Software without restriction, including without limitation the rights</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * copies of the Software, and to permit persons to whom the Software is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * furnished to do so, subject to the following conditions:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The above copyright notice and this permission notice shall be included in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * all copies or substantial portions of the Software.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * THE SOFTWARE IS PROVIDED &#34;AS IS&#34;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * THE SOFTWARE.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.googlecode.charts4j;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.googlecode.charts4j.collect.Preconditions.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.googlecode.charts4j.collect.ImmutableList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.googlecode.charts4j.collect.Lists;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.googlecode.charts4j.parameters.ChartType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Google-o-meter constructed with the {@link GCharts} static factory class.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A Google-o-meter looks a bit like a speedometer dial. The range is from 0 to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * 100. Colors are interpolated from red to green by default. You can provide</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * your own color gradient. The arrow can have a label and a legend.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Julien Chastang (julien.c.chastang at gmail dot com)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see GCharts</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class GoogleOMeter extends AbstractGraphChart {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Data to be plotted. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final double               data;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Colors to be rendered in this chart. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final ImmutableList&#60;Color&#62; colors;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Label that will sit atop the arrow. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final String               label;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Legend. **/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final String               legend;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see GCharts#newGoogleOMeter(double, String, String, List)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    GoogleOMeter(final double data, final String label, final String legend, final List&#60;? extends Color&#62; colors) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_65'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_66'/>
+66
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_66'>49</a>
+<span>
+1. <init> : CRCR - Substituted 0.0 with -1.0 &rarr; SURVIVED<br/>
+2. <init> : CRCR - Substituted 0 with -1 &rarr; SURVIVED<br/>
+3. <init> : CRCR - Substituted 0.0 with -0.0 &rarr; SURVIVED<br/>
+4. <init> : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+5. <init> : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+6. <init> : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+7. <init> : CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED<br/>
+8. <init> : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+9. <init> : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+10. <init> : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+11. <init> : CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED<br/>
+12. <init> : CRCR - Substituted 100.0 with 101.0 &rarr; SURVIVED<br/>
+13. <init> : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+14. <init> : CRCR - Substituted 0 with 1 &rarr; SURVIVED<br/>
+15. <init> : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+16. <init> : CRCR - Substituted 0.0 with 0.0 &rarr; SURVIVED<br/>
+17. <init> : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+18. <init> : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+19. <init> : ROR - Replaced &#34;IFLT&#34; with &#34;IFLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+20. <init> : ROR - Replaced &#34;IFLT&#34; with &#34;IFEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED<br/>
+21. <init> : ABS - Negated double variable  &rarr; KILLED<br/>
+22. <init> : ABS - Negated double variable  &rarr; KILLED<br/>
+23. <init> : ABS - Negated double variable  &rarr; KILLED<br/>
+24. <init> : CRCR - Substituted 100.0 with 99.0 &rarr; KILLED<br/>
+25. <init> : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+26. <init> : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+27. <init> : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+28. <init> : CRCR - Substituted 100.0 with -100.0 &rarr; KILLED<br/>
+29. <init> : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+30. <init> : CRCR - Substituted 100.0 with 1.0 &rarr; KILLED<br/>
+31. <init> : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+32. <init> : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+33. <init> : CRCR - Substituted 100.0 with 0.0 &rarr; KILLED<br/>
+34. <init> : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+35. <init> : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+36. <init> : ROR - Replaced &#34;IFLT&#34; with &#34;IFNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+37. <init> : ROR - Replaced &#34;IFGT&#34; with &#34;IFNE&#34; (&#34;&#60;=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+38. <init> : ROR - Replaced &#34;IFGT&#34; with &#34;IFLE&#34; (&#34;&#60;=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+39. <init> : ROR - Replaced &#34;IFGT&#34; with &#34;IFLT&#34; (&#34;&#60;=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+40. <init> : ROR - Replaced &#34;IFLT&#34; with &#34;IFGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+41. <init> : ROR - Replaced &#34;IFGT&#34; with &#34;IFGE&#34; (&#34;&#60;=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+42. <init> : ROR - Replaced &#34;IFLT&#34; with &#34;IFGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+43. <init> : ROR - Replaced &#34;IFGT&#34; with &#34;IFEQ&#34; (&#34;&#60;=&#34; -&#62; &#34;!=&#34;) &rarr; KILLED<br/>
+44. <init> : UOI - Decremented double variable &rarr; KILLED<br/>
+45. <init> : UOI - Decremented double variable &rarr; KILLED<br/>
+46. <init> : UOI - Decremented double variable &rarr; KILLED<br/>
+47. <init> : UOI - Incremented double variable &rarr; KILLED<br/>
+48. <init> : UOI - Incremented double variable &rarr; KILLED<br/>
+49. <init> : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        checkArgument(data &#62;= Data.MIN_VALUE &#38;&#38; data &#60;= Data.MAX_VALUE, &#34;must be between &#34; + Data.MIN_VALUE + &#34; and &#34; + Data.MAX_VALUE + &#34; : %s&#34;, data);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_67'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        checkContentsNotNull(colors, &#34;colors is null or contains a null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_68'/>
+68
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_68'>20</a>
+<span>
+1. <init> : CRCR - Substituted 1 with -1 &rarr; SURVIVED<br/>
+2. <init> : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+3. <init> : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+4. <init> : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+5. <init> : CRCR - Substituted 1 with 2 &rarr; SURVIVED<br/>
+6. <init> : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+7. <init> : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+8. <init> : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+9. <init> : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+10. <init> : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+11. <init> : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+12. <init> : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+13. <init> : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+14. <init> : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+15. <init> : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+16. <init> : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+17. <init> : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED<br/>
+18. <init> : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+19. <init> : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+20. <init> : ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        checkArgument(colors.size() != 1, &#34;Must provide at least 2 colors or none at all.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_69'/>
+69
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_69'>3</a>
+<span>
+1. <init> : ABS - Negated double variable  &rarr; KILLED<br/>
+2. <init> : UOI - Decremented double variable &rarr; KILLED<br/>
+3. <init> : UOI - Incremented double variable &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.data = data;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_70'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.label = label;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_71'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.legend = legend;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.colors = Lists.copyOf(colors);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void prepareData() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_80'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super.prepareData();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_81'/>
+81
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_81'>10</a>
+<span>
+1. prepareData : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. prepareData : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+3. prepareData : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+4. prepareData : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+5. prepareData : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+6. prepareData : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+7. prepareData : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+8. prepareData : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+9. prepareData : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+10. prepareData : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        parameterManager.addData(Data.newData(data));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_83'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final List&#60;ImmutableList&#60;Color&#62;&#62; colorList = Lists.newArrayList();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_84'/>
+84
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_84'>5</a>
+<span>
+1. prepareData : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED<br/>
+2. prepareData : ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED<br/>
+3. prepareData : ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED<br/>
+4. prepareData : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED<br/>
+5. prepareData : ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for (Color color : colors) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_85'/>
+85
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_85'>10</a>
+<span>
+1. prepareData : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+2. prepareData : CRCR - Substituted 1 with 1 &rarr; SURVIVED<br/>
+3. prepareData : CRCR - Substituted 0 with 0 &rarr; SURVIVED<br/>
+4. prepareData : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+5. prepareData : CRCR - Substituted 0 with -1 &rarr; KILLED<br/>
+6. prepareData : CRCR - Substituted 1 with -1 &rarr; KILLED<br/>
+7. prepareData : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+8. prepareData : CRCR - Substituted 1 with 2 &rarr; KILLED<br/>
+9. prepareData : CRCR - Substituted 0 with 1 &rarr; KILLED<br/>
+10. prepareData : CRCR - Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            colorList.add(Lists.of(color));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_86'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_87'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        parameterManager.addColors(Lists.copyOf(colorList));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_88'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (label != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_89'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            parameterManager.addPieChartAndGoogleOMeterLegend(label);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_91'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (legend != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_92'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            parameterManager.addLegend(legend);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_94'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        parameterManager.setChartTypeParameter(ChartType.GOOGLE_O_METER);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_95'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b221bfe_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b221bfe_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with -1.0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 100.0 with 99.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with -1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with -0.0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 100.0 with -100.0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 100.0 with 1.0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 1.0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>23.<span><b>23</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 100.0 with 101.0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>24.<span><b>24</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>25.<span><b>25</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>26.<span><b>26</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>27.<span><b>27</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>28.<span><b>28</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0.0 with 0.0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>29.<span><b>29</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 100.0 with 0.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>30.<span><b>30</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>31.<span><b>31</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>32.<span><b>32</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>33.<span><b>33</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>34.<span><b>34</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFNE&#34; (&#34;&#62;=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>35.<span><b>35</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFGT&#34; with &#34;IFNE&#34; (&#34;&#60;=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>36.<span><b>36</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFLE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>37.<span><b>37</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFGT&#34; with &#34;IFLE&#34; (&#34;&#60;=&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>38.<span><b>38</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFGT&#34; with &#34;IFLT&#34; (&#34;&#60;=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>39.<span><b>39</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFGE&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>40.<span><b>40</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFGT&#34; with &#34;IFGE&#34; (&#34;&#60;=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>41.<span><b>41</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFGT&#34; (&#34;&#62;=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>42.<span><b>42</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFLT&#34; with &#34;IFEQ&#34; (&#34;&#62;=&#34; -&#62; &#34;!=&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>43.<span><b>43</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFGT&#34; with &#34;IFEQ&#34; (&#34;&#60;=&#34; -&#62; &#34;!=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>44.<span><b>44</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>45.<span><b>45</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>46.<span><b>46</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>47.<span><b>47</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>48.<span><b>48</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>49.<span><b>49</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b221bfe_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with -1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 2 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLE&#34; (&#34;==&#34; -&#62; &#34;&#62;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IF_ICMPEQ&#34; with &#34;IF_ICMPGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b221bfe_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ABS - Negated double variable  &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> UOI - Decremented double variable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> UOI - Incremented double variable &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b221bfe_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_81'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b221bfe_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFNE&#34; (&#34;!=&#34; -&#62; &#34;==&#34;) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>none</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLE&#34; (&#34;!=&#34; -&#62; &#34;&#62;&#34;) &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFLT&#34; (&#34;!=&#34; -&#62; &#34;&#62;=&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGE&#34; (&#34;!=&#34; -&#62; &#34;&#60;&#34;) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> ROR - Replaced &#34;IFEQ&#34; with &#34;IFGT&#34; (&#34;!=&#34; -&#62; &#34;&#60;=&#34;) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b221bfe_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b221bfe_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 1 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest</span></span> CRCR - Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>prepareData<br/><b>Killed by : </b>none</span></span> CRCR - Substituted 0 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ROR_GREATER_THAN_MUTATOR</li>
+<li class='mutator'>ROR_EQUAL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_MUTATOR</li>
+<li class='mutator'>OBBN_MUTATOR</li>
+<li class='mutator'>AOR_DIV_MUTATOR</li>
+<li class='mutator'>ROR_GREATER_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_MOD_MUTATOR</li>
+<li class='mutator'>AOR_MUL_MUTATOR</li>
+<li class='mutator'>ROR_LESS_THAN_OR_EQUAL_MUTATOR</li>
+<li class='mutator'>AOR_ADD_MUTATOR</li>
+<li class='mutator'>AOD_SECOND_MUTATOR</li>
+<li class='mutator'>UOI_MINUS_MUTATOR</li>
+<li class='mutator'>AOR_SUB_MUTATOR</li>
+<li class='mutator'>UOI_PLUS_MUTATOR</li>
+<li class='mutator'>AOD_FIRST_MUTATOR</li>
+<li class='mutator'>CRCR_MUTATOR</li>
+<li class='mutator'>ROR_NOT_EQUAL_MUTATOR</li>
+<li class='mutator'>ABS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.googlecode.charts4j.example.GoogleOMeterExample.com.googlecode.charts4j.example.GoogleOMeterExample (1 ms)</li><li>com.googlecode.charts4j.GoogleOMeterTest.com.googlecode.charts4j.GoogleOMeterTest (20 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.2.4
+
+</body>
+</html>
