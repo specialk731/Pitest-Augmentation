@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>AllDemo</groupId>
+    <artifactId>All-Demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.2.4</version>
+                <configuration>
+                    <mutators>
+                       <!-- <mutator>ABS_Mutator</mutator>
+                        <mutator>OBBN_Mutator</mutator>
+                        <mutator>AOD_FIRST_Mutator</mutator>
+                        <mutator>ROR_EQUAL_Mutator</mutator>
+                        <mutator>ROR_NOT_EQUAL_Mutator</mutator>
+                        <mutator>ROR_LESS_THAN_OR_EQUAL_Mutator</mutator>
+                        <mutator>ROR_GREATER_THAN_OR_EQUAL_Mutator</mutator>
+                        <mutator>ROR_GREATER_THAN_Mutator</mutator>
+                        <mutator>ROR_LESS_THAN_Mutator</mutator>
+                        <mutator>AOR_ADD_Mutator</mutator>
+                        <mutator>AOR_SUB_Mutator</mutator>
+                        <mutator>AOR_MUL_Mutator</mutator>
+                        <mutator>AOR_DIV_Mutator</mutator>
+                        <mutator>AOR_MOD_Mutator</mutator>
+                        <mutator>CRCR_RANDOM_Mutator</mutator>
+                        <mutator>UOI_PLUS_Mutator</mutator>
+                        <mutator>UOI_MINUS_Mutator</mutator> -->
+                        <mutator>GREENWALD_Mutators</mutator>
+                    </mutators>
+
+                    <threads>
+                        10
+                    </threads>
+
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
