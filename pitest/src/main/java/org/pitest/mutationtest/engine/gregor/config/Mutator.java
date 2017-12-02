@@ -143,6 +143,31 @@ public final class Mutator {
     add("CRCR_RANDOM_Mutator", new CRCRRandomMutator());
 
     /*
+     * Greenwald_Augmentation Mutator that replaces variables (a) with -a
+     */
+    add("CRCR_NEGATION_Mutator", new CRCRNegationMutator());
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces variables (a) with 1
+     */
+    add("CRCR_ONE_Mutator", new CRCROneMutator());
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces variables (a) with 0
+     */
+    add("CRCR_ZERO_Mutator", new CRCRZeroMutator());
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces variables (a) with 0
+     */
+    add("CRCR_P_One_Mutator", new CRCRPOneMutator());
+
+    /*
+     * Greenwald_Augmentation Mutator that replaces variables (a) with 0
+     */
+    add("CRCR_M_One_Mutator", new CRCRMOneMutator());
+
+    /*
      * Greenwald_Augmentation Mutator that removes unary operators and adds ++ operators
      */
     add("UOI_PLUS_Mutator", UOIPlusMutator.UOI_PLUS_MUTATOR);
@@ -151,6 +176,7 @@ public final class Mutator {
      * Greenwald_Augmentation Mutator that does NOT remove unary operators but DOES add -- operators
      */
     add("UOI_MINUS_Mutator", UOIMinusMutator.UOI_MINUS_MUTATOR);
+
 
     //START Default Mutators
 
@@ -262,10 +288,88 @@ public final class Mutator {
     addGroup("DEFAULTS", defaults());
     addGroup("STRONGER", stronger());
     addGroup("ALL", all());
+    addGroup("GREENWALD_Mutators",Greenwald());
+    addGroup("AOD_Mutator", AOD());
+    addGroup("ROR_Mutator", ROR());
+    addGroup("AOR_Mutator", AOR());
+    addGroup("UOI_Mutator", UOI());
+    addGroup("CRCR_Mutator", CRCR());
   }
 
   public static Collection<MethodMutatorFactory> all() {
     return fromStrings(MUTATORS.keySet());
+  }
+
+  public static Collection<MethodMutatorFactory> Greenwald(){
+    return group(
+            ABSMutator.ABS_MUTATOR,
+            OBBNMutator.OBBN_MUTATOR,
+            AODFirstMutator.AOD_FIRST_MUTATOR,
+            AODSecondMutator.AOD_SECOND_MUTATOR,
+            ROREqualMutator.ROR_EQUAL_MUTATOR,
+            RORNotEqualMutator.ROR_NOT_EQUAL_MUTATOR,
+            RORLessThanOrEqualMutator.ROR_LESS_THAN_OR_EQUAL_MUTATOR,
+            RORGreaterThanOrEqualMutator.ROR_GREATER_THAN_OR_EQUAL_MUTATOR,
+            RORGreaterThanMutator.ROR_GREATER_THAN_MUTATOR,
+            RORLessThanMutator.ROR_LESS_THAN_MUTATOR,
+            AORAddMutator.AOR_ADD_MUTATOR,
+            AORSubMutator.AOR_SUB_MUTATOR,
+            AORMulMutator.AOR_MUL_MUTATOR,
+            AORDivMutator.AOR_DIV_MUTATOR,
+            AORModMutator.AOR_MOD_MUTATOR,
+            UOIPlusMutator.UOI_PLUS_MUTATOR,
+            UOIMinusMutator.UOI_MINUS_MUTATOR,
+            new CRCRNegationMutator(),
+            new CRCROneMutator(),
+            new CRCRZeroMutator(),
+            new CRCRPOneMutator(),
+            new CRCRMOneMutator()
+            );
+  }
+
+  public static Collection<MethodMutatorFactory> AOD(){
+    return group(
+            AODFirstMutator.AOD_FIRST_MUTATOR,
+            AODSecondMutator.AOD_SECOND_MUTATOR
+            );
+  }
+
+  public static Collection<MethodMutatorFactory> ROR(){
+    return group(
+            ROREqualMutator.ROR_EQUAL_MUTATOR,
+            RORGreaterThanMutator.ROR_GREATER_THAN_MUTATOR,
+            RORGreaterThanOrEqualMutator.ROR_GREATER_THAN_OR_EQUAL_MUTATOR,
+            RORLessThanMutator.ROR_LESS_THAN_MUTATOR,
+            RORLessThanOrEqualMutator.ROR_LESS_THAN_OR_EQUAL_MUTATOR,
+            RORNotEqualMutator.ROR_NOT_EQUAL_MUTATOR
+    );
+  }
+
+  public static Collection<MethodMutatorFactory> AOR(){
+    return group(
+            AORAddMutator.AOR_ADD_MUTATOR,
+            AORSubMutator.AOR_SUB_MUTATOR,
+            AORMulMutator.AOR_MUL_MUTATOR,
+            AORDivMutator.AOR_DIV_MUTATOR,
+            AORModMutator.AOR_MOD_MUTATOR
+    );
+  }
+
+  public static Collection<MethodMutatorFactory> UOI(){
+    return group(
+            UOIPlusMutator.UOI_PLUS_MUTATOR,
+            UOIMinusMutator.UOI_MINUS_MUTATOR
+    );
+  }
+
+  public static Collection<MethodMutatorFactory> CRCR(){
+    return group(
+            new CRCRNegationMutator(),
+            new CRCROneMutator(),
+            new CRCRZeroMutator(),
+            new CRCRPOneMutator(),
+            new CRCRMOneMutator()
+    );
   }
 
   private static Collection<MethodMutatorFactory> stronger() {
